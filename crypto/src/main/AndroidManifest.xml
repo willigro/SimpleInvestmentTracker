@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.rittmann.crypto">
+
+    <application android:theme="@style/Theme.InvestmentTracks">
+        <activity
+            android:name=".keep.ui.RegisterCryptoMovementActivity"
+            android:exported="true"
+            android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
+    </application>
+
+</manifest>

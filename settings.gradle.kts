@@ -1,0 +1,7 @@
+include(":app")
+include(":crypto")
+include(":datasource")
+include(":common")
+include(":di")
+include(":common-test")
+include(":di:di-utils")

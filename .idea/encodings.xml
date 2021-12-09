@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/ActivityTest.kt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/CustomMatchers.kt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/CustomViewActions.kt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/EspressoUtil.kt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/WithIdMatcherConcat.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/drawable" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-test/src/main/java/com/rittmann/common_test/recyclerview" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/androidTest/java/com/rittmann/common/support" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/com/rittmann/common/customs" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/com/rittmann/common/extensions/StringExt.kt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java/com/rittmann/common/validations/Validation.kt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/res/drawable/border_outline_input.xml" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/res/drawable/border_outline_input_error.xml" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/res/drawable/border_outline_input_valid.xml" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/res/values/attrs.xml" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/common/src/main/res/values/ids.xml" charset="ISO-8859-1" />
+  </component>
+</project>
