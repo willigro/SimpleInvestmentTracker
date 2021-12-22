@@ -3,14 +3,10 @@ import Depends.AndroidTest.implementEspressoTest
 import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
 import Depends.Module.implementAllModules
-import Depends.Robbie.implementLocalRobbie
+import Depends.Robbie.implementRobbie
 import Depends.Room.implementRoom
 import Depends.Test.implementTest
 import Depends.Views.implementLayouts
-
-android {
-    buildFeatures.dataBinding = true
-}
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
@@ -34,9 +30,14 @@ dependencies {
     implementTest()
     implementEspressoTest()
     implementAndroidTest()
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.test:monitor:1.4.0")
+        }
+    }
 
     // =========== Robbie ==============
-    implementLocalRobbie()
+    implementRobbie()
 
     // =========== Room ==============
     implementRoom()

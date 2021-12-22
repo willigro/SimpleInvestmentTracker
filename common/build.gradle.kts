@@ -1,13 +1,9 @@
 import Depends.AndroidTest.implementEspressoTest
 import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
-import Depends.Robbie.implementLocalRobbie
+import Depends.Robbie.implementRobbie
 import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
-
-android {
-    buildFeatures.dataBinding = true
-}
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
@@ -25,7 +21,7 @@ dependencies {
     implementDagger()
 
     // =========== Robbie ==============
-    implementLocalRobbie()
+    implementRobbie()
 
     // =========== Material ==============
     implementation(Depends.Material.getMaterial())

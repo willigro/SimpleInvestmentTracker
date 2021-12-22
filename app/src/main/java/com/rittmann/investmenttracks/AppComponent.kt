@@ -1,7 +1,9 @@
 package com.rittmann.investmenttracks
 
 import android.app.Application
+import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.di.CryptoModule
+import com.rittmann.crypto.keep.ui.RegisterCryptoNavigation
 import com.rittmann.datasource.di.RoomModule
 import dagger.BindsInstance
 import dagger.Component
@@ -15,12 +17,17 @@ import javax.inject.Singleton
 interface AppComponent : AndroidInjector<DaggerApplication> {
     fun inject(application: YourApplication)
 
+    fun inject(dispatcherProvider: DispatcherProvider)
+
     override fun inject(instance: DaggerApplication)
 
     @Component.Builder
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
+
+        @BindsInstance
+        fun dispatcherProvider(dispatcherProvider: DispatcherProvider): Builder
 
         fun build(): AppComponent
     }

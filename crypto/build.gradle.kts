@@ -5,14 +5,16 @@ import Depends.Kotlin.implementKotlinForModule
 import Depends.Module.androidTestImplementationModules
 import Depends.Module.implementModules
 import Depends.Module.testImplementationModules
-import Depends.Robbie.implementLocalRobbie
+import Depends.Robbie.implementRobbie
 import Depends.Room.implementRoom
 import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
 import Depends.Views.implementLayouts
 
 android {
-    buildFeatures.dataBinding = true
+    defaultConfig {
+        testInstrumentationRunner("com.rittmann.crypto.keep.ui.MockTestRunner")
+    }
 }
 
 dependencies {
@@ -39,9 +41,10 @@ dependencies {
     implementTest()
     implementEspressoTest()
     implementAndroidTest()
+    kaptAndroidTest("androidx.databinding:databinding-compiler:7.0.4")
 
     // =========== Robbie ==============
-    implementLocalRobbie()
+    implementRobbie()
 
     // =========== Room ==============
     implementRoom()

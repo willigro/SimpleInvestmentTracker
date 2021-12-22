@@ -69,18 +69,22 @@ object Depends {
     }
 
     object Robbie {
-        fun DependencyHandler.implementLocalRobbie() {
-            implement("com.rittmann:buttons:${Versions.ROBBIE}")
-            implement("com.rittmann:typography:${Versions.ROBBIE}")
-            implement("com.rittmann:widgets:${Versions.ROBBIE}")
-            implement("com.rittmann:textfield:${Versions.ROBBIE}")
-            implement("com.rittmann:sqltools:${Versions.ROBBIE}")
-            implement("com.rittmann:core:${Versions.ROBBIE}")
-            implement("com.rittmann:baselifecycle:${Versions.ROBBIE}")
-            implement("com.rittmann:androidtools:${Versions.ROBBIE}")
+        fun DependencyHandler.implementRobbie(){
+            implement("com.github.willigro:RobbieAndroidUtil:${Versions.ROBBIE}")
+
+//            implementLocalRobbie()
         }
 
-        private const val ROBBIE_VERSION = "robbie"
+        fun DependencyHandler.implementLocalRobbie() {
+            implement("com.rittmann:buttons:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:typography:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:widgets:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:textfield:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:sqltools:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:core:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:baselifecycle:${Versions.ROBBIE_LOCAL}")
+            implement("com.rittmann:androidtools:${Versions.ROBBIE_LOCAL}")
+        }
     }
 
     object AppCompat {

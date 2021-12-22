@@ -7,6 +7,8 @@ import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepositoryImpl
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementViewModel
+import com.rittmann.crypto.keep.ui.RegisterCryptoNavigation
+import com.rittmann.crypto.keep.ui.RegisterCryptoNavigationImpl
 import com.rittmann.datasource.dao.interfaces.CryptoDao
 import com.rittmann.datasource.di.CryptoDaoModule
 import com.rittmann.di_utils.utils.ActivityScoped
@@ -35,6 +37,15 @@ abstract class CryptoModuleDependencies {
     @Binds
     @ViewModelKey(RegisterCryptoMovementViewModel::class)
     abstract fun bindRegisterCryptoViewModel(movementViewModel: RegisterCryptoMovementViewModel): ViewModel
+
+    @Module
+    companion object {
+
+        @Provides
+        @JvmStatic
+        fun providesRegisterCryptoNavigation(activity: RegisterCryptoMovementActivity): RegisterCryptoNavigation =
+            RegisterCryptoNavigationImpl(activity)
+    }
 }
 
 @Module(includes = [CryptoDaoModule::class])

@@ -41,7 +41,7 @@ object Versions {
     const val COROUTINES = "1.5.0"
 
     // Espresso
-    const val ESPRESSO = "3.4.0"
+    const val ESPRESSO = "3.3.0"
 
     // Roboletric
     const val ROBOLETRIC = "4.5.1"
@@ -53,7 +53,8 @@ object Versions {
     const val MOCKK = "1.9.3"
 
     // Robbie
-    const val ROBBIE = "1.3.0.1"
+    const val ROBBIE = "1.3.1.9"
+    const val ROBBIE_LOCAL = "1.3.0.1"
 
     // Room
     const val ROOM = "2.2.5"

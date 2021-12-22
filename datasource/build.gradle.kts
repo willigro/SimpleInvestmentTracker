@@ -1,7 +1,7 @@
 import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
 import Depends.Module.implementModules
-import Depends.Robbie.implementLocalRobbie
+import Depends.Robbie.implementRobbie
 import Depends.Room.implementRoom
 import Depends.Test.implementTest
 
@@ -21,7 +21,7 @@ dependencies {
     implementKotlinForModule()
 
     // =========== Robbie ==============
-    implementLocalRobbie()
+    implementRobbie()
 
     // =========== Dagger ==============
     implementDagger()

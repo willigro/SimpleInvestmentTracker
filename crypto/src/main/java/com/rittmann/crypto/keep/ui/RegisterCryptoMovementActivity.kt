@@ -3,14 +3,15 @@ package com.rittmann.crypto.keep.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.extensions.toast
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.validations.FieldValidation
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
 import com.rittmann.datasource.result.ResultEvent
-import com.rittmann.widgets.dialog.dialog
 import javax.inject.Inject
 
 class RegisterCryptoMovementActivity :
@@ -19,7 +20,11 @@ class RegisterCryptoMovementActivity :
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var movementViewModel: RegisterCryptoMovementViewModel
+    @Inject
+    lateinit var registerCryptoNavigation: RegisterCryptoNavigation
+
+    @VisibleForTesting
+    lateinit var movementViewModel: RegisterCryptoMovementViewModel
 
     private var field: FieldValidation? = null
 
@@ -36,19 +41,16 @@ class RegisterCryptoMovementActivity :
     private fun initObservers() {
         movementViewModel.apply {
             registerResultEvent.observe(this@RegisterCryptoMovementActivity, {
-                when (it) {
-                    is ResultEvent.Success -> {
-                        dialog(
-                            message = getString(R.string.new_crypto_movement_was_registered)
-                        )
-                        finish()
-                    }
-                    is ResultEvent.Error -> {
-                        dialog(
-                            message = getString(R.string.new_crypto_movement_was_registered)
-                        )
-                    }
-                    else -> {
+                runOnUiThread {
+                    when (it) {
+                        is ResultEvent.Success -> {
+                            toast(getString(R.string.new_crypto_movement_was_registered))
+
+                            registerCryptoNavigation.close()
+                        }
+                        else -> {
+                            toast(getString(R.string.new_crypto_movement_was_registered))
+                        }
                     }
                 }
             })

@@ -24,6 +24,7 @@ allprojects {
         mavenLocal()
         google()
         jcenter()
+        maven { url = uri("https://jitpack.io") }
     }
     androidCompile()
 }
@@ -49,7 +50,6 @@ fun Project.androidCompile() {
     apply(plugin = "kotlin-android")
     apply(plugin = "kotlin-android-extensions")
     apply(plugin = "kotlin-kapt")
-
     configure<BaseExtension> {
         compileSdkVersion(Versions.COMPILE_SKD_VERSION)
         buildToolsVersion(Versions.BUILD_TOOLS_VERSION)

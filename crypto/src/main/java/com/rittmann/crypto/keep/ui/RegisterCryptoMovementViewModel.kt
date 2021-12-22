@@ -2,15 +2,17 @@ package com.rittmann.crypto.keep.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.rittmann.baselifecycle.base.BaseViewModel
-import com.rittmann.datasource.basic.CryptoMovement
+import com.rittmann.common.lifecycle.BaseViewModelApp
+import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
+import com.rittmann.datasource.basic.CryptoMovement
 import com.rittmann.datasource.result.ResultEvent
 import javax.inject.Inject
 
 class RegisterCryptoMovementViewModel @Inject constructor(
-    private val registerCryptoMovementRepository: RegisterCryptoMovementRepository
-) : BaseViewModel() {
+    private val registerCryptoMovementRepository: RegisterCryptoMovementRepository,
+    dispatcherProviderVm: DispatcherProvider
+) : BaseViewModelApp(dispatcherProviderVm) {
 
     private val _registerResultEvent: MutableLiveData<ResultEvent<CryptoMovement>> =
         MutableLiveData<ResultEvent<CryptoMovement>>()
@@ -22,7 +24,9 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         showProgress()
         executeAsync {
             with(registerCryptoMovementRepository.registerCrypto(cryptoMovement)) {
-                _registerResultEvent.value = this
+                executeMain {
+                    _registerResultEvent.value = this
+                }
 
                 if (this is ResultEvent.Success)
                     cryptoMovement.id = this.data.id
