@@ -23,14 +23,14 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     fun registerCrypto() {
         showProgress()
         executeAsync {
-            with(registerCryptoMovementRepository.registerCrypto(cryptoMovement)) {
-                executeMain {
-                    _registerResultEvent.value = this
-                }
+            val result = registerCryptoMovementRepository.registerCrypto(cryptoMovement)
 
-                if (this is ResultEvent.Success)
-                    cryptoMovement.id = this.data.id
+            executeMain {
+                _registerResultEvent.value = result
             }
+
+            if (result is ResultEvent.Success)
+                cryptoMovement.id = result.data.id
 
             hideProgress()
         }

@@ -3,10 +3,11 @@ package com.rittmann.crypto
 import android.app.Application
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.common.lifecycle.DispatcherProvider
+import com.rittmann.common.lifecycle.LifecycleApp
+import com.rittmann.common.lifecycle.LifecycleApp.Companion.lifecycleAppInstance
 import com.rittmann.crypto.di.CryptoModule
 import com.rittmann.datasource.di.RoomModule
 import com.rittmann.widgets.dialog.ModalUtil
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,9 +15,17 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Singleton
 
-class TestApplication : DaggerApplication() {
+class TestApplication : DaggerApplication(), LifecycleApp {
 
     private lateinit var appComponent: TestAppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+
+        lifecycleAppInstance = this
+
+        registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
+    }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         appComponent = DaggerTestAppComponent.builder()

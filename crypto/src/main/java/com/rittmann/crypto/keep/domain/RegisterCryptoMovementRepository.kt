@@ -12,6 +12,7 @@ interface RegisterCryptoMovementRepository {
 class RegisterCryptoMovementRepositoryImpl(
     private val cryptoDao: CryptoDao
 ) : RegisterCryptoMovementRepository {
+
     override suspend fun registerCrypto(cryptoMovement: CryptoMovement): ResultEvent<CryptoMovement> {
         return try {
             cryptoDao.insert(cryptoMovement).let {

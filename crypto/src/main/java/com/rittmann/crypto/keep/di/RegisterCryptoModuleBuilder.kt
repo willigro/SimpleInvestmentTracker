@@ -20,15 +20,15 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class CryptoModuleBuilder {
+abstract class RegisterCryptoModuleBuilder {
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [CryptoModuleDependencies::class])
+    @ContributesAndroidInjector(modules = [RegisterCryptoModuleDependencies::class])
     abstract fun bindRegisterCryptoActivity(): RegisterCryptoMovementActivity
 }
 
-@Module(includes = [CryptoRepositoryModule::class])
-abstract class CryptoModuleDependencies {
+@Module(includes = [RegisterCryptoRepositoryModule::class])
+abstract class RegisterCryptoModuleDependencies {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
@@ -49,7 +49,7 @@ abstract class CryptoModuleDependencies {
 }
 
 @Module(includes = [CryptoDaoModule::class])
-class CryptoRepositoryModule {
+class RegisterCryptoRepositoryModule {
 
     @Provides
     fun provideCryptoRepository(cryptoDao: CryptoDao): RegisterCryptoMovementRepository =

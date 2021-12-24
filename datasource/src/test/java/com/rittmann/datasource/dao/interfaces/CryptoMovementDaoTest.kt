@@ -49,7 +49,7 @@ class CryptoMovementDaoTest {
     }
 
     @Test
-    fun `insert a new crypto and check if it was correctly registered`() {
+    fun `INSERT a new crypto and check if it was correctly registered SELECTING BY ID`() {
         val resultId = dao.insert(newCrypto)
 
         assertThat(resultId, greaterThan(0L))
@@ -67,7 +67,7 @@ class CryptoMovementDaoTest {
     }
 
     @Test
-    fun `insert a new crypto, delete it and check if it was correctly deleted`() {
+    fun `INSERT a new crypto, DELETE IT and check if it was correctly deleted SELECTING BY ID`() {
         val resultId = dao.insert(newCrypto)
 
         newCrypto.id = resultId
@@ -84,14 +84,15 @@ class CryptoMovementDaoTest {
     }
 
     @Test
-    fun `insert a list of crypto, delete all and check if the table is empty`() {
-        for (i in 1..10) {
+    fun `INSERT a list of crypto, SELECT ALL to check the count, DELECT ALL and check if the table is empty`() {
+        val count = 10
+        for (i in 1..count) {
             dao.insert(newCrypto)
         }
 
         val allCryptos = dao.selectAll()
 
-        assertThat(allCryptos.size, greaterThan(0))
+        assertThat(allCryptos.size, `is`(count))
 
         val deletedRows = dao.deleteAll()
 
@@ -103,7 +104,7 @@ class CryptoMovementDaoTest {
     }
 
     @Test
-    fun `insert a crypto update it and check if the value was right updated`() {
+    fun `INSERT a crypto UPDATE IT and check if the value was right updated SELECTING BY ID`() {
         val resultId = dao.insert(newCrypto)
 
         val cryptoToUpdate = newCrypto.copy(

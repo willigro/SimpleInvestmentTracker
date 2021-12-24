@@ -1,12 +1,16 @@
 import Depends.AndroidTest.implementEspressoTest
 import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
+import Depends.Module.implementModules
 import Depends.Robbie.implementRobbie
 import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+    // =========== Modules ==============
+    implementModules(Modules.datasource)
 
     // =========== Kotlin ==============
     implementKotlinForModule()

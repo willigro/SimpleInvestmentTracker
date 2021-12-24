@@ -1,6 +1,6 @@
 package com.rittmann.crypto.keep.domain
 
-import com.rittmann.crypto.mock.newCryptoMovement
+import com.rittmann.common_test.mock.newCryptoMovementMock
 import com.rittmann.datasource.dao.interfaces.CryptoDao
 import com.rittmann.datasource.result.ResultEvent
 import com.rittmann.datasource.result.succeeded
@@ -16,7 +16,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class RegisterCryptoMovementRepositoryImplTest {
+class RegisterCryptoMovementRepositoryTest {
 
     private lateinit var registerCryptoMovementRepository: RegisterCryptoMovementRepository
 
@@ -31,20 +31,20 @@ class RegisterCryptoMovementRepositoryImplTest {
 
     @Test
     fun `register a new crypto`() = runBlockingTest {
-        coEvery { cryptoDao.insert(newCryptoMovement) } returns 1L
+        coEvery { cryptoDao.insert(newCryptoMovementMock) } returns 1L
 
-        val resultEvent = registerCryptoMovementRepository.registerCrypto(newCryptoMovement)
+        val resultEvent = registerCryptoMovementRepository.registerCrypto(newCryptoMovementMock)
 
         assertThat(resultEvent.succeeded, `is`(true))
         (resultEvent as ResultEvent.Success).data.also { result ->
             assertThat(result.id, greaterThan(0L))
-            assertThat(result.id, `is`(newCryptoMovement.id))
-            assertThat(result.date, `is`(newCryptoMovement.date))
-            assertThat(result.name, `is`(newCryptoMovement.name))
-            assertThat(result.boughtAmount, `is`(newCryptoMovement.boughtAmount))
-            assertThat(result.totalValue, `is`(newCryptoMovement.totalValue))
-            assertThat(result.currentValue, `is`(newCryptoMovement.currentValue))
-            assertThat(result.tax, `is`(newCryptoMovement.tax))
+            assertThat(result.id, `is`(newCryptoMovementMock.id))
+            assertThat(result.date, `is`(newCryptoMovementMock.date))
+            assertThat(result.name, `is`(newCryptoMovementMock.name))
+            assertThat(result.boughtAmount, `is`(newCryptoMovementMock.boughtAmount))
+            assertThat(result.totalValue, `is`(newCryptoMovementMock.totalValue))
+            assertThat(result.currentValue, `is`(newCryptoMovementMock.currentValue))
+            assertThat(result.tax, `is`(newCryptoMovementMock.tax))
         }
     }
 }

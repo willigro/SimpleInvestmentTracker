@@ -11,14 +11,20 @@ import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
 import Depends.Views.implementLayouts
 
+plugins {
+    id("kotlin-android")
+}
 android {
     defaultConfig {
-        testInstrumentationRunner("com.rittmann.crypto.keep.ui.MockTestRunner")
+        testInstrumentationRunner("com.rittmann.crypto.MockTestRunner")
     }
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation("androidx.appcompat:appcompat:1.4.0")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
 
     // =========== Modules ==============
     implementModules(Modules.common, Modules.diUtils, Modules.datasource)

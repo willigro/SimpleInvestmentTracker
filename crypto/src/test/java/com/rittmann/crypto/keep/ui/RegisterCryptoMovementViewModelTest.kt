@@ -1,9 +1,10 @@
-package com.rittmann.crypto.keep.ui;
+package com.rittmann.crypto.keep.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
-import com.rittmann.crypto.mock.registeredCryptoMovement
+import com.rittmann.common_test.mock.registeredCryptoMovementMock
 import com.rittmann.common_test.MainCoroutineRule
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.datasource.result.ResultEvent
@@ -40,7 +41,8 @@ class RegisterCryptoMovementViewModelTest {
         MockKAnnotations.init(this)
 
         movementViewModel = RegisterCryptoMovementViewModel(
-            movementRepository
+            movementRepository,
+            DefaultDispatcherProvider()
         )
     }
 
@@ -48,7 +50,7 @@ class RegisterCryptoMovementViewModelTest {
     fun `register a new crypto currency and handle the success case`() {
         mainCoroutineRule.pauseDispatcher()
 
-        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(registeredCryptoMovement)
+        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(registeredCryptoMovementMock)
 
         movementViewModel.registerCrypto()
 
@@ -63,13 +65,13 @@ class RegisterCryptoMovementViewModelTest {
         resultEvent as ResultEvent.Success
         resultEvent.data.also { result ->
             assertThat(result.id, greaterThan(0L))
-            assertThat(result.id, `is`(registeredCryptoMovement.id))
-            assertThat(result.date, `is`(registeredCryptoMovement.date))
-            assertThat(result.name, `is`(registeredCryptoMovement.name))
-            assertThat(result.boughtAmount, `is`(registeredCryptoMovement.boughtAmount))
-            assertThat(result.totalValue, `is`(registeredCryptoMovement.totalValue))
-            assertThat(result.currentValue, `is`(registeredCryptoMovement.currentValue))
-            assertThat(result.tax, `is`(registeredCryptoMovement.tax))
+            assertThat(result.id, `is`(registeredCryptoMovementMock.id))
+            assertThat(result.date, `is`(registeredCryptoMovementMock.date))
+            assertThat(result.name, `is`(registeredCryptoMovementMock.name))
+            assertThat(result.boughtAmount, `is`(registeredCryptoMovementMock.boughtAmount))
+            assertThat(result.totalValue, `is`(registeredCryptoMovementMock.totalValue))
+            assertThat(result.currentValue, `is`(registeredCryptoMovementMock.currentValue))
+            assertThat(result.tax, `is`(registeredCryptoMovementMock.tax))
         }
 
         assertThat(movementViewModel.isLoading.getOrAwaitValue(), `is`(false))

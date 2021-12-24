@@ -3,6 +3,7 @@ package com.rittmann.datasource.dao.config
 import androidx.room.TypeConverter
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.datasource.basic.CryptoOperationType
+import com.rittmann.datasource.basic.CurrencyType
 import java.util.Calendar
 
 class Converters {
@@ -25,6 +26,16 @@ class Converters {
 
     @TypeConverter
     fun convertCryptoOperationTypeToString(date: CryptoOperationType): String {
+        return date.value
+    }
+
+    @TypeConverter
+    fun convertStringToCurrencyType(value: String): CurrencyType {
+        return CurrencyType.convert(value)
+    }
+
+    @TypeConverter
+    fun convertCurrencyTypeToString(date: CurrencyType): String {
         return date.value
     }
 }

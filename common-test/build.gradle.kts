@@ -7,7 +7,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     // =========== Modules ==============
-    implementModules(Modules.common)
+    implementModules(Modules.common, Modules.datasource)
 
     // =========== Kotlin ==============
     implementKotlinForModule()

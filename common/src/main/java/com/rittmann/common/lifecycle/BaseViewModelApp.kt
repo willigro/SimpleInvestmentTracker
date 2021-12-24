@@ -69,7 +69,7 @@ open class BaseViewModelApp(
         }
     }
 
-    fun executeAsync(
+    protected fun executeAsync(
             dispatcherProvider: DispatcherProvider = this.dispatcherProvider,
             dispatcher: CoroutineDispatcher = Dispatchers.IO,
             scope: CoroutineScope = viewModelScope,
@@ -91,7 +91,7 @@ open class BaseViewModelApp(
             scope: CoroutineScope = viewModelScope,
             block: suspend () -> Unit
     ) {
-        (viewModelScopeGen ?: scope).launch(Dispatchers.Main) {
+        (viewModelScopeGen ?: scope).launch(dispatcherProvider.main()) {
             block()
         }
     }

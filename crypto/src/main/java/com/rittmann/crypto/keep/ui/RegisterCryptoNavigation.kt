@@ -16,6 +16,4 @@ class RegisterCryptoNavigationImpl(
         if (close)
             activity.finish()
     }
-
-
 }

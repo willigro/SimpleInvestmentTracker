@@ -41,16 +41,14 @@ class RegisterCryptoMovementActivity :
     private fun initObservers() {
         movementViewModel.apply {
             registerResultEvent.observe(this@RegisterCryptoMovementActivity, {
-                runOnUiThread {
-                    when (it) {
-                        is ResultEvent.Success -> {
-                            toast(getString(R.string.new_crypto_movement_was_registered))
+                when (it) {
+                    is ResultEvent.Success -> {
+                        toast(getString(R.string.new_crypto_movement_was_registered))
 
-                            registerCryptoNavigation.close()
-                        }
-                        else -> {
-                            toast(getString(R.string.new_crypto_movement_was_registered))
-                        }
+                        registerCryptoNavigation.close()
+                    }
+                    else -> {
+                        toast(getString(R.string.new_crypto_movement_was_registered))
                     }
                 }
             })

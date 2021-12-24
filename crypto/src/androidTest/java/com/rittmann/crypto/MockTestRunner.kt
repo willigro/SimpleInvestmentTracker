@@ -1,4 +1,4 @@
-package com.rittmann.crypto.keep.ui
+package com.rittmann.crypto
 
 import android.app.Application
 import android.content.Context
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.StrictMode
 
 import androidx.test.runner.AndroidJUnitRunner
-import com.rittmann.crypto.TestApplication
 
 class MockTestRunner : AndroidJUnitRunner() {
     override fun onCreate(arguments: Bundle) {

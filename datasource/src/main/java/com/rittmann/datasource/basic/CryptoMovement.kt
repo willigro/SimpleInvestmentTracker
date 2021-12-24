@@ -24,25 +24,45 @@ data class CryptoMovement(
     var type: CryptoOperationType = CryptoOperationType.BUY,
 
     @ColumnInfo(name = TableCryptoMovement.BOUGHT_AMOUNT)
-    var boughtAmount: Int = 0,
+    var boughtAmount: Double = 0.0,
 
     @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE)
     var currentValue: Double = 0.0,
 
+    @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE_CURRENCY)
+    var currentValueCurrency: CurrencyType = CurrencyType.REAL,
+
     @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE)
     var totalValue: Double = 0.0,
 
+    @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE_CURRENCY)
+    var totalValueCurrency: CurrencyType = CurrencyType.REAL,
+
     @ColumnInfo(name = TableCryptoMovement.TAX)
     var tax: Double = 0.0,
+
+    @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
+    var taxCurrency: CurrencyType = CurrencyType.REAL,
 )
 
 enum class CryptoOperationType(val value: String) {
     BUY("B"), SELL("S");
 
-    companion object{
+    companion object {
         fun convert(valueToConvert: String): CryptoOperationType {
             return if (valueToConvert == BUY.value) BUY
             else SELL
+        }
+    }
+}
+
+enum class CurrencyType(val value: String) {
+    REAL("r"), CRYPTO("c");
+
+    companion object {
+        fun convert(valueToConvert: String): CurrencyType {
+            return if (valueToConvert == REAL.value) REAL
+            else CRYPTO
         }
     }
 }
