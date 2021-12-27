@@ -8,8 +8,8 @@ import com.rittmann.common_test.EspressoUtil.performClick
 import com.rittmann.common_test.EspressoUtil.putValue
 import com.rittmann.crypto.BaseTestActivity
 import com.rittmann.crypto.R
-import com.rittmann.datasource.dao.config.AppDatabase
-import com.rittmann.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.config.AppDatabase
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat

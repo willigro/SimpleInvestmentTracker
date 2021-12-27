@@ -5,7 +5,6 @@ import com.rittmann.common.extensions.toDoubleOrZero
 import com.rittmann.common.extensions.toIntOrZero
 import com.rittmann.common.utils.Constants.CRYPTO_SIGN
 import com.rittmann.common.utils.Constants.REAL_SIGN
-import com.rittmann.datasource.basic.CurrencyType
 
 object Converter {
     @InverseMethod("intToString")
@@ -33,12 +32,22 @@ object Converter {
     fun doubleToString(value: Double): String {
         return value.toString()
     }
-
-    @JvmStatic
-    fun doubleToString(value: Double, currencyType: CurrencyType): String {
-        return when (currencyType) {
-            CurrencyType.REAL -> "$REAL_SIGN $value"
-            CurrencyType.CRYPTO -> "$CRYPTO_SIGN $value"
-        }
-    }
+//
+//    @InverseMethod("doubleToStringCurrency")
+//    @JvmStatic
+//    fun stringCurrencyToDouble(value: String, currencyType: CurrencyType): Double {
+//        return value
+//            .replace(REAL_SIGN, "")
+//            .replace(CRYPTO_SIGN, "")
+//            .replace(" ", "")
+//            .toDoubleOrZero()
+//    }
+//
+//    @JvmStatic
+//    fun doubleToStringCurrency(value: Double, currencyType: CurrencyType): String {
+//        return when (currencyType) {
+//            CurrencyType.REAL -> "$REAL_SIGN $value"
+//            CurrencyType.CRYPTO -> "$CRYPTO_SIGN $value"
+//        }
+//    }
 }

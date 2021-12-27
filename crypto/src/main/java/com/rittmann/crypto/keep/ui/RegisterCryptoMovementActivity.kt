@@ -11,7 +11,7 @@ import com.rittmann.common.validations.FieldValidation
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
-import com.rittmann.datasource.result.ResultEvent
+import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
 class RegisterCryptoMovementActivity :
@@ -48,7 +48,7 @@ class RegisterCryptoMovementActivity :
                         registerCryptoNavigation.close()
                     }
                     else -> {
-                        toast(getString(R.string.new_crypto_movement_was_registered))
+                        toast(getString(R.string.new_crypto_movement_was_not_registered))
                     }
                 }
             })

@@ -1,10 +1,9 @@
-package com.rittmann.datasource.di
+package com.rittmann.common.datasource.di
 
-import com.rittmann.datasource.dao.config.AppDatabase
-import com.rittmann.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.config.AppDatabase
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class CryptoDaoModule {

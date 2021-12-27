@@ -1,9 +1,9 @@
-package com.rittmann.datasource.basic
+package com.rittmann.common.datasource.basic
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.rittmann.datasource.dao.config.TableCryptoMovement
+import com.rittmann.common.datasource.dao.config.TableCryptoMovement
 
 /**
  * I'm letting this stuff here cause I wanna see how use it from here

@@ -3,14 +3,18 @@ import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
 import Depends.Module.implementModules
 import Depends.Robbie.implementRobbie
+import Depends.Room.implementRoom
 import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
 
+android {
+    buildTypes.forEach {
+        it.buildConfigField("String", "BASE_NAME", "\"investmenttracks.db\"")
+    }
+}
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
-    // =========== Modules ==============
-    implementModules(Modules.datasource)
 
     // =========== Kotlin ==============
     implementKotlinForModule()
@@ -35,4 +39,7 @@ dependencies {
     implementEspressoTest()
     implementation(Depends.AndroidTest.ESPRESSO_IDLING)
     debugImplementation(Depends.AndroidTest.FRAGMENT_TESTING)
+
+    // =========== Room ==============
+    implementRoom()
 }

@@ -1,13 +1,13 @@
-package com.rittmann.datasource.dao.config
+package com.rittmann.common.datasource.dao.config
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.rittmann.datasource.BuildConfig
-import com.rittmann.datasource.basic.CryptoMovement
-import com.rittmann.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.BuildConfig
+import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 
 @Database(
     entities = [CryptoMovement::class],

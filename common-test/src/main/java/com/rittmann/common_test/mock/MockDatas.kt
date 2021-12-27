@@ -1,8 +1,8 @@
 package com.rittmann.common_test.mock
 
-import com.rittmann.datasource.basic.CryptoMovement
-import com.rittmann.datasource.basic.CryptoOperationType
-import com.rittmann.datasource.basic.CurrencyType
+import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import java.lang.Exception
 
 val newCryptoMovementMock =

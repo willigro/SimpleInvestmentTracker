@@ -9,8 +9,8 @@ import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementViewModel
 import com.rittmann.crypto.keep.ui.RegisterCryptoNavigation
 import com.rittmann.crypto.keep.ui.RegisterCryptoNavigationImpl
-import com.rittmann.datasource.dao.interfaces.CryptoDao
-import com.rittmann.datasource.di.CryptoDaoModule
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.di_utils.utils.ActivityScoped
 import com.rittmann.di_utils.utils.ViewModelKey
 import dagger.Binds

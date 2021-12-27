@@ -11,6 +11,7 @@ import com.rittmann.crypto.list.ui.ListCryptoMovementsNavigationImpl
 import com.rittmann.crypto.list.ui.ListCryptoMovementsViewModel
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.di.CryptoDaoModule
+import com.rittmann.crypto.list.domain.ListCryptoMovementsRepositoryImplTest
 import com.rittmann.di_utils.utils.ActivityScoped
 import com.rittmann.di_utils.utils.ViewModelKey
 import dagger.Binds
@@ -20,15 +21,15 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ListCryptoMovementsModuleBuilder {
+abstract class ListCryptoMovementsModuleBuilderTest {
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [ListCryptoMovementsModuleDependencies::class])
+    @ContributesAndroidInjector(modules = [ListCryptoMovementsModuleDependenciesTest::class])
     abstract fun bindListCryptoMovementsActivity(): ListCryptoMovementsActivity
 }
 
-@Module(includes = [ListCryptoMovementsRepositoryModule::class])
-abstract class ListCryptoMovementsModuleDependencies {
+@Module(includes = [ListCryptoMovementsRepositoryModuleTest::class])
+abstract class ListCryptoMovementsModuleDependenciesTest {
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
@@ -49,9 +50,9 @@ abstract class ListCryptoMovementsModuleDependencies {
 }
 
 @Module(includes = [CryptoDaoModule::class])
-class ListCryptoMovementsRepositoryModule {
+class ListCryptoMovementsRepositoryModuleTest {
 
     @Provides
     fun provideCryptoRepository(cryptoDao: CryptoDao): ListCryptoMovementsRepository =
-        ListCryptoMovementsRepositoryImpl(cryptoDao)
+        ListCryptoMovementsRepositoryImplTest(cryptoDao)
 }

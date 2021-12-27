@@ -7,8 +7,8 @@ import com.rittmann.common_test.MainCoroutineRule
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
 import com.rittmann.common_test.mock.listCryptoMovementMock
-import com.rittmann.datasource.result.ResultEvent
-import com.rittmann.datasource.result.succeeded
+import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.datasource.result.succeeded
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

@@ -1,4 +1,4 @@
-package com.rittmann.datasource.dao.config
+package com.rittmann.common.datasource.dao.config
 
 
 object TableCryptoMovement {

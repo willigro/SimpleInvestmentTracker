@@ -1,9 +1,9 @@
 package com.rittmann.crypto.keep.domain
 
 import com.rittmann.common_test.mock.newCryptoMovementMock
-import com.rittmann.datasource.dao.interfaces.CryptoDao
-import com.rittmann.datasource.result.ResultEvent
-import com.rittmann.datasource.result.succeeded
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.datasource.result.succeeded
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

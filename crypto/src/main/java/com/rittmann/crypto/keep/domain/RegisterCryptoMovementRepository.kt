@@ -1,8 +1,8 @@
 package com.rittmann.crypto.keep.domain
 
-import com.rittmann.datasource.basic.CryptoMovement
-import com.rittmann.datasource.dao.interfaces.CryptoDao
-import com.rittmann.datasource.result.ResultEvent
+import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.result.ResultEvent
 
 interface RegisterCryptoMovementRepository {
 

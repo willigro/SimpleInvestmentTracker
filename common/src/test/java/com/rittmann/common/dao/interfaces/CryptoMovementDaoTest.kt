@@ -1,12 +1,13 @@
-package com.rittmann.datasource.dao.interfaces
+package com.rittmann.common.dao.interfaces
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.rittmann.datasource.basic.CryptoOperationType
-import com.rittmann.datasource.dao.config.AppDatabase
-import com.rittmann.datasource.dao.mock.newCrypto
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.dao.config.AppDatabase
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.mock.newCrypto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
@@ -112,7 +113,7 @@ class CryptoMovementDaoTest {
             name = "Name updated",
             date = "11/11/1111",
             type = CryptoOperationType.SELL,
-            boughtAmount = 5,
+            boughtAmount = 5.0,
             currentValue = 50.0,
             totalValue = 250.0,
             tax = 5.0

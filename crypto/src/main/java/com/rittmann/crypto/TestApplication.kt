@@ -6,7 +6,8 @@ import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.common.lifecycle.LifecycleApp
 import com.rittmann.common.lifecycle.LifecycleApp.Companion.lifecycleAppInstance
 import com.rittmann.crypto.di.CryptoModule
-import com.rittmann.datasource.di.RoomModule
+import com.rittmann.common.datasource.di.RoomModule
+import com.rittmann.crypto.di.CryptoModuleTest
 import com.rittmann.widgets.dialog.ModalUtil
 import dagger.BindsInstance
 import dagger.Component
@@ -48,7 +49,7 @@ class TestApplication : DaggerApplication(), LifecycleApp {
 }
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, RoomModule::class, CryptoModule::class])
+@Component(modules = [AndroidInjectionModule::class, RoomModule::class, CryptoModuleTest::class])
 interface TestAppComponent : AndroidInjector<DaggerApplication> {
 
     fun inject(application: TestApplication)

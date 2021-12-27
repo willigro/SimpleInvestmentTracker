@@ -5,20 +5,18 @@ import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
-interface ListCryptoMovementsRepository {
-    suspend fun getAll(): ResultEvent<List<CryptoMovement>>
-}
-
-class ListCryptoMovementsRepositoryImpl @Inject constructor(
+class ListCryptoMovementsRepositoryImplTest @Inject constructor(
     private val cryptoDao: CryptoDao
 ) : ListCryptoMovementsRepository {
 
+    companion object {
+        var returnsError = true
+    }
+
     override suspend fun getAll(): ResultEvent<List<CryptoMovement>> {
-        return try {
+        return if (returnsError)
+            ResultEvent.Error(Exception())
+        else
             ResultEvent.Success(cryptoDao.selectAll())
-        } catch (e: Exception) {
-            ResultEvent.Error(e)
-        }
     }
 }
-

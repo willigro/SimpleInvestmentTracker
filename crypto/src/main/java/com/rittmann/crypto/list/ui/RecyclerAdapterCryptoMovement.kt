@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rittmann.crypto.R
-import com.rittmann.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.CryptoMovement
 
 class RecyclerAdapterCryptoMovement(
     private val list: List<CryptoMovement>,

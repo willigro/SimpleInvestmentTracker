@@ -3,8 +3,7 @@ package com.rittmann.investmenttracks
 import android.app.Application
 import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.di.CryptoModule
-import com.rittmann.crypto.keep.ui.RegisterCryptoNavigation
-import com.rittmann.datasource.di.RoomModule
+import com.rittmann.common.datasource.di.RoomModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

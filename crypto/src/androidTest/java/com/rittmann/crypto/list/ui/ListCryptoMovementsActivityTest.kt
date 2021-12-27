@@ -1,22 +1,26 @@
 package com.rittmann.crypto.list.ui
 
-import com.rittmann.crypto.R
 import androidx.test.core.app.ApplicationProvider
+import com.rittmann.common.datasource.dao.config.AppDatabase
+import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.datasource.result.succeeded
 import com.rittmann.common.utils.monitorActivity
 import com.rittmann.common_test.EspressoUtil.checkValue
 import com.rittmann.common_test.EspressoUtil.getCurrentActivity
 import com.rittmann.common_test.EspressoUtil.performClick
 import com.rittmann.common_test.getOrAwaitValue
+import com.rittmann.common_test.getStringTest
 import com.rittmann.common_test.mock.newCryptoMovementMock
 import com.rittmann.crypto.BaseTestActivity
+import com.rittmann.crypto.R
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
-import com.rittmann.datasource.dao.config.AppDatabase
-import com.rittmann.datasource.dao.interfaces.CryptoDao
-import com.rittmann.datasource.result.ResultEvent
-import com.rittmann.datasource.result.succeeded
+import com.rittmann.crypto.list.domain.ListCryptoMovementsRepositoryImplTest
+import io.mockk.MockKAnnotations
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.junit.Before
 import org.junit.Test
@@ -29,11 +33,14 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
 
     @Before
     fun finish() {
+        MockKAnnotations.init(this)
         cryptoDao?.deleteAll()
     }
 
     @Test
     fun listTheCryptoMovements() = runBlockingTest {
+
+        ListCryptoMovementsRepositoryImplTest.returnsError = false
 
         val listInserted = arrayListOf(newCryptoMovementMock)
 
@@ -65,7 +72,40 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
     }
 
     @Test
+    fun listTheCryptoMovements_LaunchAnError_ShowErrorMessage() = runBlockingTest {
+
+        ListCryptoMovementsRepositoryImplTest.returnsError = true
+
+        val listInserted = arrayListOf(newCryptoMovementMock)
+
+        cryptoDao?.insert(listInserted)
+
+        val activityScenario = getActivity<ListCryptoMovementsActivity>()
+
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
+        activityScenario.onActivity {
+
+            it.viewModel.fetchAllCryptoMovements()
+
+            val result = it.viewModel.cryptoMovementsList.getOrAwaitValue()
+
+            assertThat(result.succeeded, `is`(false))
+
+            (result as ResultEvent.Error).exception.apply {
+                assertThat(this, Matchers.instanceOf(Exception::class.java))
+            }
+        }
+
+        checkValue(getStringTest(R.string.list_crypto_error))
+
+        activityScenario.close()
+    }
+
+    @Test
     fun openTheRegisterCrypto_WhenClickOnButton() {
+        ListCryptoMovementsRepositoryImplTest.returnsError = false
+
         val activityScenario = getActivity<ListCryptoMovementsActivity>()
 
         dataBindingIdlingResource.monitorActivity(activityScenario)

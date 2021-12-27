@@ -10,7 +10,8 @@ import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityListCryptoMovementsBinding
-import com.rittmann.datasource.result.ResultEvent
+import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
 
 class ListCryptoMovementsActivity : BaseBindingActivity<ActivityListCryptoMovementsBinding>(
@@ -68,6 +69,7 @@ class ListCryptoMovementsActivity : BaseBindingActivity<ActivityListCryptoMoveme
                         }
                     }
                     else -> {
+                        modal(message = getString(R.string.list_crypto_error), show = true)
                     }
                 }
             })

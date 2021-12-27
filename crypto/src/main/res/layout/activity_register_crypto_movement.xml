@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 app:labelText="Current value"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.currentValue, viewModel.cryptoMovement.currentValueCurrency)}" />
+                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.currentValue)}" />
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_total_value"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 app:labelText="Total value"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.totalValue, viewModel.cryptoMovement.currentValueCurrency)}" />
+                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.totalValue)}" />
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_tax"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 app:labelText="Tax"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.tax, viewModel.cryptoMovement.taxCurrency)}" />
+                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.tax)}" />
 
             <Button
                 android:id="@+id/btn_register"

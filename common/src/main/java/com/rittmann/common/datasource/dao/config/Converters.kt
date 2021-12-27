@@ -1,9 +1,9 @@
-package com.rittmann.datasource.dao.config
+package com.rittmann.common.datasource.dao.config
 
 import androidx.room.TypeConverter
 import com.rittmann.common.utils.DateUtil
-import com.rittmann.datasource.basic.CryptoOperationType
-import com.rittmann.datasource.basic.CurrencyType
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import java.util.Calendar
 
 class Converters {

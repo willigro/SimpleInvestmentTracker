@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rittmann.datasource.result
+package com.rittmann.common.datasource.result
 
 /**
  * A generic class that holds a value with its loading status.

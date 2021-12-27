@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
-import com.rittmann.datasource.basic.CryptoMovement
-import com.rittmann.datasource.result.ResultEvent
+import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
 class RegisterCryptoMovementViewModel @Inject constructor(

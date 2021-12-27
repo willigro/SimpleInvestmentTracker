@@ -174,10 +174,14 @@ object Depends {
 
         const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES}"
 
+        const val MOCKK = "io.mockk:mockk-android:${Versions.MOCKK}"
+
         fun DependencyHandler.implementAndroidTest() {
             androidTestImplement("junit:junit:${Versions.JUNIT}")
             androidTestImplement("androidx.test.ext:junit:${Versions.JUNIT_EXT}")
             androidTestImplement("androidx.arch.core:core-testing:${Versions.ARCH_TESTING}")
+            androidTestImplement(MOCKK)
+            androidTestImplement(Test.MOCKK_AGENT)
             androidTestImplement(COROUTINES_TEST)
         }
 

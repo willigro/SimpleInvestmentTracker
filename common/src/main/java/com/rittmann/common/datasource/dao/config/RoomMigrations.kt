@@ -1,4 +1,4 @@
-//package com.rgames.meusgastos.data.dao.room.config
+package com.rittmann.common.datasource.dao.config//package com.rgames.meusgastos.data.dao.room.config
 //
 //import androidx.room.migration.Migration
 //import androidx.sqlite.db.SupportSQLiteDatabase

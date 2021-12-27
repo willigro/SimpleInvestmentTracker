@@ -1,4 +1,4 @@
-package com.rittmann.datasource.dao.interfaces
+package com.rittmann.common.datasource.dao.interfaces
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,8 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.rittmann.datasource.basic.CryptoMovement
-import com.rittmann.datasource.dao.config.TableCryptoMovement
+import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.dao.config.TableCryptoMovement
 
 @Dao
 interface CryptoDao {
