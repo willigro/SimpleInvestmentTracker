@@ -69,7 +69,7 @@ class ListCryptoMovementsActivity : BaseBindingActivity<ActivityListCryptoMoveme
                         }
                     }
                     else -> {
-                        modal(message = getString(R.string.list_crypto_error), show = true)
+                        modal(message = getString(R.string.list_crypto_error), show = true, ok = true, cancelable = true)
                     }
                 }
             })

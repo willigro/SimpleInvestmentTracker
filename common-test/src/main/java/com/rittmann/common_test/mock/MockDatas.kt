@@ -25,7 +25,19 @@ val registeredCryptoMovementMock = newCryptoMovementMock.copy(1L)
 val listCryptoMovementMock = arrayListOf(
     newCryptoMovementMock,
     newCryptoMovementMock.copy(id = 1L),
-    newCryptoMovementMock.copy(id = 2L)
-)
+    newCryptoMovementMock.copy(id = 2L),
+    newCryptoMovementMock.copy(id = 3L, type = CryptoOperationType.SELL),
+    newCryptoMovementMock.copy(id = 4L, type = CryptoOperationType.SELL)
+).apply {
+    forEach {
+        if (it.type == CryptoOperationType.BUY)
+            currentTotalInvested += it.totalValue
+        else
+            currentTotalEarned += it.totalValue
+    }
+}
+
+var currentTotalInvested: Double = 0.0
+var currentTotalEarned: Double = 0.0
 
 val exceptionMock = Exception()

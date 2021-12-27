@@ -9,6 +9,8 @@ import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
 import com.rittmann.common_test.mock.listCryptoMovementMock
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
+import com.rittmann.common_test.mock.currentTotalEarned
+import com.rittmann.common_test.mock.currentTotalInvested
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -60,5 +62,8 @@ class ListCryptoMovementsViewModelTest {
 
         assertThat(list.size, greaterThan(0))
         assertThat(list.size, `is`(listCryptoMovementMock.size))
+
+        assertThat(viewModel.totalValueEarned.getOrAwaitValue(), `is`(currentTotalEarned.toString()))
+        assertThat(viewModel.totalValueInvested.getOrAwaitValue(), `is`(currentTotalInvested.toString()))
     }
 }

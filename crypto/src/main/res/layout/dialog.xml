@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/txt_item"
@@ -67,7 +67,9 @@
             android:focusable="true"
             android:gravity="center"
             android:text="@string/cancel_"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_confirm"
@@ -79,6 +81,8 @@
             android:focusable="true"
             android:gravity="center"
             android:text="@string/conclude_"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 </LinearLayout>

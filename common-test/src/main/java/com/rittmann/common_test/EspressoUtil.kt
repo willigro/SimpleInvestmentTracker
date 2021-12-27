@@ -40,6 +40,10 @@ import org.hamcrest.TypeSafeMatcher
 
 object EspressoUtil {
 
+    fun exists(id: Int, wait: Long = 1_000){
+        viewExists(withId(id), wait)
+    }
+
     fun checkValue(id: Int, value: String, scroll: Boolean = false) {
         onView(withId(id)).apply {
             if (scroll)
@@ -74,6 +78,14 @@ object EspressoUtil {
 
     fun checkValueWithScroll(id: Int, value: String) {
         onView(withId(id)).perform(scrollTo()).check(matches(isValueEqualTo(value)))
+    }
+
+    fun performBack(id: Int, withScroll: Boolean = false) {
+        onView(withId(id)).apply {
+            if (withScroll)
+                perform(scrollTo())
+            perform(ViewActions.pressBack())
+        }
     }
 
     fun performClick(id: Int, withScroll: Boolean = false) {
