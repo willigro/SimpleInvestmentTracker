@@ -6,8 +6,8 @@
         android:icon="@drawable/ic_launcher_background"
         android:title="@string/list_crypto_movements_title" />
 
-<!--    <item-->
-<!--        android:id="@+id/cryptoResultsFragment"-->
-<!--        android:icon="@drawable/ic_launcher_background"-->
-<!--        android:title="@string/crypto_movements_result_title" />-->
+    <item
+        android:id="@+id/cryptosFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/crypto_movements_result_title" />
 </menu>

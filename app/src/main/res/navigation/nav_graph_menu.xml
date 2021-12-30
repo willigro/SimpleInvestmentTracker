@@ -10,4 +10,10 @@
         android:name="com.rittmann.crypto.listmovements.ui.ListCryptoMovementsFragment"
         android:label="listCryptoMovementsFragment"
         tools:layout="@layout/fragment_list_crypto_movements" />
+
+    <fragment
+        android:id="@+id/cryptosFragment"
+        android:name="com.rittmann.crypto.listcryptos.ui.ListCryptosFragment"
+        android:label="cryptosFragment"
+        tools:layout="@layout/fragment_list_cryptos" />
 </navigation>

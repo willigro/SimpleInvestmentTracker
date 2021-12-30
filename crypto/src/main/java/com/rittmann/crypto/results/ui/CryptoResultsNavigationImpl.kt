@@ -3,5 +3,5 @@ package com.rittmann.crypto.results.ui
 interface CryptoResultsNavigation
 
 class CryptoResultsNavigationImpl(
-    private val fragment: CryptoResultsFragment
+    private val activity: CryptoResultsActivity
 ) : CryptoResultsNavigation

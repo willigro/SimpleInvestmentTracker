@@ -4,11 +4,7 @@
 
     <application android:theme="@style/Theme.InvestmentTracks">
         <activity
-            android:name=".results.ui.CryptoResultsFragment"
-            android:exported="false"
-            android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
-        <activity
-            android:name=".listmovements.ui.ListCryptoMovementsFragment"
+            android:name=".results.ui.CryptoResultsActivity"
             android:exported="false"
             android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
         <activity

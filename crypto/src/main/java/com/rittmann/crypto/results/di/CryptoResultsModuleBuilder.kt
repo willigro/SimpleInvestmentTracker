@@ -7,7 +7,7 @@ import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.common.viewmodel.ViewModelFactory
 import com.rittmann.crypto.results.domain.CryptoResultsRepository
 import com.rittmann.crypto.results.domain.CryptoResultsRepositoryImpl
-import com.rittmann.crypto.results.ui.CryptoResultsFragment
+import com.rittmann.crypto.results.ui.CryptoResultsActivity
 import com.rittmann.crypto.results.ui.CryptoResultsNavigation
 import com.rittmann.crypto.results.ui.CryptoResultsNavigationImpl
 import com.rittmann.crypto.results.ui.CryptoResultsViewModel
@@ -24,7 +24,7 @@ abstract class CryptoResultsModuleBuilder {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CryptoResultsModuleDependencies::class])
-    abstract fun bindCryptoResultsActivity(): CryptoResultsFragment
+    abstract fun bindCryptoResultsActivity(): CryptoResultsActivity
 }
 
 @Module(includes = [CryptoResultsRepositoryModule::class])
@@ -43,8 +43,8 @@ abstract class CryptoResultsModuleDependencies {
 
         @Provides
         @JvmStatic
-        fun providesCryptoResultsNavigation(fragment: CryptoResultsFragment): CryptoResultsNavigation =
-            CryptoResultsNavigationImpl(fragment)
+        fun providesCryptoResultsNavigation(activity: CryptoResultsActivity): CryptoResultsNavigation =
+            CryptoResultsNavigationImpl(activity)
     }
 }
 

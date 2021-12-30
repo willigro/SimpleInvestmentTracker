@@ -13,7 +13,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class CryptoResultsFragmentTest : BaseTestActivity() {
+class CryptoResultsActivityTest : BaseTestActivity() {
 
     private val cryptoDao: CryptoDao? = dataBase?.cryptoDao()
 
@@ -53,8 +53,8 @@ class CryptoResultsFragmentTest : BaseTestActivity() {
 
         cryptoDao?.insert(list)
 
-        val activityScenario = getActivity<CryptoResultsFragment>(
-            intent = CryptoResultsFragment.intent(
+        val activityScenario = getActivity<CryptoResultsActivity>(
+            intent = CryptoResultsActivity.intent(
                 ApplicationProvider.getApplicationContext(),
                 name
             ),
@@ -77,8 +77,8 @@ class CryptoResultsFragmentTest : BaseTestActivity() {
     fun loadAnNonexistentCurrency_XYC_Success() = runBlockingTest {
         val name = "XYC"
 
-        val activityScenario = getActivity<CryptoResultsFragment>(
-            intent = CryptoResultsFragment.intent(
+        val activityScenario = getActivity<CryptoResultsActivity>(
+            intent = CryptoResultsActivity.intent(
                 ApplicationProvider.getApplicationContext(),
                 name
             ),

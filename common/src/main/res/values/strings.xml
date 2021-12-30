@@ -1,6 +1,6 @@
 <resources>
     <!-- Titles -->
-    <string name="list_crypto_movements_title">Cryptos</string>
-    <string name="crypto_movements_result_title">Results</string>
+    <string name="list_crypto_movements_title">Movements</string>
+    <string name="crypto_movements_result_title">Cryptos</string>
     <string name="app_name">common</string>
 </resources>

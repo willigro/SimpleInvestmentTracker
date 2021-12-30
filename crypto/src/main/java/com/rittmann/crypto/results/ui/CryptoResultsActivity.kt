@@ -11,7 +11,7 @@ import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityCryptoResultsBinding
 import javax.inject.Inject
 
-class CryptoResultsFragment : BaseBindingActivity<ActivityCryptoResultsBinding>(
+class CryptoResultsActivity : BaseBindingActivity<ActivityCryptoResultsBinding>(
     R.layout.activity_crypto_results
 ) {
 
@@ -52,7 +52,7 @@ class CryptoResultsFragment : BaseBindingActivity<ActivityCryptoResultsBinding>(
         private const val CRYPTO = "c"
 
         fun intent(context: Context, cryptoMovementName: String) =
-            Intent(context, CryptoResultsFragment::class.java).apply {
+            Intent(context, CryptoResultsActivity::class.java).apply {
                 putExtra(CRYPTO, cryptoMovementName)
             }
 
