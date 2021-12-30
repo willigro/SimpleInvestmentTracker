@@ -1,32 +1,24 @@
 package com.rittmann.crypto
 
 import android.app.Activity
+import android.content.Intent
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.FragmentActivity
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.core.internal.deps.guava.collect.Iterables
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
+import com.rittmann.common.datasource.dao.config.AppDatabase
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.common.utils.DataBindingIdlingResource
 import com.rittmann.common.utils.EspressoIdlingResource
+import com.rittmann.common.utils.monitorActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
-import androidx.test.espresso.NoMatchingViewException
-
-import androidx.test.espresso.ViewAssertion
-
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
-
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.matcher.ViewMatchers
 
 
 @ExperimentalCoroutinesApi
@@ -44,7 +36,9 @@ open class BaseTestActivity {
 //    var mainCoroutineRule = MainCoroutineRule()
 
     // An idling resource that waits for Data Binding to have no pending bindings.
-    protected val dataBindingIdlingResource = DataBindingIdlingResource()
+    val dataBindingIdlingResource = DataBindingIdlingResource()
+
+    val dataBase = AppDatabase.getDatabase(ApplicationProvider.getApplicationContext())
 
     /**
      * Idling resources tell Espresso that the app is idle or busy. This is needed when operations
@@ -75,8 +69,21 @@ open class BaseTestActivity {
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
     }
 
-    inline fun <reified A : Activity> getActivity(): ActivityScenario<A> {
-        return ActivityScenario.launch(A::class.java)
+    inline fun <reified A : FragmentActivity> getActivity(monitor: Boolean = false): ActivityScenario<A> {
+        return ActivityScenario.launch(A::class.java).apply {
+            if (monitor)
+                dataBindingIdlingResource.monitorActivity(this as ActivityScenario<A>)
+        }
+    }
+
+    inline fun <reified A : FragmentActivity> getActivity(
+        intent: Intent,
+        monitor: Boolean = false
+    ): ActivityScenario<A> {
+        return ActivityScenario.launch<A>(intent).apply {
+            if (monitor)
+                dataBindingIdlingResource.monitorActivity(this as ActivityScenario<A>)
+        }
     }
 
 //    @Throws(Throwable::class)

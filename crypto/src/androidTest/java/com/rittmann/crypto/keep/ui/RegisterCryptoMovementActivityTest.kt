@@ -66,7 +66,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
             assertThat(registeredCrypto?.name, `is`(name))
             assertThat(registeredCrypto?.date, `is`(date))
-            assertThat(registeredCrypto?.boughtAmount, `is`(boughtAmount.toInt()))
+            assertThat(registeredCrypto?.operatedAmount, `is`(boughtAmount.toDouble()))
             assertThat(registeredCrypto?.currentValue, `is`(currentValue.toDouble()))
             assertThat(registeredCrypto?.totalValue, `is`(totalValue.toDouble()))
             assertThat(registeredCrypto?.tax, `is`(tax.toDouble()))

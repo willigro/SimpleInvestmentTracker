@@ -7,7 +7,7 @@ object TableCryptoMovement {
     const val DATE = "tb_crypto_movement_date"
     const val NAME = "tb_crypto_movement_name"
     const val TYPE = "tb_crypto_movement_type"
-    const val BOUGHT_AMOUNT = "tb_crypto_movement_bought_amount"
+    const val OPERATED_AMOUNT = "tb_crypto_movement_operated_amount"
     const val CURRENT_VALUE = "tb_crypto_movement_current_value"
     const val CURRENT_VALUE_CURRENCY = "tb_crypto_movement_current_value_currency"
     const val TOTAL_VALUE = "tb_crypto_movement_total_value"
@@ -21,7 +21,7 @@ object TableCryptoMovement {
                 " $NAME TEXT NOT NULL," +
                 " $DATE TEXT NOT NULL," +
                 " $TYPE TEXT NOT NULL," +
-                " $BOUGHT_AMOUNT REAL NOT NULL," +
+                " $OPERATED_AMOUNT REAL NOT NULL," +
                 " $TOTAL_VALUE REAL NOT NULL," +
                 " $TOTAL_VALUE_CURRENCY TEXT NOT NULL," +
                 " $TAX REAL NOT NULL," +

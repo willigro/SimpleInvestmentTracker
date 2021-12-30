@@ -8,7 +8,7 @@ interface ListCryptoMovementsNavigation {
 }
 
 class ListCryptoMovementsNavigationImpl(
-    private val activity: ListCryptoMovementsActivity
+    private val fragment: ListCryptoMovementsFragment
 ) : ListCryptoMovementsNavigation {
 
     companion object {
@@ -17,10 +17,10 @@ class ListCryptoMovementsNavigationImpl(
 
     override fun close() {
         if (close)
-            activity.finish()
+            fragment.requireActivity().finish()
     }
 
     override fun goToRegisterNewCrypto() {
-        RegisterCryptoMovementActivity.start(activity)
+        RegisterCryptoMovementActivity.start(fragment.requireContext())
     }
 }

@@ -1,12 +1,12 @@
 package com.rittmann.crypto.list.ui
 
-import androidx.test.core.app.ApplicationProvider
-import com.rittmann.common.datasource.dao.config.AppDatabase
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.lifecycle.Lifecycle
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
 import com.rittmann.common.extensions.orZero
-import com.rittmann.common.utils.monitorActivity
+import com.rittmann.common.utils.monitorFragment
 import com.rittmann.common_test.EspressoUtil.checkValue
 import com.rittmann.common_test.EspressoUtil.getCurrentActivity
 import com.rittmann.common_test.EspressoUtil.performBack
@@ -29,10 +29,9 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ListCryptoMovementsActivityTest : BaseTestActivity() {
+class ListCryptoMovementsFragmentTest : BaseTestActivity() {
 
-    private val cryptoDao: CryptoDao? =
-        AppDatabase.getDatabase(ApplicationProvider.getApplicationContext())?.cryptoDao()
+    private val cryptoDao: CryptoDao? = dataBase?.cryptoDao()
 
     @Before
     fun finish() {
@@ -49,14 +48,16 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
 
         cryptoDao?.insert(listInserted)
 
-        val activityScenario = getActivity<ListCryptoMovementsActivity>()
+        val fragmentScenario = launchFragmentInContainer<ListCryptoMovementsFragment>(
+            themeResId = R.style.Theme_InvestmentTracks
+        )
 
-        dataBindingIdlingResource.monitorActivity(activityScenario)
+        dataBindingIdlingResource.monitorFragment(fragmentScenario)
 
         var totalEarned = ""
         var totalInvested = ""
 
-        activityScenario.onActivity {
+        fragmentScenario.onFragment {
             val result = it.viewModel.cryptoMovementsList.getOrAwaitValue()
 
             totalEarned = it.viewModel.totalValueEarned.getOrAwaitValue()
@@ -74,7 +75,7 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
         checkValue(R.id.adapter_crypto_movement_type, newCryptoMovementMock.type.value)
         checkValue(
             R.id.adapter_crypto_movement_bought_amount,
-            newCryptoMovementMock.boughtAmount.toString()
+            newCryptoMovementMock.operatedAmount.toString()
         )
         checkValue(
             R.id.adapter_crypto_movement_current_value,
@@ -88,8 +89,6 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
 
         checkValue(R.id.txt_total_earned, totalEarned)
         checkValue(R.id.txt_total_invested, totalInvested)
-
-        activityScenario.close()
     }
 
     @Test
@@ -101,11 +100,13 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
 
         cryptoDao?.insert(listInserted)
 
-        val activityScenario = getActivity<ListCryptoMovementsActivity>()
+        val fragmentScenario = launchFragmentInContainer<ListCryptoMovementsFragment>(
+            themeResId = R.style.Theme_InvestmentTracks
+        )
 
-        dataBindingIdlingResource.monitorActivity(activityScenario)
+        dataBindingIdlingResource.monitorFragment(fragmentScenario)
 
-        activityScenario.onActivity {
+        fragmentScenario.onFragment {
             val result = it.viewModel.cryptoMovementsList.getOrAwaitValue()
 
             assertThat(result.succeeded, `is`(false))
@@ -121,22 +122,20 @@ class ListCryptoMovementsActivityTest : BaseTestActivity() {
 
         checkValue(R.id.txt_total_earned, "0.0")
         checkValue(R.id.txt_total_invested, "0.0")
-
-        activityScenario.close()
     }
 
     @Test
     fun openTheRegisterCrypto_WhenClickOnButton() {
         ListCryptoMovementsRepositoryImplTest.returnsError = false
 
-        val activityScenario = getActivity<ListCryptoMovementsActivity>()
+        val fragmentScenario = launchFragmentInContainer<ListCryptoMovementsFragment>(
+            themeResId = R.style.Theme_InvestmentTracks
+        )
 
-        dataBindingIdlingResource.monitorActivity(activityScenario)
+        dataBindingIdlingResource.monitorFragment(fragmentScenario)
 
         performClick(R.id.button_register_new_crypto)
 
         assertThat(getCurrentActivity() is RegisterCryptoMovementActivity, `is`(true))
-
-        activityScenario.close()
     }
 }

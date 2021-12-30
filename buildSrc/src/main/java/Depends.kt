@@ -69,7 +69,7 @@ object Depends {
     }
 
     object Robbie {
-        fun DependencyHandler.implementRobbie(){
+        fun DependencyHandler.implementRobbie() {
             implement("com.github.willigro:RobbieAndroidUtil:${Versions.ROBBIE}")
 
 //            implementLocalRobbie()
@@ -172,7 +172,8 @@ object Depends {
         const val EXPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO}"
         const val EXPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:${Versions.ESPRESSO}"
 
-        const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES}"
+        const val COROUTINES_TEST =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.COROUTINES}"
 
         const val MOCKK = "io.mockk:mockk-android:${Versions.MOCKK}"
 
@@ -190,7 +191,7 @@ object Depends {
             androidTestImplement(EXPRESSO_CONTRIB)
         }
 
-        fun DependencyHandler.implementEspressoTestAllInDebug(){
+        fun DependencyHandler.implementEspressoTestAllInDebug() {
             implement(EXPRESSO_CORE)
             implement(EXPRESSO_CONTRIB)
         }
@@ -222,6 +223,14 @@ object Depends {
     object ViewModel {
         fun DependencyHandler.implementViewModel() {
             implement("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL}")
+        }
+    }
+
+    object Navigation {
+        fun DependencyHandler.implementNavigation() {
+            implement("androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}")
+            implement("androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}")
+            implement("androidx.navigation:navigation-dynamic-features-fragment:${Versions.NAVIGATION}")
         }
     }
 }

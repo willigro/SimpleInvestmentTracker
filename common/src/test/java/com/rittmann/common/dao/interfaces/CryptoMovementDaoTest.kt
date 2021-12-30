@@ -61,7 +61,7 @@ class CryptoMovementDaoTest {
         assertThat(result.id, `is`(resultId))
         assertThat(result.date, `is`(newCrypto.date))
         assertThat(result.name, `is`(newCrypto.name))
-        assertThat(result.boughtAmount, `is`(newCrypto.boughtAmount))
+        assertThat(result.operatedAmount, `is`(newCrypto.operatedAmount))
         assertThat(result.totalValue, `is`(newCrypto.totalValue))
         assertThat(result.currentValue, `is`(newCrypto.currentValue))
         assertThat(result.tax, `is`(newCrypto.tax))
@@ -113,7 +113,7 @@ class CryptoMovementDaoTest {
             name = "Name updated",
             date = "11/11/1111",
             type = CryptoOperationType.SELL,
-            boughtAmount = 5.0,
+            operatedAmount = 5.0,
             currentValue = 50.0,
             totalValue = 250.0,
             tax = 5.0
@@ -129,7 +129,7 @@ class CryptoMovementDaoTest {
         assertThat(updatedCrypto.id, `is`(resultId))
         assertThat(updatedCrypto.date, `is`(cryptoToUpdate.date))
         assertThat(updatedCrypto.name, `is`(cryptoToUpdate.name))
-        assertThat(updatedCrypto.boughtAmount, `is`(cryptoToUpdate.boughtAmount))
+        assertThat(updatedCrypto.operatedAmount, `is`(cryptoToUpdate.operatedAmount))
         assertThat(updatedCrypto.totalValue, `is`(cryptoToUpdate.totalValue))
         assertThat(updatedCrypto.currentValue, `is`(cryptoToUpdate.currentValue))
         assertThat(updatedCrypto.tax, `is`(cryptoToUpdate.tax))

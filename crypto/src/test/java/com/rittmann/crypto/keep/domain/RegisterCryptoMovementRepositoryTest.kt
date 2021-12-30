@@ -41,7 +41,7 @@ class RegisterCryptoMovementRepositoryTest {
             assertThat(result.id, `is`(newCryptoMovementMock.id))
             assertThat(result.date, `is`(newCryptoMovementMock.date))
             assertThat(result.name, `is`(newCryptoMovementMock.name))
-            assertThat(result.boughtAmount, `is`(newCryptoMovementMock.boughtAmount))
+            assertThat(result.operatedAmount, `is`(newCryptoMovementMock.operatedAmount))
             assertThat(result.totalValue, `is`(newCryptoMovementMock.totalValue))
             assertThat(result.currentValue, `is`(newCryptoMovementMock.currentValue))
             assertThat(result.tax, `is`(newCryptoMovementMock.tax))

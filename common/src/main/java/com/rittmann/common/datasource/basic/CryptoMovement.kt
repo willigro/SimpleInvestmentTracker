@@ -23,8 +23,8 @@ data class CryptoMovement(
     @ColumnInfo(name = TableCryptoMovement.TYPE)
     var type: CryptoOperationType = CryptoOperationType.BUY,
 
-    @ColumnInfo(name = TableCryptoMovement.BOUGHT_AMOUNT)
-    var boughtAmount: Double = 0.0,
+    @ColumnInfo(name = TableCryptoMovement.OPERATED_AMOUNT)
+    var operatedAmount: Double = 0.0,
 
     @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE)
     var currentValue: Double = 0.0,

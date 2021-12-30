@@ -20,6 +20,9 @@ interface CryptoDao {
     @Query("SELECT * FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.ID} = :id")
     fun selectById(id: Long): CryptoMovement?
 
+    @Query("SELECT * FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.NAME} = :name COLLATE NOCASE")
+    fun selectByName(name: String): List<CryptoMovement>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(cryptoMovement: CryptoMovement): Long
 

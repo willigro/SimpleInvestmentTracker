@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".list.ui.ListCryptoMovementsActivity">
+        tools:context=".list.ui.ListCryptoMovementsFragment">
 
         <TextView
             android:id="@+id/txt_total_earned"

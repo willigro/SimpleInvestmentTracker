@@ -2,14 +2,21 @@ package com.rittmann.investmenttracks
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
-import com.rittmann.crypto.list.ui.ListCryptoMovementsActivity
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import kotlinx.android.synthetic.main.activity_main.bottom_nav
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ListCryptoMovementsActivity.start(this)
+        initNavigation()
+    }
+
+    private fun initNavigation() {
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        NavigationUI.setupWithNavController(bottom_nav, navController)
     }
 }

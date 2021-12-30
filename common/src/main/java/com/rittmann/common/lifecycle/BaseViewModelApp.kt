@@ -95,6 +95,16 @@ open class BaseViewModelApp(
             block()
         }
     }
+
+    fun <T> executeAsyncThenMain(io: () -> T, main: (result: T) -> Unit) {
+        executeAsync {
+            val result = io()
+
+            executeMain {
+                main(result)
+            }
+        }
+    }
 }
 
 interface DispatcherProvider {

@@ -1,16 +1,14 @@
 package com.rittmann.crypto.list.ui
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.rittmann.common.lifecycle.DefaultDispatcherProvider
-import com.rittmann.common_test.MainCoroutineRule
-import com.rittmann.common_test.getOrAwaitValue
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
-import com.rittmann.common_test.mock.listCryptoMovementMock
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
+import com.rittmann.common.lifecycle.DefaultDispatcherProvider
+import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.common_test.mock.currentTotalEarned
 import com.rittmann.common_test.mock.currentTotalInvested
+import com.rittmann.common_test.mock.listCryptoMovementMock
+import com.rittmann.crypto.BaseViewModelTest
+import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -19,19 +17,11 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.greaterThan
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
-class ListCryptoMovementsViewModelTest {
+class ListCryptoMovementsViewModelTest : BaseViewModelTest() {
 
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: ListCryptoMovementsViewModel
 
@@ -63,7 +53,13 @@ class ListCryptoMovementsViewModelTest {
         assertThat(list.size, greaterThan(0))
         assertThat(list.size, `is`(listCryptoMovementMock.size))
 
-        assertThat(viewModel.totalValueEarned.getOrAwaitValue(), `is`(currentTotalEarned.toString()))
-        assertThat(viewModel.totalValueInvested.getOrAwaitValue(), `is`(currentTotalInvested.toString()))
+        assertThat(
+            viewModel.totalValueEarned.getOrAwaitValue(),
+            `is`(currentTotalEarned.toString())
+        )
+        assertThat(
+            viewModel.totalValueInvested.getOrAwaitValue(),
+            `is`(currentTotalInvested.toString())
+        )
     }
 }

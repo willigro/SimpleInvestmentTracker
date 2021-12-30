@@ -68,4 +68,7 @@ object Versions {
 
     // ViewModel
     const val VIEWMODEL = "2.4.0"
+
+    // Navigation
+    const val NAVIGATION = "2.3.0"
 }

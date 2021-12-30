@@ -25,7 +25,7 @@ class RecyclerAdapterCryptoMovement(
                 name?.text = cryptoMovement.name
                 date?.text = cryptoMovement.date
                 type?.text = cryptoMovement.type.value
-                boughtAmount?.text = cryptoMovement.boughtAmount.toString()
+                boughtAmount?.text = cryptoMovement.operatedAmount.toString()
                 currentValue?.text = cryptoMovement.currentValue.toString()
                 totalValue?.text = cryptoMovement.totalValue.toString()
                 tax?.text = cryptoMovement.tax.toString()

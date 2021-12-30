@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/listCryptoMovementsFragment">
+
+    <fragment
+        android:id="@+id/listCryptoMovementsFragment"
+        android:name="com.rittmann.crypto.list.ui.ListCryptoMovementsFragment"
+        android:label="listCryptoMovementsFragment"
+        tools:layout="@layout/fragment_list_crypto_movements" />
+</navigation>

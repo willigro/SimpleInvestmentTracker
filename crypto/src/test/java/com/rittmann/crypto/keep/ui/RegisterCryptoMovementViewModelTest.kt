@@ -68,7 +68,7 @@ class RegisterCryptoMovementViewModelTest {
             assertThat(result.id, `is`(registeredCryptoMovementMock.id))
             assertThat(result.date, `is`(registeredCryptoMovementMock.date))
             assertThat(result.name, `is`(registeredCryptoMovementMock.name))
-            assertThat(result.boughtAmount, `is`(registeredCryptoMovementMock.boughtAmount))
+            assertThat(result.operatedAmount, `is`(registeredCryptoMovementMock.operatedAmount))
             assertThat(result.totalValue, `is`(registeredCryptoMovementMock.totalValue))
             assertThat(result.currentValue, `is`(registeredCryptoMovementMock.currentValue))
             assertThat(result.tax, `is`(registeredCryptoMovementMock.tax))

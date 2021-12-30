@@ -3,6 +3,7 @@ import Depends.AndroidTest.implementEspressoTest
 import Depends.Dagger.implementDagger
 import Depends.Kotlin.implementKotlinForModule
 import Depends.Module.implementAllModules
+import Depends.Navigation.implementNavigation
 import Depends.Robbie.implementRobbie
 import Depends.Room.implementRoom
 import Depends.Test.implementTest
@@ -44,4 +45,7 @@ dependencies {
 
     // =========== Dagger ==============
     implementDagger()
+
+    // =========== Navigation ==============
+    implementNavigation()
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.viewmodel.ViewModelFactory
 import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
 import com.rittmann.crypto.list.domain.ListCryptoMovementsRepositoryImpl
-import com.rittmann.crypto.list.ui.ListCryptoMovementsActivity
+import com.rittmann.crypto.list.ui.ListCryptoMovementsFragment
 import com.rittmann.crypto.list.ui.ListCryptoMovementsNavigation
 import com.rittmann.crypto.list.ui.ListCryptoMovementsNavigationImpl
 import com.rittmann.crypto.list.ui.ListCryptoMovementsViewModel
@@ -24,7 +24,7 @@ abstract class ListCryptoMovementsModuleBuilder {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ListCryptoMovementsModuleDependencies::class])
-    abstract fun bindListCryptoMovementsActivity(): ListCryptoMovementsActivity
+    abstract fun bindListCryptoMovementsActivity(): ListCryptoMovementsFragment
 }
 
 @Module(includes = [ListCryptoMovementsRepositoryModule::class])
@@ -43,8 +43,8 @@ abstract class ListCryptoMovementsModuleDependencies {
 
         @Provides
         @JvmStatic
-        fun providesListCryptoMovementsNavigation(activity: ListCryptoMovementsActivity): ListCryptoMovementsNavigation =
-            ListCryptoMovementsNavigationImpl(activity)
+        fun providesListCryptoMovementsNavigation(fragment: ListCryptoMovementsFragment): ListCryptoMovementsNavigation =
+            ListCryptoMovementsNavigationImpl(fragment)
     }
 }
 
