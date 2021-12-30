@@ -1,4 +1,4 @@
-package com.rittmann.crypto.list.ui
+package com.rittmann.crypto.listmovements.ui
 
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
@@ -8,7 +8,7 @@ import com.rittmann.common_test.mock.currentTotalEarned
 import com.rittmann.common_test.mock.currentTotalInvested
 import com.rittmann.common_test.mock.listCryptoMovementMock
 import com.rittmann.crypto.BaseViewModelTest
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
+import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

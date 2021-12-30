@@ -1,4 +1,4 @@
-package com.rittmann.crypto.list.ui
+package com.rittmann.crypto.listmovements.ui
 
 import android.view.LayoutInflater
 import android.view.View

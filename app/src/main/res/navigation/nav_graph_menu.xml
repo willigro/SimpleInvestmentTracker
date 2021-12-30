@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listCryptoMovementsFragment"
-        android:name="com.rittmann.crypto.list.ui.ListCryptoMovementsFragment"
+        android:name="com.rittmann.crypto.listmovements.ui.ListCryptoMovementsFragment"
         android:label="listCryptoMovementsFragment"
         tools:layout="@layout/fragment_list_crypto_movements" />
 </navigation>

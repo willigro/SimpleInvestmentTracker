@@ -1,11 +1,11 @@
-package com.rittmann.crypto.list.ui
+package com.rittmann.crypto.listmovements.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.common.lifecycle.DispatcherProvider
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
+import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepository
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.result.ResultEvent

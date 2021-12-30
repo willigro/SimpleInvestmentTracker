@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.rittmann.crypto.list.ui.ListCryptoMovementsViewModel" />
+            type="com.rittmann.crypto.listmovements.ui.ListCryptoMovementsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".list.ui.ListCryptoMovementsFragment">
+        tools:context=".listmovements.ui.ListCryptoMovementsFragment">
 
         <TextView
             android:id="@+id/txt_total_earned"

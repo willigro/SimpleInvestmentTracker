@@ -1,4 +1,4 @@
-package com.rittmann.crypto.list.ui
+package com.rittmann.crypto.listmovements.ui
 
 import android.content.Context
 import android.content.Intent

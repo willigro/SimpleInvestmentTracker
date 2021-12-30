@@ -1,14 +1,14 @@
-package com.rittmann.crypto.list.di
+package com.rittmann.crypto.listmovements.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.viewmodel.ViewModelFactory
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepository
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepositoryImpl
-import com.rittmann.crypto.list.ui.ListCryptoMovementsFragment
-import com.rittmann.crypto.list.ui.ListCryptoMovementsNavigation
-import com.rittmann.crypto.list.ui.ListCryptoMovementsNavigationImpl
-import com.rittmann.crypto.list.ui.ListCryptoMovementsViewModel
+import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepository
+import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepositoryImpl
+import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsFragment
+import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsNavigation
+import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsNavigationImpl
+import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsViewModel
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.di_utils.utils.ActivityScoped

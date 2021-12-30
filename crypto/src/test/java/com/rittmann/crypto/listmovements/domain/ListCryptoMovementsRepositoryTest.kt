@@ -1,4 +1,4 @@
-package com.rittmann.crypto.list.domain
+package com.rittmann.crypto.listmovements.domain
 
 import com.rittmann.common_test.mock.exceptionMock
 import com.rittmann.common_test.mock.listCryptoMovementMock

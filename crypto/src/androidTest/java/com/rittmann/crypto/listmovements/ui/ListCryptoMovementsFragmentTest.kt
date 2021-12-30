@@ -1,7 +1,6 @@
-package com.rittmann.crypto.list.ui
+package com.rittmann.crypto.listmovements.ui
 
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.Lifecycle
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
@@ -17,7 +16,7 @@ import com.rittmann.common_test.mock.newCryptoMovementMock
 import com.rittmann.crypto.BaseTestActivity
 import com.rittmann.crypto.R
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
-import com.rittmann.crypto.list.domain.ListCryptoMovementsRepositoryImplTest
+import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepositoryImplTest
 import com.rittmann.widgets.dialog.ModalUtil
 import io.mockk.MockKAnnotations
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -8,7 +8,7 @@
             android:exported="false"
             android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
         <activity
-            android:name=".list.ui.ListCryptoMovementsFragment"
+            android:name=".listmovements.ui.ListCryptoMovementsFragment"
             android:exported="false"
             android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
         <activity
