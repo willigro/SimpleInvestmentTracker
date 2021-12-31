@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.rittmann.common.datasource.dao.config.TableCryptoMovement
+import java.io.Serializable
 
 /**
  * I'm letting this stuff here cause I wanna see how use it from here
@@ -43,9 +44,9 @@ data class CryptoMovement(
 
     @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
     var taxCurrency: CurrencyType = CurrencyType.REAL,
-)
+) : Serializable
 
-enum class CryptoOperationType(val value: String) {
+enum class CryptoOperationType(val value: String) : Serializable {
     BUY("B"), SELL("S");
 
     companion object {
@@ -56,7 +57,7 @@ enum class CryptoOperationType(val value: String) {
     }
 }
 
-enum class CurrencyType(val value: String) {
+enum class CurrencyType(val value: String) : Serializable {
     REAL("r"), CRYPTO("c");
 
     companion object {

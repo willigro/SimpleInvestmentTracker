@@ -7,6 +7,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 interface RegisterCryptoMovementRepository {
 
     suspend fun registerCrypto(cryptoMovement: CryptoMovement): ResultEvent<CryptoMovement>
+    suspend fun updateCrypto(cryptoMovement: CryptoMovement): ResultEvent<Int>
 }
 
 class RegisterCryptoMovementRepositoryImpl(
@@ -19,6 +20,14 @@ class RegisterCryptoMovementRepositoryImpl(
                 cryptoMovement.id = it
                 ResultEvent.Success(cryptoMovement)
             }
+        } catch (e: Exception) {
+            ResultEvent.Error(e)
+        }
+    }
+
+    override suspend fun updateCrypto(cryptoMovement: CryptoMovement): ResultEvent<Int> {
+        return try {
+            ResultEvent.Success(cryptoDao.update(cryptoMovement))
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

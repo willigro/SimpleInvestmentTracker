@@ -18,21 +18,52 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<CryptoMovement>>()
     val registerResultEvent: LiveData<ResultEvent<CryptoMovement>> get() = _registerResultEvent
 
-    val cryptoMovement: CryptoMovement = CryptoMovement()
+    private val _updateResultEvent: MutableLiveData<ResultEvent<Int>> =
+        MutableLiveData<ResultEvent<Int>>()
+    val updateResultEvent: LiveData<ResultEvent<Int>> get() = _updateResultEvent
 
-    fun registerCrypto() {
+    var cryptoMovement: MutableLiveData<CryptoMovement> = MutableLiveData(CryptoMovement())
+
+    fun attachCryptoMovementForUpdate(cryptoMovement: CryptoMovement?) {
+        cryptoMovement?.also {
+            this.cryptoMovement.value = cryptoMovement
+        }
+    }
+
+    fun saveCrypto() {
         showProgress()
         executeAsync {
-            val result = registerCryptoMovementRepository.registerCrypto(cryptoMovement)
+            if (cryptoMovement.value?.id == 0L)
+                insertNewCrypto()
+            else
+                updateCrypto()
+        }
+    }
+
+    private suspend fun insertNewCrypto() {
+        cryptoMovement.value?.also {
+            val result = registerCryptoMovementRepository.registerCrypto(it)
 
             executeMain {
                 _registerResultEvent.value = result
+
+                if (result is ResultEvent.Success)
+                    cryptoMovement.value?.id = result.data.id
+
+                hideProgress()
             }
+        } ?: hideProgress()
+    }
 
-            if (result is ResultEvent.Success)
-                cryptoMovement.id = result.data.id
+    private suspend fun updateCrypto() {
+        cryptoMovement.value?.also {
+            val result = registerCryptoMovementRepository.updateCrypto(it)
 
-            hideProgress()
-        }
+            executeMain {
+                _updateResultEvent.value = result
+
+                hideProgress()
+            }
+        } ?: hideProgress()
     }
 }

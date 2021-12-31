@@ -10,6 +10,7 @@ import com.rittmann.common.datasource.basic.CryptoMovement
 
 class RecyclerAdapterCryptoMovement(
     private val list: List<CryptoMovement>,
+    private val navigation: ListCryptoMovementsNavigation
 ) : RecyclerView.Adapter<RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoMovementViewHolder {
@@ -29,6 +30,10 @@ class RecyclerAdapterCryptoMovement(
                 currentValue?.text = cryptoMovement.currentValue.toString()
                 totalValue?.text = cryptoMovement.totalValue.toString()
                 tax?.text = cryptoMovement.tax.toString()
+
+                layout?.setOnClickListener {
+                    navigation.goToUpdateCrypto(cryptoMovement)
+                }
             }
         }
     }
@@ -45,6 +50,7 @@ class RecyclerAdapterCryptoMovement(
     }
 
     class CryptoMovementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
         val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
         val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)

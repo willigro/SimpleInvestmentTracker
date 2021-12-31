@@ -1,10 +1,12 @@
 package com.rittmann.crypto.listmovements.ui
 
+import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
 
 interface ListCryptoMovementsNavigation {
     fun close()
     fun goToRegisterNewCrypto()
+    fun goToUpdateCrypto(cryptoMovement: CryptoMovement)
 }
 
 class ListCryptoMovementsNavigationImpl(
@@ -22,5 +24,9 @@ class ListCryptoMovementsNavigationImpl(
 
     override fun goToRegisterNewCrypto() {
         RegisterCryptoMovementActivity.start(fragment.requireContext())
+    }
+
+    override fun goToUpdateCrypto(cryptoMovement: CryptoMovement) {
+        RegisterCryptoMovementActivity.start(fragment.requireContext(), cryptoMovement)
     }
 }

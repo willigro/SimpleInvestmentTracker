@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.extensions.toast
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.validations.FieldValidation
@@ -24,31 +25,46 @@ class RegisterCryptoMovementActivity :
     lateinit var registerCryptoNavigation: RegisterCryptoNavigation
 
     @VisibleForTesting
-    lateinit var movementViewModel: RegisterCryptoMovementViewModel
+    lateinit var viewModel: RegisterCryptoMovementViewModel
 
     private var field: FieldValidation? = null
+
+    private val cryptoMovement: CryptoMovement? by lazy {
+        intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as CryptoMovement?
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        movementViewModel = viewModelProvider(viewModelFactory)
-        binding.viewModel = movementViewModel
+        viewModel = viewModelProvider(viewModelFactory)
+        binding.viewModel = viewModel
 
         initViews()
         initObservers()
+
+        viewModel.attachCryptoMovementForUpdate(cryptoMovement)
     }
 
     private fun initObservers() {
-        movementViewModel.apply {
+        viewModel.apply {
             registerResultEvent.observe(this@RegisterCryptoMovementActivity, {
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_registered))
-
-                        registerCryptoNavigation.close()
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_registered))
+                    }
+                }
+            })
+
+            updateResultEvent.observe(this@RegisterCryptoMovementActivity, {
+                when (it) {
+                    is ResultEvent.Success -> {
+                        toast(getString(R.string.new_crypto_movement_was_updated))
+                    }
+                    else -> {
+                        toast(getString(R.string.new_crypto_movement_was_not_updated))
                     }
                 }
             })
@@ -70,8 +86,18 @@ class RegisterCryptoMovementActivity :
     }
 
     companion object {
+
+        private const val CRYPTO_MOVEMENT = "cm"
+
         fun start(context: Context) {
             context.startActivity(Intent(context, RegisterCryptoMovementActivity::class.java))
+        }
+
+        fun start(context: Context, cryptoMovement: CryptoMovement) {
+            Intent(context, RegisterCryptoMovementActivity::class.java).apply {
+                putExtra(CRYPTO_MOVEMENT, cryptoMovement)
+                context.startActivity(this)
+            }
         }
     }
 }

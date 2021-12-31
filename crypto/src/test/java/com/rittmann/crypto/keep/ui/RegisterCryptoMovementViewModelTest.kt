@@ -2,6 +2,7 @@ package com.rittmann.crypto.keep.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import com.rittmann.common_test.mock.registeredCryptoMovementMock
@@ -31,7 +32,7 @@ class RegisterCryptoMovementViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var movementViewModel: RegisterCryptoMovementViewModel
+    private lateinit var viewModel: RegisterCryptoMovementViewModel
 
     @MockK
     private lateinit var movementRepository: RegisterCryptoMovementRepository
@@ -40,7 +41,7 @@ class RegisterCryptoMovementViewModelTest {
     fun setupViewModel() {
         MockKAnnotations.init(this)
 
-        movementViewModel = RegisterCryptoMovementViewModel(
+        viewModel = RegisterCryptoMovementViewModel(
             movementRepository,
             DefaultDispatcherProvider()
         )
@@ -50,15 +51,17 @@ class RegisterCryptoMovementViewModelTest {
     fun `register a new crypto currency and handle the success case`() {
         mainCoroutineRule.pauseDispatcher()
 
-        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(registeredCryptoMovementMock)
+        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(
+            registeredCryptoMovementMock
+        )
 
-        movementViewModel.registerCrypto()
+        viewModel.saveCrypto()
 
-        assertThat(movementViewModel.isLoading.getOrAwaitValue(), `is`(true))
+        assertThat(viewModel.isLoading.getOrAwaitValue(), `is`(true))
 
         mainCoroutineRule.resumeDispatcher()
 
-        val resultEvent = movementViewModel.registerResultEvent.getOrAwaitValue()
+        val resultEvent = viewModel.registerResultEvent.getOrAwaitValue()
 
         assertThat(resultEvent.succeeded, `is`(true))
 
@@ -74,6 +77,27 @@ class RegisterCryptoMovementViewModelTest {
             assertThat(result.tax, `is`(registeredCryptoMovementMock.tax))
         }
 
-        assertThat(movementViewModel.isLoading.getOrAwaitValue(), `is`(false))
+        assertThat(viewModel.isLoading.getOrAwaitValue(), `is`(false))
+    }
+
+    @Test
+    fun `update a crypto movement and handler its success case`() {
+        viewModel.attachCryptoMovementForUpdate(CryptoMovement(id = 1L))
+
+        mainCoroutineRule.pauseDispatcher()
+
+        coEvery { movementRepository.updateCrypto(any()) } returns ResultEvent.Success(1)
+
+        viewModel.saveCrypto()
+
+        assertThat(viewModel.isLoading.getOrAwaitValue(), `is`(true))
+
+        mainCoroutineRule.resumeDispatcher()
+
+        val resultEvent = viewModel.updateResultEvent.getOrAwaitValue()
+
+        assertThat(resultEvent.succeeded, `is`(true))
+        assertThat((resultEvent as ResultEvent.Success).data, `is`(1))
+        assertThat(viewModel.isLoading.getOrAwaitValue(), `is`(false))
     }
 }

@@ -1,16 +1,14 @@
 package com.rittmann.crypto.listmovements.ui
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
-import com.rittmann.common.viewmodel.viewModelProvider
-import com.rittmann.crypto.R
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.lifecycle.BaseFragmentBinding
+import com.rittmann.common.viewmodel.viewModelProvider
+import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.FragmentListCryptoMovementsBinding
 import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
@@ -60,7 +58,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     is ResultEvent.Success -> {
                         binding.apply {
                             if (adapter == null) {
-                                adapter = RecyclerAdapterCryptoMovement(result.data)
+                                adapter = RecyclerAdapterCryptoMovement(result.data, listCryptoMovementsNavigation)
 
                                 recyclerCryptoMovement.linearLayoutManager()
                                 recyclerCryptoMovement.adapter = adapter
@@ -79,12 +77,6 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     }
                 }
             })
-        }
-    }
-
-    companion object {
-        fun start(context: Context) {
-            context.startActivity(Intent(context, ListCryptoMovementsFragment::class.java))
         }
     }
 }
