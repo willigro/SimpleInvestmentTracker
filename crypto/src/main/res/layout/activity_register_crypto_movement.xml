@@ -24,15 +24,11 @@
             android:background="@color/robbie_color_brand_dark_primary_pure"
             tools:context=".keep.ui.RegisterCryptoMovementActivity">
 
-            <com.rittmann.common.customs.CustomEditText
-                android:id="@+id/edit_crypto_date"
-                style="@style/Robbie.TextInput.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:labelText="Date"
-                app:layout_constraintTop_toTopOf="parent"
-                app:textFromEdit="@={viewModel.cryptoMovement.date}"
-                tools:ignore="TextFields" />
+            <TextView
+                android:id="@+id/txt_crypto_date"
+                style="@style/Robbie.Paragraph1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_name"
@@ -40,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Name"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_date"
+                app:layout_constraintTop_toBottomOf="@id/txt_crypto_date"
                 app:textFromEdit="@={viewModel.cryptoMovement.name}" />
 
             <RadioGroup

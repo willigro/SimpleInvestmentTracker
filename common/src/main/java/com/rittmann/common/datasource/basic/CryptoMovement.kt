@@ -44,7 +44,9 @@ data class CryptoMovement(
 
     @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
     var taxCurrency: CurrencyType = CurrencyType.REAL,
-) : Serializable
+) : Serializable, Ponjo() {
+    override fun isInserting(): Boolean = id == 0L
+}
 
 enum class CryptoOperationType(val value: String) : Serializable {
     BUY("B"), SELL("S");

@@ -27,6 +27,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<List<String>>>()
     val cryptoNamesResultEvent: LiveData<ResultEvent<List<String>>> get() = _cryptoNamesResultEvent
 
+    private val _dateRetrieved: MutableLiveData<String> =
+        MutableLiveData<String>()
+    val dateRetrieved: LiveData<String> get() = _dateRetrieved
+
     var cryptoMovement: MutableLiveData<CryptoMovement> = MutableLiveData(CryptoMovement())
 
     fun attachCryptoMovementForUpdate(cryptoMovement: CryptoMovement?) {
@@ -89,5 +93,13 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     fun onCryptoOperationTypeChanged(type: CryptoOperationType) {
         cryptoMovement.value?.type = type
         cryptoMovement.value = cryptoMovement.value
+    }
+
+    fun changeDate(date: String) {
+        cryptoMovement.value?.date = date
+    }
+
+    fun retrieveDate() {
+        _dateRetrieved.postValue(cryptoMovement.value?.date.orEmpty())
     }
 }
