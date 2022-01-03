@@ -70,10 +70,10 @@ open class BaseViewModelApp(
     }
 
     protected fun executeAsync(
-            dispatcherProvider: DispatcherProvider = this.dispatcherProvider,
-            dispatcher: CoroutineDispatcher = Dispatchers.IO,
-            scope: CoroutineScope = viewModelScope,
-            block: suspend () -> Unit
+        dispatcherProvider: DispatcherProvider = this.dispatcherProvider,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        scope: CoroutineScope = viewModelScope,
+        block: suspend () -> Unit
     ) {
         val dp = when (dispatcher) {
             Dispatchers.IO -> dispatcherProvider.io()
@@ -88,8 +88,8 @@ open class BaseViewModelApp(
     }
 
     fun executeMain(
-            scope: CoroutineScope = viewModelScope,
-            block: suspend () -> Unit
+        scope: CoroutineScope = viewModelScope,
+        block: suspend () -> Unit
     ) {
         (viewModelScopeGen ?: scope).launch(dispatcherProvider.main()) {
             block()
@@ -97,6 +97,16 @@ open class BaseViewModelApp(
     }
 
     fun <T> executeAsyncThenMain(io: () -> T, main: (result: T) -> Unit) {
+        executeAsync {
+            val result = io()
+
+            executeMain {
+                main(result)
+            }
+        }
+    }
+
+    fun <T> executeAsyncThenMainSuspend(io: suspend () -> T, main: (result: T) -> Unit) {
         executeAsync {
             val result = io()
 

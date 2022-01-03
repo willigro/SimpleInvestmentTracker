@@ -23,6 +23,9 @@ interface CryptoDao {
     @Query("SELECT * FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.NAME} = :name COLLATE NOCASE")
     fun selectByName(name: String): List<CryptoMovement>
 
+    @Query("SELECT DISTINCT ${TableCryptoMovement.NAME} FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.NAME} LIKE :name")
+    fun selectNamesLike(name: String): List<String>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(cryptoMovement: CryptoMovement): Long
 

@@ -23,6 +23,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<Int>>()
     val updateResultEvent: LiveData<ResultEvent<Int>> get() = _updateResultEvent
 
+    private val _cryptoNamesResultEvent: MutableLiveData<ResultEvent<List<String>>> =
+        MutableLiveData<ResultEvent<List<String>>>()
+    val cryptoNamesResultEvent: LiveData<ResultEvent<List<String>>> get() = _cryptoNamesResultEvent
+
     var cryptoMovement: MutableLiveData<CryptoMovement> = MutableLiveData(CryptoMovement())
 
     fun attachCryptoMovementForUpdate(cryptoMovement: CryptoMovement?) {
@@ -39,6 +43,20 @@ class RegisterCryptoMovementViewModel @Inject constructor(
             else
                 updateCrypto()
         }
+    }
+
+    fun fetchCryptos(nameLike: String) {
+        if (nameLike.isEmpty())
+            _cryptoNamesResultEvent.postValue(ResultEvent.Success(arrayListOf()))
+        else
+            executeAsyncThenMainSuspend(
+                io = {
+                    registerCryptoMovementRepository.fetchCryptoNames(nameLike)
+                },
+                main = {
+                    _cryptoNamesResultEvent.value = it
+                }
+            )
     }
 
     private suspend fun insertNewCrypto() {
