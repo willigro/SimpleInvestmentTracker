@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="cryptoResultViewBinding"
+            type="com.rittmann.crypto.results.ui.CryptoResultViewBinding" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/container_crypto_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- TOTAL -->
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_earned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_earned"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:valueText="@{cryptoResultViewBinding.totalEarned}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_invested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_invested"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_earned"
+            app:valueText="@{cryptoResultViewBinding.totalInvested}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_on_hand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_on_hand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_invested"
+            app:valueText="@{cryptoResultViewBinding.totalOnHand}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_on_hand_without_tax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_on_hand_without_tax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand"
+            app:valueText="@{cryptoResultViewBinding.totalOnHandWithoutTax}" />
+
+        <!-- AMOUNT -->
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_bought_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_bought_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
+            app:valueText="@{cryptoResultViewBinding.totalBoughtAmount}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_sold_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_sold_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_bought_amount"
+            app:valueText="@{cryptoResultViewBinding.totalSoldAmount}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_on_hand_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_on_hand_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount"
+            app:valueText="@{cryptoResultViewBinding.totalOnHandAmount}" />
+
+        <!-- TAX -->
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_tax_paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_LabelText="@string/crypto_movement_total_tax_paid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount"
+            app:valueText="@{cryptoResultViewBinding.totalTaxPaid}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

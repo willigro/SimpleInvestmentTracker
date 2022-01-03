@@ -4,4 +4,9 @@
         <attr name="labelText" format="string" />
         <attr name="inputTypeEdit" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CustomLabelValueText">
+        <attr name="labelValue_LabelText" format="string" />
+        <attr name="labelValue_ValueText" format="string" />
+    </declare-styleable>
 </resources>

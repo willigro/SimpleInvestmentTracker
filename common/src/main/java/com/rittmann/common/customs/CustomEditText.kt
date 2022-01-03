@@ -33,6 +33,15 @@ fun CustomEditText.textFromEdit(): String {
     return this.editText?.text?.toString() ?: ""
 }
 
+@BindingAdapter("labelText")
+fun CustomEditText.labelText(value: String?) {
+    this.textView.text = value
+    if (value != tag) { // Store the original value
+        tag = value   // To prevent duplicate/extra modification
+        this.textView.text = value
+    }
+}
+
 @BindingAdapter(value = ["textFromEditAttrChanged"])
 fun CustomEditText.setListener(textAttrChanged: InverseBindingListener?) {
     if (textAttrChanged != null) {
@@ -54,7 +63,7 @@ class CustomEditText @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private var textView: TextView
+     var textView: TextView
     private var label = ""
     private var inputTypeEdit = ""
 
@@ -64,7 +73,7 @@ class CustomEditText @JvmOverloads constructor(
         isClickable = true
         isFocusable = false
 
-        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_button_color_transparent))
+        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
 
         context.withStyledAttributes(attrs, R.styleable.CustomEditText) {
             label = getString(R.styleable.CustomEditText_labelText).toString()

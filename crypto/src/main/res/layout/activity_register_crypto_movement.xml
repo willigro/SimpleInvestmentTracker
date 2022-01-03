@@ -7,6 +7,8 @@
 
         <import type="com.rittmann.common.customs.Converter" />
 
+        <import type="com.rittmann.common.datasource.basic.CryptoOperationType" />
+
         <variable
             name="viewModel"
             type="com.rittmann.crypto.keep.ui.RegisterCryptoMovementViewModel" />
@@ -24,7 +26,7 @@
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_date"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Date"
@@ -34,34 +36,50 @@
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_name"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Name"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_date"
                 app:textFromEdit="@={viewModel.cryptoMovement.name}" />
 
-            <com.rittmann.common.customs.CustomEditText
-                android:id="@+id/edit_crypto_operation_type"
-                style="@style/Robbie.TextInput"
+            <RadioGroup
+                android:id="@+id/radio_group_crypto_operation_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Operation type"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name"
-                app:textFromEdit="@{viewModel.cryptoMovement.type.value}" />
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name">
+
+                <RadioButton
+                    android:id="@+id/radio_crypto_operation_type_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.cryptoMovement.type.value == CryptoOperationType.BUY.value}"
+                    android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.BUY)}"
+                    android:text="@string/crypto_movement_type_buy" />
+
+                <RadioButton
+                    android:id="@+id/radio_crypto_operation_type_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.cryptoMovement.type.value == CryptoOperationType.SELL.value}"
+                    android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.SELL)}"
+                    android:text="@string/crypto_movement_type_sell" />
+            </RadioGroup>
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_bought_amount"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Bought amount"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_operation_type"
+                app:labelText="@{(viewModel.cryptoMovement.type.value == CryptoOperationType.BUY.value) ? @string/crypto_movement_total_bought_amount : @string/crypto_movement_total_sold_amount}"
+                app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.operatedAmount)}" />
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_current_value"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Current value"
@@ -70,7 +88,7 @@
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_total_value"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Total value"
@@ -79,7 +97,7 @@
 
             <com.rittmann.common.customs.CustomEditText
                 android:id="@+id/edit_crypto_tax"
-                style="@style/Robbie.TextInput"
+                style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Tax"

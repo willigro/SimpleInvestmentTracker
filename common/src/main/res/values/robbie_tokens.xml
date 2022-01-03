@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="robbie_color_brand_dark_primary_pure">#FFF</color>
+    <color name="robbie_input_text_background">#FFF</color>
+</resources>

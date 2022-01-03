@@ -2,4 +2,6 @@
 <resources>
     <item name="edit_custom_id" type="id"/>
     <item name="spinner_custom_id" type="id"/>
+    <item name="value_label_custom_label_id" type="id"/>
+    <item name="value_label_custom_value_id" type="id"/>
 </resources>

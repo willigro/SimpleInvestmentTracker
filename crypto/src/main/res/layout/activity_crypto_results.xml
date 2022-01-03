@@ -18,63 +18,17 @@
         <TextView
             android:id="@+id/txt_crypto_results_title"
             style="@style/Robbie.H1.Bold"
-            android:text="@{viewModel.cryptoResultViewBinding.title}"
+            android:text="@{viewModel.title}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TOTAL -->
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_earned"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalEarned}"
-            app:layout_constraintStart_toStartOf="parent"
+        <include
+            layout="@layout/crypto_movements_results"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cryptoResultViewBinding="@{viewModel.cryptoResultViewBinding}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_title" />
 
-        <TextView
-            android:id="@+id/txt_crypto_results_total_invested"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalInvested}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_earned" />
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_on_hand"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalOnHand}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_invested" />
-
-        <!-- AMOUNT -->
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_bought_amount"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalBoughtAmount}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand" />
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_sold_amount"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalSoldAmount}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_bought_amount" />
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_on_hand_amount"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalOnHandAmount}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount" />
-
-        <!-- TAX -->
-
-        <TextView
-            android:id="@+id/txt_crypto_results_total_tax_paid"
-            style="@style/Robbie.Paragraph1"
-            android:text="@{viewModel.cryptoResultViewBinding.totalTaxPaid}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

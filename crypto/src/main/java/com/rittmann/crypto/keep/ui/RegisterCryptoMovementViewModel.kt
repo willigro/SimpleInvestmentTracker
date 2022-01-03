@@ -6,6 +6,7 @@ import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
@@ -65,5 +66,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                 hideProgress()
             }
         } ?: hideProgress()
+    }
+
+    fun onCryptoOperationTypeChanged(type: CryptoOperationType) {
+        cryptoMovement.value?.type = type
+        cryptoMovement.value = cryptoMovement.value
     }
 }

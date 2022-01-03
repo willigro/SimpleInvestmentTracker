@@ -14,6 +14,13 @@
         android:layout_height="match_parent"
         tools:context=".listcryptos.ui.ListCryptosFragment">
 
+        <include
+            layout="@layout/crypto_movements_results"
+            app:cryptoResultViewBinding="@{viewModel.cryptoResultViewBinding}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_cryptos"
             android:layout_width="match_parent"
@@ -21,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/container_crypto_results" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
