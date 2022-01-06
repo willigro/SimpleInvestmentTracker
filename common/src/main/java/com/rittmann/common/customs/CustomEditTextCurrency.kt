@@ -18,8 +18,8 @@ import androidx.databinding.InverseBindingListener
 import com.rittmann.common.R
 import com.rittmann.common.extensions.toIntOrZero
 import com.rittmann.common.utils.EditCurrency
-import com.rittmann.common.utils.FormatCurrency
-import com.rittmann.common.utils.FormatCurrency.Companion.DEFAULT_SCALE
+import com.rittmann.common.utils.EditCurrency.Companion.DEFAULT_SCALE
+import com.rittmann.common.utils.EditCurrency.Companion.SCALE_LIMIT
 
 
 @BindingAdapter("textFromEdit")
@@ -175,7 +175,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
 
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
-                if (count < FormatCurrency.SCALE_LIMIT) {
+                if (count < SCALE_LIMIT) {
                     count++
                     if (editCurrency?.setScale(count) == true)
                         textViewScale?.text = count.toString()

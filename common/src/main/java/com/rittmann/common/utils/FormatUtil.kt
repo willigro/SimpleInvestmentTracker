@@ -96,24 +96,23 @@ object FormatUtil {
 }
 
 class FormatCurrency(
-    var times: Int = DEFAULT_SCALE
+
 ) {
     var currencyFormatted: String = "0"
     var normalCurrency: BigDecimal = BigDecimal("0.0")
-    var decimal: Int = "1${"0".repeat(times)}".toInt()
 
-    fun format(newCurrency: String): String {
+    fun format(newCurrency: String, scale: Int, decimal: Int): String {
 
         val cleanString = newCurrency.clearCurrency()
 
-        val parsed = BigDecimal(cleanString).setScale(times)
+        val parsed = BigDecimal(cleanString).setScale(scale)
 
-        normalCurrency = parsed.div(BigDecimal(decimal).setScale(times))
+        normalCurrency = parsed.div(BigDecimal(decimal).setScale(scale))
 
-        val formatted = FormatUtil.applyCurrency(normalCurrency.toDouble(), times).let {
+        val formatted = FormatUtil.applyCurrency(normalCurrency.toDouble(), scale).let {
             val diff = it.split(",")[1].length
-            if (diff < times)
-                it + "0".repeat(times - diff)
+            if (diff < scale)
+                it + "0".repeat(scale - diff)
             else
                 it
         }
@@ -123,43 +122,12 @@ class FormatCurrency(
         return currencyFormatted
     }
 
-    fun normalize(cost: Double): Double {
+    fun normalize(cost: Double, decimal: Int): Double {
         return cost * decimal
     }
 
     fun isDifferent(currency: String): Boolean {
         return currency.clearCurrency().toDoubleValid() !=
                 currencyFormatted.clearCurrency().toDoubleValid()
-    }
-
-    fun setScale(scale: Int): Boolean {
-        return if (scale < SCALE_LIMIT) {
-            times = scale
-            decimal = "1${"0".repeat(times)}".toInt()
-            true
-        } else
-            false
-    }
-
-    fun setScaleIfIsDifferent(currency: String): Int {
-        val scale = when {
-            currency.contains(",") -> {
-                currency.split(",")[1].length
-            }
-            currency.contains(".") -> {
-                currency.split(".")[1].length
-            }
-            else -> times
-        }
-
-        if (scale != times)
-            setScale(scale)
-
-        return scale
-    }
-
-    companion object {
-        const val DEFAULT_SCALE = 5
-        const val SCALE_LIMIT = 10
     }
 }

@@ -3,12 +3,16 @@ package com.rittmann.common.utils
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import java.text.DecimalFormat
 
-class EditCurrency(private val editText: EditText, scale: Int) {
+class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCALE) {
 
-    private val formatCurrency = FormatCurrency(scale)
+    private val formatCurrency = FormatCurrency()
     private var watcher: TextWatcher? = null
+    var decimal: Int = 10
+
+    init {
+        setScaleAndDecimal(scale)
+    }
 
     init {
         watcher = object : TextWatcher {
@@ -26,33 +30,17 @@ class EditCurrency(private val editText: EditText, scale: Int) {
         }
 
         editText.addTextChangedListener(watcher)
-        editText.setText(formatCurrency.format("0"))
+        editText.setText(formatCurrency.format("0", scale, decimal))
     }
 
     private fun formatTheInput(currency: String) {
         watcher?.apply {
             editText.removeTextChangedListener(this)
 
-            formatCurrency.format(currency).also { formatted ->
+            formatCurrency.format(currency, scale, decimal).also { formatted ->
                 editText.setText(formatted)
                 editText.setSelection(formatted.length)
                 editText.addTextChangedListener(this)
-            }
-        }
-    }
-
-//    fun getValue(): Double {
-//        return formatCurrency.normalCurrency
-//    }
-
-    fun setCurrency(currency: Double) {
-        formatCurrency.normalize(currency).also { normalized ->
-            try {
-                val df = DecimalFormat("#")
-                df.maximumFractionDigits = 2
-                editText.setText(df.format(normalized))
-            } catch (e: Exception) {
-                editText.setText(normalized.toString())
             }
         }
     }
@@ -64,12 +52,41 @@ class EditCurrency(private val editText: EditText, scale: Int) {
     fun normalCurrency() = formatCurrency.normalCurrency
 
     fun setScale(scale: Int): Boolean {
-        return if (formatCurrency.setScale(scale)) {
+        return if (setScaleAndDecimal(scale)) {
             formatTheInput(editText.text.toString())
             true
         } else
             false
     }
 
-    fun setScaleIfIsDifferent(currency: String) = formatCurrency.setScaleIfIsDifferent(currency)
+    fun setScaleAndDecimal(scale: Int): Boolean {
+        return if (scale < SCALE_LIMIT) {
+            this.scale = scale
+            decimal = "1${"0".repeat(this.scale)}".toInt()
+            true
+        } else
+            false
+    }
+
+    fun setScaleIfIsDifferent(currency: String): Int {
+        val scale = when {
+            currency.contains(",") -> {
+                currency.split(",").last().length
+            }
+            currency.contains(".") -> {
+                currency.split(".").last().length
+            }
+            else -> scale
+        }
+
+        if (scale != this.scale)
+            setScale(scale)
+
+        return scale
+    }
+
+    companion object {
+        const val DEFAULT_SCALE = 5
+        const val SCALE_LIMIT = 10
+    }
 }
