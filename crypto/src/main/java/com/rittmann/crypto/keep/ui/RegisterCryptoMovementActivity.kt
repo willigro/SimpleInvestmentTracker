@@ -20,8 +20,10 @@ import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
 import java.util.*
 import javax.inject.Inject
 
-class RegisterCryptoMovementActivity :
-    BaseBindingActivity<ActivityRegisterCryptoMovementBinding>(R.layout.activity_register_crypto_movement) {
+class RegisterCryptoMovementActivity
+    : BaseBindingActivity<ActivityRegisterCryptoMovementBinding>(
+    R.layout.activity_register_crypto_movement
+) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -78,7 +80,6 @@ class RegisterCryptoMovementActivity :
                 runValidations()
             }
 
-
             editCryptoName.editText?.also { edit ->
                 editTextSearch = EditTextSearch(edit) {
                     this@RegisterCryptoMovementActivity.viewModel.fetchCryptos(it)
@@ -105,6 +106,7 @@ class RegisterCryptoMovementActivity :
                     ).show()
                 }
             }
+
         }
     }
 

@@ -2,6 +2,7 @@ package com.rittmann.common.extensions
 
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 fun String.isInt(): Boolean {
@@ -71,4 +72,53 @@ fun String.timeLabel(timeUnit: TimeUnit): String {
         }
         else -> ""
     }
+}
+
+fun String.toDoubleValid(): Double {
+    if (this.isEmpty()) {
+        return 0.0
+    }
+
+    return try {
+        toDouble()
+    } catch (e: Exception) {
+        0.0
+    }
+}
+
+fun String.toDoubleValid(places: Int): Double {
+    if (this.isEmpty()) {
+        return 0.0
+    }
+
+    return try {
+        BigDecimal(this).setScale(places).toPlainString().toDouble()
+    } catch (e: Exception) {
+        0.0
+    }
+}
+
+fun String.clearCurrency(): String {
+    return replace("R$", "")
+        .replace(".", "")
+        .apply {
+//            if (containsCount('.') > 1)
+//            val dot = contains(".")
+//            replace(".", "")
+
+//            if (dot && contains(","))
+//                replace(",", ".")
+//            else
+//            replace(",", "")
+        }
+        .replace(",", "")
+        .trim()
+}
+
+fun String.containsCount(c: Char): Int {
+    var count = 0
+    this.forEach {
+        if (it == c) count++
+    }
+    return count
 }

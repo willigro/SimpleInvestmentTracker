@@ -73,16 +73,16 @@
                 app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.operatedAmount)}" />
 
-            <com.rittmann.common.customs.CustomEditText
+            <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_current_value"
                 style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Current value"
+                app:labelText="@string/crypto_movement_current_value"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.currentValue)}" />
 
-            <com.rittmann.common.customs.CustomEditText
+            <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_total_value"
                 style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
@@ -114,7 +114,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintHeight_max="300dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name" />
+                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name"
+                tools:itemCount="2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -8,6 +8,7 @@
     <string name="new_crypto_movement_was_not_registered">Your new crypto movement was not registered</string>
     <string name="crypto_movement_type_buy">Buy</string>
     <string name="crypto_movement_type_sell">Sell</string>
+    <string name="crypto_movement_current_value">Current value</string>
 
     <!-- Update Crypto -->
     <string name="new_crypto_movement_was_updated">Your new crypto movement was updated</string>

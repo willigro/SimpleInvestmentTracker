@@ -6,7 +6,6 @@
     </declare-styleable>
 
     <declare-styleable name="CustomLabelValueText">
-        <attr name="labelValue_LabelText" format="string" />
-        <attr name="labelValue_ValueText" format="string" />
+        <attr name="valueText" format="string" />
     </declare-styleable>
 </resources>

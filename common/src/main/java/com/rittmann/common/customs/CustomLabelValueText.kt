@@ -44,8 +44,8 @@ class CustomLabelValueText @JvmOverloads constructor(
         setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
 
         context.withStyledAttributes(attrs, R.styleable.CustomLabelValueText) {
-            label = getString(R.styleable.CustomLabelValueText_labelValue_LabelText).toString()
-            value = getString(R.styleable.CustomLabelValueText_labelValue_ValueText).toString()
+            label = getString(R.styleable.CustomEditText_labelText).toString()
+            value = getString(R.styleable.CustomLabelValueText_valueText).toString()
         }
 
         textViewLabel = TextView(context).apply {
