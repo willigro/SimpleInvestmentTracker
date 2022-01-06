@@ -3,12 +3,17 @@ package com.rittmann.common.utils
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.lifecycle.MutableLiveData
+import java.math.BigDecimal
 
 class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCALE) {
 
     private val formatCurrency = FormatCurrency()
     private var watcher: TextWatcher? = null
     var decimal: Int = 10
+
+    var onChangeScale: MutableLiveData<Int> = MutableLiveData<Int>()
+    var onChangeValue: MutableLiveData<BigDecimal> = MutableLiveData<BigDecimal>()
 
     init {
         setScaleAndDecimal(scale)
@@ -30,7 +35,7 @@ class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCAL
         }
 
         editText.addTextChangedListener(watcher)
-        editText.setText(formatCurrency.format("0", scale, decimal))
+        setCurrency("0")
     }
 
     private fun formatTheInput(currency: String) {
@@ -41,6 +46,9 @@ class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCAL
                 editText.setText(formatted)
                 editText.setSelection(formatted.length)
                 editText.addTextChangedListener(this)
+
+                if (onChangeValue.hasActiveObservers())
+                    onChangeValue.value = normalCurrency()
             }
         }
     }
@@ -49,20 +57,23 @@ class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCAL
         editText.setText(currency)
     }
 
-    fun normalCurrency() = formatCurrency.normalCurrency
-
-    fun setScale(scale: Int): Boolean {
-        return if (setScaleAndDecimal(scale)) {
-            formatTheInput(editText.text.toString())
-            true
-        } else
-            false
+    fun setCurrency(currency: Double) {
+        formatTheInput(BigDecimal(currency).setScale(scale, BigDecimal.ROUND_CEILING).toPlainString())
     }
 
-    fun setScaleAndDecimal(scale: Int): Boolean {
+    fun normalCurrency() = formatCurrency.normalCurrency
+
+    fun changeScale(scale: Int) {
+        if (setScaleAndDecimal(scale))
+            formatTheInput(editText.text.toString())
+    }
+
+    private fun setScaleAndDecimal(scale: Int): Boolean {
         return if (scale < SCALE_LIMIT) {
             this.scale = scale
             decimal = "1${"0".repeat(this.scale)}".toInt()
+
+            onChangeScale.value = scale
             true
         } else
             false
@@ -80,7 +91,7 @@ class EditCurrency(private val editText: EditText, var scale: Int = DEFAULT_SCAL
         }
 
         if (scale != this.scale)
-            setScale(scale)
+            changeScale(scale)
 
         return scale
     }

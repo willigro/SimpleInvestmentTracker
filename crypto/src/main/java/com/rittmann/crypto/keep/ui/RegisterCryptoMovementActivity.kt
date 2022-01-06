@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
+import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toast
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.utils.DateUtil
@@ -107,6 +109,30 @@ class RegisterCryptoMovementActivity
                 }
             }
 
+            editCryptoCurrentValue.editCurrency?.onChangeScale?.observeForever {
+                if (checkboxUpdateTotalValue.isChecked)
+                    editCryptoTotalValue.editCurrency?.changeScale(it)
+            }
+
+            editCryptoCurrentValue.editCurrency?.onChangeValue?.observeForever {
+                if (checkboxUpdateTotalValue.isChecked) {
+                    val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
+                    val currentValue =
+                        editCryptoCurrentValue.editCurrency?.normalCurrency().toDoubleValid()
+
+                    editCryptoTotalValue.editCurrency?.setCurrency(amount * currentValue)
+                }
+            }
+
+            editCryptoBoughtAmount.editText?.doAfterTextChanged {
+                if (checkboxUpdateTotalValue.isChecked) {
+                    val amount = it.toString().toDoubleValid()
+                    val currentValue =
+                        editCryptoCurrentValue.editCurrency?.normalCurrency().toDoubleValid()
+
+                    editCryptoTotalValue.editCurrency?.setCurrency(amount * currentValue)
+                }
+            }
         }
     }
 

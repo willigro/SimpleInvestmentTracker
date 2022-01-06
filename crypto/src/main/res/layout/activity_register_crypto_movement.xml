@@ -82,13 +82,21 @@
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.currentValue)}" />
 
+            <CheckBox
+                android:id="@+id/checkbox_update_total_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/crypto_movement_update_the_total_according_by_current_and_amount"
+                app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value" />
+
             <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_total_value"
                 style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:labelText="Total value"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value"
+                app:layout_constraintTop_toBottomOf="@id/checkbox_update_total_value"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.totalValue)}" />
 
             <com.rittmann.common.customs.CustomEditText

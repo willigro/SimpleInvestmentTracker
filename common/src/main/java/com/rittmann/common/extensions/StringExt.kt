@@ -99,20 +99,13 @@ fun String.toDoubleValid(places: Int): Double {
 }
 
 fun String.clearCurrency(): String {
-    return replace("R$", "")
-        .replace(".", "")
-        .apply {
-//            if (containsCount('.') > 1)
-//            val dot = contains(".")
-//            replace(".", "")
+    var r = replace("R$", "")
+//        .replace(".", "")
 
-//            if (dot && contains(","))
-//                replace(",", ".")
-//            else
-//            replace(",", "")
-        }
-        .replace(",", "")
-        .trim()
+    if (contains("E").not())
+        r = r.replace(".", "")
+
+    return r.replace(",", "").trim()
 }
 
 fun String.containsCount(c: Char): Int {

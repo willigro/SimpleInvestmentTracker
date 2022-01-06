@@ -24,13 +24,7 @@ import com.rittmann.common.utils.EditCurrency.Companion.SCALE_LIMIT
 
 @BindingAdapter("textFromEdit")
 fun CustomEditTextCurrency.textFromEdit(value: String?) {
-    if (editText?.tag == null) {
-        editCurrency?.setScaleIfIsDifferent(value.orEmpty())?.also {
-            textViewScale?.text = it.toString()
-        }
-        editText?.tag = 1
-    }
-    editCurrency?.setCurrency(value)
+    setTextEditText(value)
 }
 
 @InverseBindingAdapter(attribute = "textFromEdit")
@@ -49,7 +43,7 @@ fun CustomEditTextCurrency.labelText(value: String?) {
 
 @BindingAdapter("valueScale")
 fun CustomEditTextCurrency.valueScale(value: Int) {
-    editCurrency?.setScale(value)
+    editCurrency?.changeScale(value)
 }
 
 @BindingAdapter(value = ["textFromEditAttrChanged"])
@@ -145,9 +139,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count > 1) {
-                    count--
-                    if (editCurrency?.setScale(count) == true)
-                        textViewScale?.text = count.toString()
+                    editCurrency?.changeScale(--count)
                 }
             }
         }
@@ -176,13 +168,15 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count < SCALE_LIMIT) {
-                    count++
-                    if (editCurrency?.setScale(count) == true)
-                        textViewScale?.text = count.toString()
+                    editCurrency?.changeScale(++count)
                 }
             }
         }
         linear.addView(viewAddScale)
+
+        editCurrency?.onChangeScale?.observeForever {
+            textViewScale?.text = it.toString()
+        }
     }
 
     private fun addCurrencyInput() {
@@ -214,9 +208,13 @@ class CustomEditTextCurrency @JvmOverloads constructor(
         return true
     }
 
-    fun setTextEditText(txt: String?) {
-        editText?.setText(txt)
-        val index = txt?.length ?: 0
-        editText?.setSelection(index)
+    fun setTextEditText(value: String?) {
+        if (editText?.tag == null) {
+            editCurrency?.setScaleIfIsDifferent(value.orEmpty())?.also {
+                textViewScale?.text = it.toString()
+            }
+            editText?.tag = 1
+        }
+        editCurrency?.setCurrency(value)
     }
 }
