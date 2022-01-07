@@ -64,11 +64,12 @@
                     android:text="@string/crypto_movement_type_sell" />
             </RadioGroup>
 
-            <com.rittmann.common.customs.CustomEditText
+            <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_bought_amount"
                 style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:formatType="decimal"
                 app:labelText="@{(viewModel.cryptoMovement.type.value == CryptoOperationType.BUY.value) ? @string/crypto_movement_total_bought_amount : @string/crypto_movement_total_sold_amount}"
                 app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.operatedAmount)}" />

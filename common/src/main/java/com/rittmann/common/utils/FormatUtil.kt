@@ -1,6 +1,7 @@
 package com.rittmann.common.utils
 
 import com.rittmann.common.extensions.clearCurrency
+import com.rittmann.common.extensions.clearDecimal
 import com.rittmann.common.extensions.toDoubleValid
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -95,13 +96,17 @@ object FormatUtil {
         }.format(value)
 }
 
-class FormatCurrency(
+interface FormatDecimal {
+    fun format(newCurrency: String, scale: Int, decimal: Int): String
+    fun isDifferent(currency: String): Boolean
+    fun retrieveValue() : BigDecimal
+}
 
-) {
+class FormatCurrency : FormatDecimal {
     var currencyFormatted: String = "0"
     var normalCurrency: BigDecimal = BigDecimal("0.0")
 
-    fun format(newCurrency: String, scale: Int, decimal: Int): String {
+    override fun format(newCurrency: String, scale: Int, decimal: Int): String {
 
         val cleanString = newCurrency.clearCurrency()
 
@@ -122,12 +127,43 @@ class FormatCurrency(
         return currencyFormatted
     }
 
-    fun normalize(cost: Double, decimal: Int): Double {
-        return cost * decimal
-    }
-
-    fun isDifferent(currency: String): Boolean {
+    override fun isDifferent(currency: String): Boolean {
         return currency.clearCurrency().toDoubleValid() !=
                 currencyFormatted.clearCurrency().toDoubleValid()
     }
+
+    override fun retrieveValue(): BigDecimal = normalCurrency
+}
+
+class FormatNormalDecimal : FormatDecimal {
+    var currencyFormatted: String = "0"
+    var normalCurrency: BigDecimal = BigDecimal("0.0")
+
+    override fun format(newCurrency: String, scale: Int, decimal: Int): String {
+
+        val cleanString = newCurrency.clearDecimal()
+
+        val parsed = BigDecimal(cleanString).setScale(scale)
+
+        normalCurrency = parsed.div(BigDecimal(decimal).setScale(scale))
+
+        val formatted = normalCurrency.toPlainString().let {
+            val diff = it.split(".")[1].length
+            if (diff < scale)
+                it + "0".repeat(scale - diff)
+            else
+                it
+        }
+
+        currencyFormatted = formatted
+
+        return currencyFormatted
+    }
+
+    override fun isDifferent(currency: String): Boolean {
+        return currency.clearCurrency().toDoubleValid() !=
+                currencyFormatted.clearCurrency().toDoubleValid()
+    }
+
+    override fun retrieveValue(): BigDecimal = normalCurrency
 }

@@ -108,6 +108,14 @@ fun String.clearCurrency(): String {
     return r.replace(",", "").trim()
 }
 
+fun String.clearDecimal(): String {
+    var r = this
+    if (contains("E").not())
+        r = r.replace(".", "")
+
+    return r.replace(",", "").trim()
+}
+
 fun String.containsCount(c: Char): Int {
     var count = 0
     this.forEach {

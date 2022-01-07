@@ -109,18 +109,18 @@ class RegisterCryptoMovementActivity
                 }
             }
 
-            editCryptoCurrentValue.editCurrency?.onChangeScale?.observeForever {
+            editCryptoCurrentValue.editDecimalFormartController?.onChangeScale?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked)
-                    editCryptoTotalValue.editCurrency?.changeScale(it)
+                    editCryptoTotalValue.editDecimalFormartController?.changeScale(it)
             }
 
-            editCryptoCurrentValue.editCurrency?.onChangeValue?.observeForever {
+            editCryptoCurrentValue.editDecimalFormartController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editCurrency?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormartController?.normalCurrency().toDoubleValid()
 
-                    editCryptoTotalValue.editCurrency?.setCurrency(amount * currentValue)
+                    editCryptoTotalValue.editDecimalFormartController?.setCurrency(amount * currentValue)
                 }
             }
 
@@ -128,9 +128,9 @@ class RegisterCryptoMovementActivity
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = it.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editCurrency?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormartController?.normalCurrency().toDoubleValid()
 
-                    editCryptoTotalValue.editCurrency?.setCurrency(amount * currentValue)
+                    editCryptoTotalValue.editDecimalFormartController?.setCurrency(amount * currentValue)
                 }
             }
         }
