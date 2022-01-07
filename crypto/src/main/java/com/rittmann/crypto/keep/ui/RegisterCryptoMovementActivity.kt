@@ -84,7 +84,10 @@ class RegisterCryptoMovementActivity
 
             editCryptoName.editText?.also { edit ->
                 editTextSearch = EditTextSearch(edit) {
-                    this@RegisterCryptoMovementActivity.viewModel.fetchCryptos(it)
+                    if (edit.tag == true)
+                        this@RegisterCryptoMovementActivity.viewModel.fetchCryptos(it)
+                    else
+                        edit.tag = true
                 }
             }
 
@@ -118,7 +121,8 @@ class RegisterCryptoMovementActivity
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency()
+                            .toDoubleValid()
 
                     editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
                 }
@@ -128,7 +132,8 @@ class RegisterCryptoMovementActivity
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = it.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency()
+                            .toDoubleValid()
 
                     editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
                 }
