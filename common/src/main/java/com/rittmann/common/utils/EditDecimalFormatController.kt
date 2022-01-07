@@ -4,12 +4,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
+import com.rittmann.common.datasource.basic.CurrencyType
 import java.math.BigDecimal
 
-class EditDecimalFormartController(
+class EditDecimalFormatController(
     private val editText: EditText,
     var scale: Int = DEFAULT_SCALE,
-    var formatDecimal: FormatDecimal = FormatCurrency()
+    var formatDecimal: FormatDecimal = FormatCurrency(CurrencyType.REAL)
 ) {
 
     private var watcher: TextWatcher? = null

@@ -100,11 +100,12 @@
                 app:layout_constraintTop_toBottomOf="@id/checkbox_update_total_value"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.totalValue)}" />
 
-            <com.rittmann.common.customs.CustomEditText
+            <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_tax"
                 style="@style/Robbie.TextInput.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:currencyType="crypto"
                 app:labelText="Tax"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
                 app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.tax)}" />

@@ -16,10 +16,11 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.rittmann.common.R
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.extensions.toIntOrZero
-import com.rittmann.common.utils.EditDecimalFormartController
-import com.rittmann.common.utils.EditDecimalFormartController.Companion.DEFAULT_SCALE
-import com.rittmann.common.utils.EditDecimalFormartController.Companion.SCALE_LIMIT
+import com.rittmann.common.utils.EditDecimalFormatController
+import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
+import com.rittmann.common.utils.EditDecimalFormatController.Companion.SCALE_LIMIT
 import com.rittmann.common.utils.FormatCurrency
 import com.rittmann.common.utils.FormatNormalDecimal
 
@@ -31,7 +32,7 @@ fun CustomEditTextCurrency.textFromEdit(value: String?) {
 
 @InverseBindingAdapter(attribute = "textFromEdit")
 fun CustomEditTextCurrency.textFromEdit(): String {
-    return this.editDecimalFormartController?.normalCurrency().toString()
+    return this.editDecimalFormatController?.normalCurrency().toString()
 }
 
 @BindingAdapter("labelText")
@@ -45,7 +46,7 @@ fun CustomEditTextCurrency.labelText(value: String?) {
 
 @BindingAdapter("valueScale")
 fun CustomEditTextCurrency.valueScale(value: Int) {
-    editDecimalFormartController?.changeScale(value)
+    editDecimalFormatController?.changeScale(value)
 }
 
 @BindingAdapter(value = ["textFromEditAttrChanged"])
@@ -69,7 +70,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    var editDecimalFormartController: EditDecimalFormartController? = null
+    var editDecimalFormatController: EditDecimalFormatController? = null
     var textView: TextView? = null
     var editText: EditText? = null
     var textViewScale: TextView? = null
@@ -82,6 +83,8 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     private var formatType = ""
     private var inputValueScale = DEFAULT_SCALE
 
+    var currencyType: CurrencyType = CurrencyType.REAL
+
     init {
         isClickable = true
         isFocusable = false
@@ -92,6 +95,8 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             label = getString(R.styleable.CustomEditText_labelText).toString()
             inputTypeEdit = getString(R.styleable.CustomEditText_inputTypeEdit).toString()
             formatType = getString(R.styleable.CustomEditText_formatType).toString()
+            currencyType =
+                if (getString(R.styleable.CustomEditText_currencyType).toString() == "crypto") CurrencyType.CRYPTO else CurrencyType.REAL
         }
 
         orientation = VERTICAL
@@ -143,7 +148,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count > 1) {
-                    editDecimalFormartController?.changeScale(--count)
+                    editDecimalFormatController?.changeScale(--count)
                 }
             }
         }
@@ -172,13 +177,13 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count < SCALE_LIMIT) {
-                    editDecimalFormartController?.changeScale(++count)
+                    editDecimalFormatController?.changeScale(++count)
                 }
             }
         }
         linear.addView(viewAddScale)
 
-        editDecimalFormartController?.onChangeScale?.observeForever {
+        editDecimalFormatController?.onChangeScale?.observeForever {
             textViewScale?.text = it.toString()
         }
     }
@@ -199,9 +204,10 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             id = R.id.edit_custom_id
 
             val formatter =
-                if (formatType == "decimal")  FormatNormalDecimal() else FormatCurrency()
+                if (formatType == "decimal") FormatNormalDecimal() else FormatCurrency(currencyType)
 
-            editDecimalFormartController = EditDecimalFormartController(this, inputValueScale, formatter)
+            editDecimalFormatController =
+                EditDecimalFormatController(this, inputValueScale, formatter)
         }
 
         addView(editText)
@@ -217,11 +223,11 @@ class CustomEditTextCurrency @JvmOverloads constructor(
 
     fun setTextEditText(value: String?) {
         if (editText?.tag == null) {
-            editDecimalFormartController?.setScaleIfIsDifferent(value.orEmpty())?.also {
+            editDecimalFormatController?.setScaleIfIsDifferent(value.orEmpty())?.also {
                 textViewScale?.text = it.toString()
             }
             editText?.tag = 1
         }
-        editDecimalFormartController?.setCurrency(value)
+        editDecimalFormatController?.setCurrency(value)
     }
 }

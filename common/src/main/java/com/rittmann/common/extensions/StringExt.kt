@@ -2,6 +2,7 @@ package com.rittmann.common.extensions
 
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
+import com.rittmann.common.utils.FormatUtil
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -99,8 +100,9 @@ fun String.toDoubleValid(places: Int): Double {
 }
 
 fun String.clearCurrency(): String {
-    var r = replace("R$", "")
-//        .replace(".", "")
+    var r = replace(
+        FormatUtil.CURRENCY_SYMBOL_DEFAULT_COIN, ""
+    ).replace(FormatUtil.CURRENCY_SYMBOL_REAL, "")
 
     if (contains("E").not())
         r = r.replace(".", "")

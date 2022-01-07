@@ -1,10 +1,13 @@
 package com.rittmann.common.utils
 
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.extensions.clearCurrency
 import com.rittmann.common.extensions.clearDecimal
 import com.rittmann.common.extensions.toDoubleValid
+import com.rittmann.common.utils.FormatUtil.CURRENCY_SYMBOL_DEFAULT_COIN
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -81,28 +84,43 @@ import java.util.Locale
 object FormatUtil {
     fun applyCurrency(
         value: Double,
-        format: DecimalFormat
+        scale: Int
     ): String =
         NumberFormat.getCurrencyInstance(Locale("pt", "BR")).apply {
-            maximumFractionDigits = format.maximumFractionDigits
+            maximumFractionDigits = scale
         }.format(value)
 
     fun applyCurrency(
         value: Double,
-        format: Int
-    ): String =
-        NumberFormat.getCurrencyInstance(Locale("pt", "BR")).apply {
-            maximumFractionDigits = format
-        }.format(value)
+        scale: Int,
+        currencySymbol: String
+    ): String {
+        val df = NumberFormat.getCurrencyInstance()
+        val dfs = DecimalFormatSymbols()
+        dfs.currencySymbol = currencySymbol.let {
+            if (it.contains(" ").not())
+                "$it "
+            else
+                it
+        }
+        dfs.groupingSeparator = '.'
+        dfs.monetaryDecimalSeparator = ','
+        (df as DecimalFormat).decimalFormatSymbols = dfs
+        df.maximumFractionDigits = scale
+        return df.format(value)
+    }
+
+    const val CURRENCY_SYMBOL_REAL = "R$"
+    const val CURRENCY_SYMBOL_DEFAULT_COIN = "C"
 }
 
 interface FormatDecimal {
     fun format(newCurrency: String, scale: Int, decimal: Int): String
     fun isDifferent(currency: String): Boolean
-    fun retrieveValue() : BigDecimal
+    fun retrieveValue(): BigDecimal
 }
 
-class FormatCurrency : FormatDecimal {
+class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
     var currencyFormatted: String = "0"
     var normalCurrency: BigDecimal = BigDecimal("0.0")
 
@@ -114,15 +132,24 @@ class FormatCurrency : FormatDecimal {
 
         normalCurrency = parsed.div(BigDecimal(decimal).setScale(scale))
 
-        val formatted = FormatUtil.applyCurrency(normalCurrency.toDouble(), scale).let {
+        val formatted =
+            if (currencyType == CurrencyType.REAL) {
+                FormatUtil.applyCurrency(normalCurrency.toDouble(), scale)
+            } else {
+                FormatUtil.applyCurrency(
+                    normalCurrency.toDouble(),
+                    scale,
+                    CURRENCY_SYMBOL_DEFAULT_COIN
+                )
+            }
+
+        currencyFormatted = formatted.let {
             val diff = it.split(",")[1].length
             if (diff < scale)
                 it + "0".repeat(scale - diff)
             else
                 it
         }
-
-        currencyFormatted = formatted
 
         return currencyFormatted
     }

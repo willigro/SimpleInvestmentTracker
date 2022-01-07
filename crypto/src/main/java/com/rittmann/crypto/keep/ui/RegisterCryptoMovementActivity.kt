@@ -109,18 +109,18 @@ class RegisterCryptoMovementActivity
                 }
             }
 
-            editCryptoCurrentValue.editDecimalFormartController?.onChangeScale?.observeForever {
+            editCryptoCurrentValue.editDecimalFormatController?.onChangeScale?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked)
-                    editCryptoTotalValue.editDecimalFormartController?.changeScale(it)
+                    editCryptoTotalValue.editDecimalFormatController?.changeScale(it)
             }
 
-            editCryptoCurrentValue.editDecimalFormartController?.onChangeValue?.observeForever {
+            editCryptoCurrentValue.editDecimalFormatController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editDecimalFormartController?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency().toDoubleValid()
 
-                    editCryptoTotalValue.editDecimalFormartController?.setCurrency(amount * currentValue)
+                    editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
                 }
             }
 
@@ -128,9 +128,9 @@ class RegisterCryptoMovementActivity
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = it.toString().toDoubleValid()
                     val currentValue =
-                        editCryptoCurrentValue.editDecimalFormartController?.normalCurrency().toDoubleValid()
+                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency().toDoubleValid()
 
-                    editCryptoTotalValue.editDecimalFormartController?.setCurrency(amount * currentValue)
+                    editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
                 }
             }
         }
