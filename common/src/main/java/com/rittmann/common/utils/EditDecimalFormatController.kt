@@ -39,7 +39,7 @@ class EditDecimalFormatController(
         }
 
         editText.addTextChangedListener(watcher)
-        setCurrency("0")
+        setCurrency(0.0)
     }
 
     private fun formatTheInput(currency: String) {
@@ -55,10 +55,6 @@ class EditDecimalFormatController(
                     onChangeValue.value = normalCurrency()
             }
         }
-    }
-
-    fun setCurrency(currency: String?) {
-        editText.setText(currency)
     }
 
     fun setCurrency(currency: Double) {
@@ -86,13 +82,14 @@ class EditDecimalFormatController(
             false
     }
 
-    fun setScaleIfIsDifferent(currency: String): Int {
+    fun setScaleIfIsDifferent(currency: Double): Int {
+        val string = currency.toString()
         val scale = when {
-            currency.contains(",") -> {
-                currency.split(",").last().length
+            string.contains(",") -> {
+                string.split(",").last().length
             }
-            currency.contains(".") -> {
-                currency.split(".").last().length
+            string.contains(".") -> {
+                string.split(".").last().length
             }
             else -> scale
         }

@@ -73,7 +73,7 @@
                 app:formatType="decimal"
                 app:labelText="@{(viewModel.cryptoMovement.type.value == CryptoOperationType.BUY.value) ? @string/crypto_movement_total_bought_amount : @string/crypto_movement_total_sold_amount}"
                 app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.operatedAmount)}" />
+                app:textFromEdit="@={viewModel.cryptoMovement.operatedAmount}" />
 
             <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_current_value"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 app:labelText="@string/crypto_movement_current_value"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.currentValue)}" />
+                app:textFromEdit="@={viewModel.cryptoMovement.currentValue}" />
 
             <CheckBox
                 android:id="@+id/checkbox_update_total_value"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 app:labelText="Total value"
                 app:layout_constraintTop_toBottomOf="@id/checkbox_update_total_value"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.totalValue)}" />
+                app:textFromEdit="@={viewModel.cryptoMovement.totalValue}" />
 
             <com.rittmann.common.customs.CustomEditTextCurrency
                 android:id="@+id/edit_crypto_tax"
@@ -109,7 +109,7 @@
                 app:currencyType="crypto"
                 app:labelText="Tax"
                 app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
-                app:textFromEdit="@={Converter.doubleToString(viewModel.cryptoMovement.tax)}" />
+                app:textFromEdit="@={viewModel.cryptoMovement.tax}" />
 
             <Button
                 android:id="@+id/btn_register"

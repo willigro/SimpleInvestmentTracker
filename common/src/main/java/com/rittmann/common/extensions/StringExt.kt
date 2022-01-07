@@ -100,9 +100,8 @@ fun String.toDoubleValid(places: Int): Double {
 }
 
 fun String.clearCurrency(): String {
-    var r = replace(
-        FormatUtil.CURRENCY_SYMBOL_DEFAULT_COIN, ""
-    ).replace(FormatUtil.CURRENCY_SYMBOL_REAL, "")
+    var r = replace(FormatUtil.CURRENCY_SYMBOL_DEFAULT_COIN, "")
+        .replace(FormatUtil.CURRENCY_SYMBOL_REAL, "")
 
     if (contains("E").not())
         r = r.replace(".", "")

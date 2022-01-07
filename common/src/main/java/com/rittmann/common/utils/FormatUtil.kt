@@ -5,6 +5,7 @@ import com.rittmann.common.extensions.clearCurrency
 import com.rittmann.common.extensions.clearDecimal
 import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.utils.FormatUtil.CURRENCY_SYMBOL_DEFAULT_COIN
+import com.rittmann.common.utils.FormatUtil.CURRENCY_SYMBOL_REAL
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -118,10 +119,11 @@ interface FormatDecimal {
     fun format(newCurrency: String, scale: Int, decimal: Int): String
     fun isDifferent(currency: String): Boolean
     fun retrieveValue(): BigDecimal
+    fun hasFormat(): Boolean
 }
 
 class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
-    var currencyFormatted: String = "0"
+    var currencyFormatted: String = ""
     var normalCurrency: BigDecimal = BigDecimal("0.0")
 
     override fun format(newCurrency: String, scale: Int, decimal: Int): String {
@@ -155,11 +157,18 @@ class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
     }
 
     override fun isDifferent(currency: String): Boolean {
+        if (currencyFormatted.isEmpty()) return true
+
         return currency.clearCurrency().toDoubleValid() !=
                 currencyFormatted.clearCurrency().toDoubleValid()
     }
 
     override fun retrieveValue(): BigDecimal = normalCurrency
+
+    override fun hasFormat(): Boolean {
+        return currencyFormatted.contains(CURRENCY_SYMBOL_REAL) ||
+                currencyFormatted.contains(CURRENCY_SYMBOL_DEFAULT_COIN)
+    }
 }
 
 class FormatNormalDecimal : FormatDecimal {
@@ -193,4 +202,8 @@ class FormatNormalDecimal : FormatDecimal {
     }
 
     override fun retrieveValue(): BigDecimal = normalCurrency
+
+    override fun hasFormat(): Boolean {
+        return currencyFormatted.isNotEmpty()
+    }
 }

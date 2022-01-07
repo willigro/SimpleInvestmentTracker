@@ -17,6 +17,7 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.rittmann.common.R
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toIntOrZero
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
@@ -26,13 +27,13 @@ import com.rittmann.common.utils.FormatNormalDecimal
 
 
 @BindingAdapter("textFromEdit")
-fun CustomEditTextCurrency.textFromEdit(value: String?) {
+fun CustomEditTextCurrency.textFromEdit(value: Double) {
     setTextEditText(value)
 }
 
 @InverseBindingAdapter(attribute = "textFromEdit")
-fun CustomEditTextCurrency.textFromEdit(): String {
-    return this.editDecimalFormatController?.normalCurrency().toString()
+fun CustomEditTextCurrency.textFromEdit(): Double {
+    return this.editDecimalFormatController?.normalCurrency().toDoubleValid()
 }
 
 @BindingAdapter("labelText")
@@ -221,9 +222,9 @@ class CustomEditTextCurrency @JvmOverloads constructor(
         return true
     }
 
-    fun setTextEditText(value: String?) {
+    fun setTextEditText(value: Double) {
         if (editText?.tag == null) {
-            editDecimalFormatController?.setScaleIfIsDifferent(value.orEmpty())?.also {
+            editDecimalFormatController?.setScaleIfIsDifferent(value)?.also {
                 textViewScale?.text = it.toString()
             }
             editText?.tag = 1
