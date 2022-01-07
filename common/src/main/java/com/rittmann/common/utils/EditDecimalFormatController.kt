@@ -18,12 +18,11 @@ class EditDecimalFormatController(
 
     var onChangeScale: MutableLiveData<Int> = MutableLiveData<Int>()
     var onChangeValue: MutableLiveData<BigDecimal> = MutableLiveData<BigDecimal>()
+    var onChangeCurrencyType: MutableLiveData<CurrencyType> = MutableLiveData<CurrencyType>()
 
     init {
         setScaleAndDecimal(scale)
-    }
 
-    init {
         watcher = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
@@ -98,6 +97,23 @@ class EditDecimalFormatController(
             changeScale(scale)
 
         return scale
+    }
+
+    fun setCurrencyType(currencyType: CurrencyType) {
+        if (formatDecimal is FormatCurrency) {
+            (formatDecimal as FormatCurrency).currencyType = currencyType
+
+            onChangeCurrencyType.value = currencyType
+
+            formatTheInput(editText.text.toString())
+        }
+    }
+
+    fun getCurrencyType(): CurrencyType {
+        return if (formatDecimal is FormatCurrency) {
+            (formatDecimal as FormatCurrency).currencyType
+        } else
+            CurrencyType.REAL
     }
 
     companion object {

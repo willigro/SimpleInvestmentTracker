@@ -4,7 +4,6 @@
         <attr name="labelText" format="string" />
         <attr name="inputTypeEdit" format="string" />
         <attr name="formatType" format="string" />
-        <attr name="currencyType" format="string" />
     </declare-styleable>
 
     <declare-styleable name="CustomLabelValueText">
