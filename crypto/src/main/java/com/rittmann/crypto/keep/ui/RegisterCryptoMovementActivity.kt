@@ -117,6 +117,11 @@ class RegisterCryptoMovementActivity
                     editCryptoTotalValue.editDecimalFormatController?.changeScale(it)
             }
 
+            editCryptoCurrentValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
+                if (checkboxUpdateTotalValue.isChecked)
+                    editCryptoTotalValue.editDecimalFormatController?.setCurrencyType(it)
+            }
+
             editCryptoCurrentValue.editDecimalFormatController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
                     val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
