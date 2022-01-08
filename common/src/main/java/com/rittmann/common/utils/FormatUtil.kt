@@ -159,8 +159,10 @@ class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
     override fun isDifferent(currency: String): Boolean {
         if (currencyFormatted.isEmpty()) return true
 
-        return currency.clearCurrency().toDoubleValid() !=
-                currencyFormatted.clearCurrency().toDoubleValid()
+//        return currency.clearCurrency().toDoubleValid() !=
+//                currencyFormatted.clearCurrency().toDoubleValid()
+
+        return currency != currencyFormatted
     }
 
     override fun retrieveValue(): BigDecimal = normalCurrency
@@ -197,8 +199,10 @@ class FormatNormalDecimal : FormatDecimal {
     }
 
     override fun isDifferent(currency: String): Boolean {
-        return currency.clearCurrency().toDoubleValid() !=
-                currencyFormatted.clearCurrency().toDoubleValid()
+//        return currency.clearCurrency().toDoubleValid() !=
+//                currencyFormatted.clearCurrency().toDoubleValid()
+
+        return currency != currencyFormatted
     }
 
     override fun retrieveValue(): BigDecimal = normalCurrency
