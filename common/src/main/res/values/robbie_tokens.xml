@@ -2,4 +2,6 @@
 <resources>
     <color name="robbie_color_brand_dark_primary_pure">#FFF</color>
     <color name="robbie_input_text_background">#FFF</color>
+
+    <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>
 </resources>

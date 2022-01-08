@@ -5,9 +5,12 @@ import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.databinding.BindingAdapter
@@ -15,8 +18,10 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.rittmann.common.R
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.extensions.gone
 import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toIntOrZero
+import com.rittmann.common.extensions.visible
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.SCALE_LIMIT
@@ -87,11 +92,13 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     var textView: TextView? = null
     var editText: EditText? = null
     var textViewScale: TextView? = null
+    var imageOpenOptions: ImageView? = null
     private var textViewScaleLabel: TextView? = null
     private var viewAddScale: TextView? = null
     private var viewRemoveScale: TextView? = null
     private var textViewReal: TextView? = null
     private var textViewCrypto: TextView? = null
+    private var containerOptions: LinearLayout? = null
 
     private var label = ""
     private var inputTypeEdit = ""
@@ -112,6 +119,8 @@ class CustomEditTextCurrency @JvmOverloads constructor(
 
         orientation = VERTICAL
 
+        createContainerForOptions()
+
         addLabel()
 
         addInput()
@@ -120,10 +129,24 @@ class CustomEditTextCurrency @JvmOverloads constructor(
 
         addChangeCurrencyType()
 
+        addView(containerOptions)
+
         val params =
             MarginLayoutParams(MarginLayoutParams.MATCH_PARENT, MarginLayoutParams.WRAP_CONTENT)
         setPadding(0, 22, 0, 0)
         layoutParams = params
+    }
+
+    private fun createContainerForOptions() {
+        containerOptions = LinearLayout(context).apply {
+            orientation = VERTICAL
+
+            val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+            setPadding(10, 10, 10, 10)
+            layoutParams = params
+        }
+
+        containerOptions.gone()
     }
 
     private fun addChangeCurrencyType() {
@@ -137,7 +160,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             layoutParams = params
         }
 
-        addView(linear)
+        containerOptions?.addView(linear)
 
         textViewReal = TextView(context).apply {
             val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -182,7 +205,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             layoutParams = params
         }
 
-        addView(linear)
+        containerOptions?.addView(linear)
 
         textViewScaleLabel = TextView(context).apply {
             val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -242,8 +265,87 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     }
 
     private fun addInput() {
-        editText = EditText(ContextThemeWrapper(context, R.style.Robbie_TextInput), null, 0).apply {
+        val constraint = ConstraintLayout(context).apply {
             val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+            layoutParams = params
+
+            id = R.id.custom_constraint_id
+        }
+
+        addView(constraint)
+
+        imageOpenOptions = ImageView(context).apply {
+            layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            setPadding(10, 10, 10, 10)
+
+            setImageDrawable(ContextCompat.getDrawable(context, android.R.drawable.arrow_up_float))
+            setColorFilter(ContextCompat.getColor(context, android.R.color.black))
+
+            tag = true
+
+            id = R.id.image_view_open_custom_edit_options
+
+            setOnClickListener {
+                if (tag == true) {
+                    setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            android.R.drawable.arrow_down_float
+                        )
+                    )
+                    tag = false
+
+                    containerOptions.visible()
+
+                } else {
+                    setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context,
+                            android.R.drawable.arrow_up_float
+                        )
+                    )
+                    tag = true
+
+                    containerOptions.gone()
+                }
+
+                setColorFilter(ContextCompat.getColor(context, android.R.color.black))
+            }
+
+            constraint.addView(this)
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(constraint)
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.END,
+                constraint.id,
+                ConstraintSet.END,
+                0
+            )
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.TOP,
+                constraint.id,
+                ConstraintSet.TOP,
+                0
+            )
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.BOTTOM,
+                constraint.id,
+                ConstraintSet.BOTTOM,
+                0
+            )
+            constraintSet.applyTo(constraint)
+        }
+
+        editText = EditText(
+            ContextThemeWrapper(context, R.style.Robbie_TextInput_Outline),
+            null,
+            0
+        ).apply {
+            val params = LayoutParams(0, LayoutParams.WRAP_CONTENT)
             params.topMargin = 8
             layoutParams = params
             isClickable = true
@@ -261,9 +363,34 @@ class CustomEditTextCurrency @JvmOverloads constructor(
 
             editDecimalFormatController =
                 EditDecimalFormatController(this, inputValueScale, formatter)
-        }
 
-        addView(editText)
+            constraint.addView(this)
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(constraint)
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.START,
+                constraint.id,
+                ConstraintSet.START,
+                0
+            )
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.END,
+                imageOpenOptions?.id ?: -1,
+                ConstraintSet.START,
+                0
+            )
+            constraintSet.connect(
+                this@apply.id,
+                ConstraintSet.TOP,
+                constraint.id,
+                ConstraintSet.TOP,
+                0
+            )
+            constraintSet.applyTo(constraint)
+        }
     }
 
     override fun performClick(): Boolean {

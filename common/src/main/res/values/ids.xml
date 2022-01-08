@@ -5,4 +5,6 @@
     <item name="spinner_custom_id" type="id"/>
     <item name="value_label_custom_label_id" type="id"/>
     <item name="value_label_custom_value_id" type="id"/>
+    <item name="custom_constraint_id" type="id"/>
+    <item name="image_view_open_custom_edit_options" type="id"/>
 </resources>
