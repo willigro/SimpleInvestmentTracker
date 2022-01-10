@@ -5,7 +5,9 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.extensions.getScale
 import java.math.BigDecimal
+import kotlin.math.pow
 
 class EditDecimalFormatController(
     private val editText: EditText,
@@ -14,7 +16,7 @@ class EditDecimalFormatController(
 ) {
 
     private var watcher: TextWatcher? = null
-    var decimal: Int = 10
+    var decimal: Double = 10.0
 
     var onChangeScale: MutableLiveData<Int> = MutableLiveData<Int>()
     var onChangeValue: MutableLiveData<BigDecimal> = MutableLiveData<BigDecimal>()
@@ -72,8 +74,7 @@ class EditDecimalFormatController(
     private fun setScaleAndDecimal(scale: Int): Boolean {
         return if (scale < SCALE_LIMIT) {
             this.scale = scale
-            // todo: Use Math.pow() instead of this repeat
-            decimal = "1${"0".repeat(this.scale)}".toInt()
+            decimal = 10.0.pow(scale)
 
             onChangeScale.value = scale
             true
@@ -82,16 +83,7 @@ class EditDecimalFormatController(
     }
 
     fun setScaleIfIsDifferent(currency: Double): Int {
-        val string = currency.toString()
-        val scale = when {
-            string.contains(",") -> {
-                string.split(",").last().length
-            }
-            string.contains(".") -> {
-                string.split(".").last().length
-            }
-            else -> scale
-        }
+        val scale = currency.getScale()
 
         if (scale != this.scale)
             changeScale(scale)
@@ -119,5 +111,31 @@ class EditDecimalFormatController(
     companion object {
         const val DEFAULT_SCALE = 5
         const val SCALE_LIMIT = 10
+    }
+}
+
+object FormatDecimalController {
+
+    fun format(
+        value: Double,
+        currencyType: CurrencyType? = null
+    ): String {
+        val scale = value.getScale()
+        val decimal = 10.0.pow(scale.toDouble())
+
+        return if (currencyType == null)
+            FormatNormalDecimal().format(
+                BigDecimal(value).setScale(
+                    scale,
+                    BigDecimal.ROUND_CEILING
+                ).toPlainString(), scale, decimal
+            )
+        else
+            FormatCurrency(currencyType).format(
+                BigDecimal(value).setScale(
+                    scale,
+                    BigDecimal.ROUND_CEILING
+                ).toPlainString(), scale, decimal
+            )
     }
 }

@@ -116,7 +116,7 @@ object FormatUtil {
 }
 
 interface FormatDecimal {
-    fun format(newCurrency: String, scale: Int, decimal: Int): String
+    fun format(newCurrency: String, scale: Int, decimal: Double): String
     fun isDifferent(currency: String): Boolean
     fun retrieveValue(): BigDecimal
     fun hasFormat(): Boolean
@@ -126,7 +126,7 @@ class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
     var currencyFormatted: String = ""
     var normalCurrency: BigDecimal = BigDecimal("0.0")
 
-    override fun format(newCurrency: String, scale: Int, decimal: Int): String {
+    override fun format(newCurrency: String, scale: Int, decimal: Double): String {
 
         val cleanString = newCurrency.clearCurrency()
 
@@ -177,7 +177,7 @@ class FormatNormalDecimal : FormatDecimal {
     var currencyFormatted: String = "0"
     var normalCurrency: BigDecimal = BigDecimal("0.0")
 
-    override fun format(newCurrency: String, scale: Int, decimal: Int): String {
+    override fun format(newCurrency: String, scale: Int, decimal: Double): String {
 
         val cleanString = newCurrency.clearDecimal()
 

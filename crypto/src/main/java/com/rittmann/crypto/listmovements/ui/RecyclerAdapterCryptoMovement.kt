@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rittmann.crypto.R
 import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.utils.FormatDecimalController
 
 class RecyclerAdapterCryptoMovement(
     private val list: List<CryptoMovement>,
@@ -25,12 +27,31 @@ class RecyclerAdapterCryptoMovement(
             holder.apply {
                 name?.text = cryptoMovement.name
                 date?.text = cryptoMovement.date
-                type?.text = cryptoMovement.type.value
-                boughtAmount?.text = cryptoMovement.operatedAmount.toString()
-                currentValue?.text = cryptoMovement.currentValue.toString()
-                totalValue?.text = cryptoMovement.totalValue.toString()
-                tax?.text = cryptoMovement.tax.toString()
-
+                type?.setText(
+                    if (cryptoMovement.type.value == CryptoOperationType.SELL.value)
+                        R.string.crypto_movement_operation_sell
+                    else
+                        R.string.crypto_movement_operation_buy
+                )
+                boughtAmount?.text =
+                    FormatDecimalController.format(
+                        cryptoMovement.operatedAmount
+                    )
+                currentValue?.text =
+                    FormatDecimalController.format(
+                        cryptoMovement.currentValue,
+                        cryptoMovement.currentValueCurrency
+                    )
+                totalValue?.text =
+                    FormatDecimalController.format(
+                        cryptoMovement.totalValue,
+                        cryptoMovement.totalValueCurrency
+                    )
+                tax?.text =
+                    FormatDecimalController.format(
+                        cryptoMovement.tax,
+                        cryptoMovement.taxCurrency
+                    )
                 layout?.setOnClickListener {
                     navigation.goToUpdateCrypto(cryptoMovement)
                 }
