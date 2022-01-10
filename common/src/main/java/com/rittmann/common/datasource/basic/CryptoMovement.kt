@@ -45,9 +45,22 @@ data class CryptoMovement(
     @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
     var taxCurrency: CurrencyType = CurrencyType.REAL,
 ) : Serializable, Ponjo() {
+
     override fun isInserting(): Boolean = id == 0L
-    fun calculateTotalValue(): Double = operatedAmount * currentValue
-    fun calculateTaxValue(): Double = tax * currentValue
+
+    fun calculateTotalValue(): Double =
+        if (totalValueCurrency == CurrencyType.REAL)
+            totalValue
+        else {
+            operatedAmount * currentValue
+        }
+
+    fun calculateTaxValue(): Double =
+        if (taxCurrency == CurrencyType.REAL) {
+            tax
+        } else
+            tax * currentValue
+
 }
 
 enum class CryptoOperationType(val value: String) : Serializable {

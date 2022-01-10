@@ -8,7 +8,12 @@ import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepository
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.orZero
+import com.rittmann.common.utils.EditDecimalFormatController
+import com.rittmann.common.utils.FormatDecimalController
+import com.rittmann.common.utils.transformerIt
 import javax.inject.Inject
 
 class ListCryptoMovementsViewModel @Inject constructor(
@@ -24,13 +29,25 @@ class ListCryptoMovementsViewModel @Inject constructor(
             result
         }
 
-    private val _totalValueInvested: MutableLiveData<String> = MutableLiveData()
-    val totalValueInvested: MutableLiveData<String>
-        get() = _totalValueInvested
+    private val _totalValueInvested: MutableLiveData<Double> = MutableLiveData()
+    val totalValueInvested: LiveData<String>
+        get() = transformerIt(_totalValueInvested) {
+            FormatDecimalController.format(
+                it.orZero(),
+                CurrencyType.REAL,
+                EditDecimalFormatController.SCALE_LIMIT
+            )
+        }
 
-    private val _totalValueEarned: MutableLiveData<String> = MutableLiveData()
-    val totalValueEarned: MutableLiveData<String>
-        get() = _totalValueEarned
+    private val _totalValueEarned: MutableLiveData<Double> = MutableLiveData()
+    val totalValueEarned: LiveData<String>
+        get() = transformerIt(_totalValueEarned) {
+            FormatDecimalController.format(
+                it.orZero(),
+                CurrencyType.REAL,
+                EditDecimalFormatController.SCALE_LIMIT
+            )
+        }
 
     fun fetchAllCryptoMovements() {
         executeAsync {
@@ -48,12 +65,12 @@ class ListCryptoMovementsViewModel @Inject constructor(
 
         if (result is ResultEvent.Success) result.data.forEach { crypto ->
             if (crypto.type == CryptoOperationType.BUY) {
-                totalInvested += crypto.totalValue
+                totalInvested += crypto.calculateTotalValue()
             } else
-                totalEarned += crypto.totalValue
+                totalEarned += crypto.calculateTotalValue()
         }
 
-        _totalValueInvested.value = totalInvested.toString()
-        _totalValueEarned.value = totalEarned.toString()
+        _totalValueInvested.value = totalInvested
+        _totalValueEarned.value = totalEarned
     }
 }

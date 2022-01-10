@@ -20,30 +20,12 @@ object CryptoResultsCalculate {
 
         data.forEach {
             if (it.type == CryptoOperationType.BUY) {
-                invested += if (it.totalValueCurrency == CurrencyType.REAL)
-                    it.totalValue
-                else {
-                    it.calculateTotalValue()
-                }
-
-                taxPaid += if (it.taxCurrency == CurrencyType.REAL) {
-                    it.tax
-                } else
-                    it.calculateTaxValue()
-
+                invested += it.calculateTotalValue()
+                taxPaid += it.calculateTaxValue()
                 boughtAmount += it.operatedAmount
             } else {
-                earned += if (it.totalValueCurrency == CurrencyType.REAL)
-                    it.totalValue
-                else {
-                    it.calculateTotalValue()
-                }
-
-                taxPaid += if (it.taxCurrency == CurrencyType.REAL) {
-                    it.tax
-                } else
-                    it.calculateTaxValue()
-
+                earned += it.calculateTotalValue()
+                taxPaid += it.calculateTaxValue()
                 soldAmount += it.operatedAmount
             }
         }
