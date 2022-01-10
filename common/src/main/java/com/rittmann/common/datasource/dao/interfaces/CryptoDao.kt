@@ -26,6 +26,9 @@ interface CryptoDao {
     @Query("SELECT DISTINCT ${TableCryptoMovement.NAME} FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.NAME} LIKE :name")
     fun selectNamesLike(name: String): List<String>
 
+    @Query("SELECT DISTINCT ${TableCryptoMovement.NAME} FROM ${TableCryptoMovement.TABLE}")
+    fun selectNames(): List<String>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(cryptoMovement: CryptoMovement): Long
 

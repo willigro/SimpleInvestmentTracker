@@ -5,20 +5,16 @@ import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.result.ResultEvent
 
 interface ListCryptosRepository {
-    fun getAll(): ResultEvent<List<String>>
+    fun fetchCryptoNames(): ResultEvent<List<String>>
     fun fetchCryptos(): ResultEvent<List<CryptoMovement>>
 }
 
 class ListCryptosRepositoryImpl(
     private val cryptoDao: CryptoDao
 ) : ListCryptosRepository {
-    override fun getAll(): ResultEvent<List<String>> {
+    override fun fetchCryptoNames(): ResultEvent<List<String>> {
         return try {
-            ResultEvent.Success(
-                arrayListOf(
-                    "BTC"
-                )
-            )
+            ResultEvent.Success(cryptoDao.selectNames())
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

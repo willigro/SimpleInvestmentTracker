@@ -22,7 +22,7 @@ class ListCryptosViewModel @Inject constructor(
 
     fun fetchCryptos() {
         executeAsyncThenMain(
-            io = { repository.getAll() },
+            io = { repository.fetchCryptoNames() },
             main = { _cryptosList.value = it }
         )
 
