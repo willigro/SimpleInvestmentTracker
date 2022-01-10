@@ -104,6 +104,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     private var inputTypeEdit = ""
     private var formatType = ""
     private var inputValueScale = DEFAULT_SCALE
+    private var enableChangeCurrencyType: Boolean = true
 
     init {
         isClickable = true
@@ -115,6 +116,8 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             label = getString(R.styleable.CustomEditText_labelText).toString()
             inputTypeEdit = getString(R.styleable.CustomEditText_inputTypeEdit).toString()
             formatType = getString(R.styleable.CustomEditText_formatType).toString()
+            enableChangeCurrencyType =
+                getBoolean(R.styleable.CustomEditText_enableChangeCurrencyType, true)
         }
 
         orientation = VERTICAL
@@ -150,7 +153,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     }
 
     private fun addChangeCurrencyType() {
-        if (formatType == DECIMAL) return
+        if (formatType == DECIMAL || enableChangeCurrencyType.not()) return
 
         val linear = LinearLayout(context).apply {
             orientation = HORIZONTAL

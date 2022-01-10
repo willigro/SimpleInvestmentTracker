@@ -112,15 +112,21 @@ class RegisterCryptoMovementActivity
                 }
             }
 
+            configureReactiveViews()
+        }
+    }
+
+    private fun configureReactiveViews() {
+        binding.apply {
             editCryptoCurrentValue.editDecimalFormatController?.onChangeScale?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked)
                     editCryptoTotalValue.editDecimalFormatController?.changeScale(it)
             }
 
-            editCryptoCurrentValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
-                if (checkboxUpdateTotalValue.isChecked)
-                    editCryptoTotalValue.editDecimalFormatController?.setCurrencyType(it)
-            }
+//            editCryptoCurrentValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
+//                if (checkboxUpdateTotalValue.isChecked)
+//                    editCryptoTotalValue.editDecimalFormatController?.setCurrencyType(it)
+//            }
 
             editCryptoCurrentValue.editDecimalFormatController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
