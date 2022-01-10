@@ -46,6 +46,8 @@ data class CryptoMovement(
     var taxCurrency: CurrencyType = CurrencyType.REAL,
 ) : Serializable, Ponjo() {
     override fun isInserting(): Boolean = id == 0L
+    fun calculateTotalValue(): Double = operatedAmount * currentValue
+    fun calculateTaxValue(): Double = tax * currentValue
 }
 
 enum class CryptoOperationType(val value: String) : Serializable {
