@@ -2,6 +2,7 @@ package com.rittmann.common.extensions
 
 import android.text.Spanned
 import androidx.core.text.HtmlCompat
+import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.FormatUtil
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -123,4 +124,16 @@ fun String.containsCount(c: Char): Int {
         if (it == c) count++
     }
     return count
+}
+
+fun String.getScale(): Int {
+    return when {
+        this.contains(",") -> {
+            this.split(",").last().length
+        }
+        this.contains(".") -> {
+            this.split(".").last().length
+        }
+        else -> EditDecimalFormatController.DEFAULT_SCALE
+    }
 }

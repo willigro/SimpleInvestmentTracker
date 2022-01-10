@@ -118,6 +118,30 @@ object FormatDecimalController {
 
     fun format(
         value: Double,
+        currencyType: CurrencyType? = null,
+        valueScale: Int? = null
+    ): String {
+        val scale = valueScale ?: value.getScale()
+        val decimal = 10.0.pow(scale.toDouble())
+
+        return if (currencyType == null)
+            FormatNormalDecimal().format(
+                BigDecimal(value).setScale(
+                    scale,
+                    BigDecimal.ROUND_CEILING
+                ).toPlainString(), scale, decimal
+            )
+        else
+            FormatCurrency(currencyType).format(
+                BigDecimal(value).setScale(
+                    scale,
+                    BigDecimal.ROUND_CEILING
+                ).toPlainString(), scale, decimal
+            )
+    }
+
+    fun format(
+        value: String,
         currencyType: CurrencyType? = null
     ): String {
         val scale = value.getScale()
