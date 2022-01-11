@@ -28,16 +28,17 @@ import com.rittmann.common.utils.EditDecimalFormatController.Companion.SCALE_LIM
 import com.rittmann.common.utils.FormatCurrency
 import com.rittmann.common.utils.FormatNormalDecimal
 import com.rittmann.common.utils.FormatUtil
+import java.math.BigDecimal
 
 
 @BindingAdapter("textFromEdit")
-fun CustomEditTextCurrency.textFromEdit(value: Double) {
+fun CustomEditTextCurrency.textFromEdit(value: BigDecimal) {
     setTextEditText(value)
 }
 
 @InverseBindingAdapter(attribute = "textFromEdit")
-fun CustomEditTextCurrency.textFromEdit(): Double {
-    return this.editDecimalFormatController?.normalCurrency().toDoubleValid()
+fun CustomEditTextCurrency.textFromEdit(): BigDecimal {
+    return this.editDecimalFormatController?.normalCurrency() ?: BigDecimal(0.0)
 }
 
 @BindingAdapter(value = ["textFromEditAttrChanged"])
@@ -404,7 +405,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
         return true
     }
 
-    fun setTextEditText(value: Double) {
+    fun setTextEditText(value: BigDecimal) {
         if (editText?.tag == null) {
             editDecimalFormatController?.setScaleIfIsDifferent(value)?.also {
                 textViewScale?.text = it.toString()

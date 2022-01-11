@@ -22,11 +22,11 @@ object CryptoResultsCalculate {
             if (it.type == CryptoOperationType.BUY) {
                 invested += it.calculateTotalValue()
                 taxPaid += it.calculateTaxValue()
-                boughtAmount += it.operatedAmount
+                boughtAmount += it.operatedAmount.toDouble()
             } else {
                 earned += it.calculateTotalValue()
                 taxPaid += it.calculateTaxValue()
-                soldAmount += it.operatedAmount
+                soldAmount += it.operatedAmount.toDouble()
             }
         }
 

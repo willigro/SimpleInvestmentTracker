@@ -64,6 +64,12 @@ class EditDecimalFormatController(
         )
     }
 
+    fun setCurrency(currency: BigDecimal) {
+        formatTheInput(
+            currency.setScale(scale, BigDecimal.ROUND_CEILING).toPlainString()
+        )
+    }
+
     fun normalCurrency() = formatDecimal.retrieveValue()
 
     fun changeScale(scale: Int) {
@@ -82,8 +88,8 @@ class EditDecimalFormatController(
             false
     }
 
-    fun setScaleIfIsDifferent(currency: Double): Int {
-        val scale = currency.getScale()
+    fun setScaleIfIsDifferent(currency: BigDecimal): Int {
+        val scale = currency.toPlainString().getScale()
 
         if (scale != this.scale)
             changeScale(scale)
@@ -137,6 +143,23 @@ object FormatDecimalController {
                     scale,
                     BigDecimal.ROUND_CEILING
                 ).toPlainString(), scale, decimal
+            )
+    }
+
+    fun format(
+        value: BigDecimal,
+        currencyType: CurrencyType? = null
+    ): String {
+        val scale = value.scale()
+        val decimal = 10.0.pow(scale.toDouble())
+
+        return if (currencyType == null)
+            FormatNormalDecimal().format(
+                value.toPlainString(), scale, decimal
+            )
+        else
+            FormatCurrency(currencyType).format(
+                value.toPlainString(), scale, decimal
             )
     }
 

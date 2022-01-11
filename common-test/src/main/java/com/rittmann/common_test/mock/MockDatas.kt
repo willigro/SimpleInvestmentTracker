@@ -4,6 +4,7 @@ import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 import java.lang.Exception
+import java.math.BigDecimal
 
 val newCryptoMovementMock =
     CryptoMovement(
@@ -11,12 +12,12 @@ val newCryptoMovementMock =
         date = "00/00/0000",
         name = "BTC",
         type = CryptoOperationType.BUY,
-        operatedAmount = 2.0,
-        currentValue = 10.0,
+        operatedAmount = BigDecimal(2.0),
+        currentValue = BigDecimal(10.0),
         currentValueCurrency = CurrencyType.REAL,
-        totalValue = 30.0,
+        totalValue = BigDecimal(30.0),
         totalValueCurrency = CurrencyType.REAL,
-        tax = 1.0,
+        tax = BigDecimal(1.0),
         taxCurrency = CurrencyType.REAL
     )
 
@@ -31,9 +32,9 @@ val listCryptoMovementMock = arrayListOf(
 ).apply {
     forEach {
         if (it.type == CryptoOperationType.BUY)
-            currentTotalInvested += it.totalValue
+            currentTotalInvested += it.totalValue.toDouble()
         else
-            currentTotalEarned += it.totalValue
+            currentTotalEarned += it.totalValue.toDouble()
     }
 }
 

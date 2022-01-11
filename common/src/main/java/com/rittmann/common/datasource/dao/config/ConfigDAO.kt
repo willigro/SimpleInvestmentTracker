@@ -21,12 +21,12 @@ object TableCryptoMovement {
                 " $NAME TEXT NOT NULL," +
                 " $DATE TEXT NOT NULL," +
                 " $TYPE TEXT NOT NULL," +
-                " $OPERATED_AMOUNT REAL NOT NULL," +
-                " $TOTAL_VALUE REAL NOT NULL," +
+                " $OPERATED_AMOUNT TEXT NOT NULL," +
+                " $TOTAL_VALUE TEXT NOT NULL," +
                 " $TOTAL_VALUE_CURRENCY TEXT NOT NULL," +
-                " $TAX REAL NOT NULL," +
+                " $TAX TEXT NOT NULL," +
                 " $TAX_CURRENCY TEXT NOT NULL," +
-                " $CURRENT_VALUE REAL NOT NULL," +
+                " $CURRENT_VALUE TEXT NOT NULL," +
                 " $CURRENT_VALUE_CURRENCY TEXT NOT NULL);"
 }
 

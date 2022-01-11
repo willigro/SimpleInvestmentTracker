@@ -1,10 +1,12 @@
 package com.rittmann.common.datasource.dao.config
 
 import androidx.room.TypeConverter
-import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
-import java.util.Calendar
+import com.rittmann.common.extensions.getScale
+import com.rittmann.common.utils.DateUtil
+import java.math.BigDecimal
+import java.util.*
 
 class Converters {
     @TypeConverter
@@ -37,5 +39,15 @@ class Converters {
     @TypeConverter
     fun convertCurrencyTypeToString(date: CurrencyType): String {
         return date.value
+    }
+
+    @TypeConverter
+    fun stringCurrencyToBigDecimal(value: String): BigDecimal {
+        return BigDecimal(value).setScale(value.getScale())
+    }
+
+    @TypeConverter
+    fun bigDecimalToStringCurrency(value: BigDecimal): String {
+        return value.toPlainString()
     }
 }
