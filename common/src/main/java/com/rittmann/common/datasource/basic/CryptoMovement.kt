@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.rittmann.common.datasource.dao.config.TableCryptoMovement
-import com.rittmann.common.utils.EditDecimalFormatController.Companion.SCALE_LIMIT
+import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
 import java.io.Serializable
 import java.math.BigDecimal
 
@@ -27,25 +27,25 @@ data class CryptoMovement(
     var type: CryptoOperationType = CryptoOperationType.BUY,
 
     @ColumnInfo(name = TableCryptoMovement.OPERATED_AMOUNT)
-    var operatedAmount: BigDecimal = BigDecimal(0.0).setScale(SCALE_LIMIT),
+    var operatedAmount: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
     @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE)
-    var currentValue: BigDecimal = BigDecimal(0.0).setScale(SCALE_LIMIT),
+    var currentValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
     @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE_CURRENCY)
     var currentValueCurrency: CurrencyType = CurrencyType.REAL,
 
     @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE)
-    var totalValue: BigDecimal = BigDecimal(0.0).setScale(SCALE_LIMIT),
+    var totalValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
     @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE_CURRENCY)
     var totalValueCurrency: CurrencyType = CurrencyType.REAL,
 
     @ColumnInfo(name = TableCryptoMovement.TAX)
-    var tax: BigDecimal = BigDecimal(0.0).setScale(SCALE_LIMIT),
+    var tax: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
     @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
-    var taxCurrency: CurrencyType = CurrencyType.REAL,
+    var taxCurrency: CurrencyType = CurrencyType.CRYPTO,
 ) : Serializable, Ponjo() {
 
     override fun isInserting(): Boolean = id == 0L

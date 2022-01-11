@@ -78,7 +78,7 @@ class EditDecimalFormatController(
     }
 
     private fun setScaleAndDecimal(scale: Int): Boolean {
-        return if (scale < SCALE_LIMIT) {
+        return if (scale <= SCALE_LIMIT) {
             this.scale = scale
             decimal = 10.0.pow(scale)
 
@@ -116,7 +116,7 @@ class EditDecimalFormatController(
 
     companion object {
         const val DEFAULT_SCALE = 5
-        const val SCALE_LIMIT = 10
+        const val SCALE_LIMIT = 9
     }
 }
 
