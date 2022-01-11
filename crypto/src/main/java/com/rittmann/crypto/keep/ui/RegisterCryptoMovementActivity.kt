@@ -1,9 +1,12 @@
 package com.rittmann.crypto.keep.ui
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +24,10 @@ import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
 import java.util.*
 import javax.inject.Inject
+import android.view.View.OnTouchListener
+import android.view.ViewGroup
+import androidx.core.view.children
+
 
 class RegisterCryptoMovementActivity
     : BaseBindingActivity<ActivityRegisterCryptoMovementBinding>(
@@ -70,6 +77,7 @@ class RegisterCryptoMovementActivity
         initObservers()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initViews() {
         binding.apply {
             field = FieldValidation(btnRegister).apply {
@@ -88,6 +96,20 @@ class RegisterCryptoMovementActivity
                         this@RegisterCryptoMovementActivity.viewModel.fetchCryptos(it)
                     else
                         edit.tag = true
+                }
+
+                edit.setOnFocusChangeListener { _, b ->
+                    if (b) {
+                        getAllChildren(scrollViewContainer)?.forEach { v ->
+                            if (v.id != editCryptoName.id)
+                                v.setOnTouchListener { _, _ ->
+                                    adapter?.hide()
+                                    v.performClick()
+                                    v.setOnTouchListener(null)
+                                    true
+                                }
+                        }
+                    }
                 }
             }
 
@@ -114,6 +136,23 @@ class RegisterCryptoMovementActivity
 
             configureReactiveViews()
         }
+    }
+
+    private fun getAllChildren(v: View): List<View>? {
+        if (v !is ViewGroup) {
+            val viewArrayList: ArrayList<View> = ArrayList<View>()
+            viewArrayList.add(v)
+            return viewArrayList
+        }
+        val result: ArrayList<View> = ArrayList<View>()
+        val viewGroup = v as ViewGroup
+        for (i in 0 until viewGroup.childCount) {
+            val child: View = viewGroup.getChildAt(i)
+
+            //Do not add any parents, just add child elements
+            result.addAll(getAllChildren(child)!!)
+        }
+        return result
     }
 
     private fun configureReactiveViews() {
