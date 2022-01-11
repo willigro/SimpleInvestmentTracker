@@ -97,7 +97,7 @@ class RegisterCryptoMovementActivity
 
                 edit.setOnFocusChangeListener { _, b ->
                     if (b) {
-                        getAllChildren(scrollViewContainer)?.forEach { v ->
+                        getAllChildren(scrollViewContainer).forEach { v ->
                             if (v.id != editCryptoName.id)
                                 v.setOnTouchListener { _, _ ->
                                     adapter?.hide()
@@ -135,19 +135,17 @@ class RegisterCryptoMovementActivity
         }
     }
 
-    private fun getAllChildren(v: View): List<View>? {
+    private fun getAllChildren(v: View): List<View> {
         if (v !is ViewGroup) {
             val viewArrayList: ArrayList<View> = ArrayList<View>()
             viewArrayList.add(v)
             return viewArrayList
         }
         val result: ArrayList<View> = ArrayList<View>()
-        val viewGroup = v as ViewGroup
-        for (i in 0 until viewGroup.childCount) {
-            val child: View = viewGroup.getChildAt(i)
+        for (i in 0 until v.childCount) {
+            val child: View = v.getChildAt(i)
 
-            //Do not add any parents, just add child elements
-            result.addAll(getAllChildren(child)!!)
+            result.addAll(getAllChildren(child))
         }
         return result
     }
