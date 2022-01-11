@@ -52,14 +52,26 @@
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand"
             app:valueText="@{cryptoResultViewBinding.totalOnHandWithoutTax}" />
 
+        <!-- TAX -->
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_tax_paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_label="@string/crypto_movement_total_tax_paid"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
+            app:valueText="@{cryptoResultViewBinding.totalTaxPaid}" />
+
         <!-- AMOUNT -->
+
         <com.rittmann.common.customs.CustomLabelValueText
             android:id="@+id/txt_crypto_results_total_bought_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelValue_label="@string/crypto_movement_total_bought_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_paid"
             app:valueText="@{cryptoResultViewBinding.totalBoughtAmount}" />
 
         <com.rittmann.common.customs.CustomLabelValueText
@@ -79,16 +91,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount"
             app:valueText="@{cryptoResultViewBinding.totalOnHandAmount}" />
-
-        <!-- TAX -->
-
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_tax_paid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:labelValue_label="@string/crypto_movement_total_tax_paid"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount"
-            app:valueText="@{cryptoResultViewBinding.totalTaxPaid}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

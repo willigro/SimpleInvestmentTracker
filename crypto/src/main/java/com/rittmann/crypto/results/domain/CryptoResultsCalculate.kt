@@ -39,9 +39,9 @@ object CryptoResultsCalculate {
             _totalOnHandWithoutTax.value = Pair(onHandWithoutTax, CurrencyType.REAL)
             _totalEarned.value = Pair(earned, CurrencyType.REAL)
             _totalInvested.value = Pair(invested, CurrencyType.REAL)
-            _totalBoughtAmount.value = Pair(boughtAmount, CurrencyType.REAL)
-            _totalSoldAmount.value = Pair(soldAmount, CurrencyType.REAL)
-            _totalOnHandAmount.value = Pair(onHandAmount, CurrencyType.REAL)
+            _totalBoughtAmount.value = Pair(boughtAmount, null)
+            _totalSoldAmount.value = Pair(soldAmount, null)
+            _totalOnHandAmount.value = Pair(onHandAmount, null)
             _totalTaxPaid.value = Pair(taxPaid, CurrencyType.REAL)
         }
     }
