@@ -5,8 +5,8 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
@@ -24,9 +24,6 @@ import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
 import java.util.*
 import javax.inject.Inject
-import android.view.View.OnTouchListener
-import android.view.ViewGroup
-import androidx.core.view.children
 
 
 class RegisterCryptoMovementActivity

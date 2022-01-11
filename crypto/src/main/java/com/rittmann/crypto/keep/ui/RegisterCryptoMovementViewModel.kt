@@ -92,7 +92,6 @@ class RegisterCryptoMovementViewModel @Inject constructor(
 
     fun onCryptoOperationTypeChanged(type: CryptoOperationType) {
         cryptoMovement.value?.type = type
-        cryptoMovement.value = cryptoMovement.value
     }
 
     fun changeDate(date: String) {

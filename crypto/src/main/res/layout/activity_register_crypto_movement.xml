@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:formatType="decimal"
-                app:labelText="@{(viewModel.cryptoMovement.type.value == CryptoOperationType.BUY.value) ? @string/crypto_movement_total_bought_amount : @string/crypto_movement_total_sold_amount}"
+                app:labelText="@string/crypto_movement_operated_movement"
                 app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
                 app:textFromEdit="@={viewModel.cryptoMovement.operatedAmount}" />
 
