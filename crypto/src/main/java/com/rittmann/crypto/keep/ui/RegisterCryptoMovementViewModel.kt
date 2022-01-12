@@ -45,12 +45,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
 
     fun saveCrypto() {
         showProgress()
-        executeAsync {
-            if (cryptoMovement.value?.id == 0L)
-                insertNewCrypto()
-            else
-                updateCrypto()
-        }
+        if (cryptoMovement.value?.isInserting() == true)
+            insertNewCrypto()
+        else
+            updateCrypto()
     }
 
     fun fetchCryptos(nameLike: String) {
@@ -78,30 +76,36 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         )
     }
 
-    private suspend fun insertNewCrypto() {
+    private fun insertNewCrypto() {
         cryptoMovement.value?.also {
-            val result = repository.registerCrypto(it)
+            executeAsyncThenMainSuspend(
+                io = {
+                    repository.registerCrypto(it)
+                },
+                main = { result ->
+                    _registerResultEvent.value = result
 
-            executeMain {
-                _registerResultEvent.value = result
+                    if (result is ResultEvent.Success)
+                        cryptoMovement.value?.id = result.data.id
 
-                if (result is ResultEvent.Success)
-                    cryptoMovement.value?.id = result.data.id
-
-                hideProgress()
-            }
+                    hideProgress()
+                }
+            )
         } ?: hideProgress()
     }
 
-    private suspend fun updateCrypto() {
+    private fun updateCrypto() {
         cryptoMovement.value?.also {
-            val result = repository.updateCrypto(it)
+            executeAsyncThenMainSuspend(
+                io = {
+                    repository.updateCrypto(it)
+                },
+                main = {
+                    _updateResultEvent.value = it
 
-            executeMain {
-                _updateResultEvent.value = result
-
-                hideProgress()
-            }
+                    hideProgress()
+                }
+            )
         } ?: hideProgress()
     }
 
