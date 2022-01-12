@@ -9,6 +9,7 @@ interface RegisterCryptoMovementRepository {
     suspend fun registerCrypto(cryptoMovement: CryptoMovement): ResultEvent<CryptoMovement>
     suspend fun updateCrypto(cryptoMovement: CryptoMovement): ResultEvent<Int>
     suspend fun fetchCryptoNames(nameLike: String): ResultEvent<List<String>>
+    suspend fun fetchLastCrypto(name: String): ResultEvent<CryptoMovement>
 }
 
 class RegisterCryptoMovementRepositoryImpl(
@@ -37,6 +38,14 @@ class RegisterCryptoMovementRepositoryImpl(
     override suspend fun fetchCryptoNames(nameLike: String): ResultEvent<List<String>> {
         return try {
             ResultEvent.Success(cryptoDao.selectNamesLike("%$nameLike%"))
+        } catch (e: Exception) {
+            ResultEvent.Error(e)
+        }
+    }
+
+    override suspend fun fetchLastCrypto(name: String): ResultEvent<CryptoMovement> {
+        return try {
+            ResultEvent.Success(cryptoDao.selectLast(name))
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

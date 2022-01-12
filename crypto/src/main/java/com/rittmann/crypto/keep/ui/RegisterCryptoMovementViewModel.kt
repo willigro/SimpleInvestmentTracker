@@ -11,7 +11,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
 class RegisterCryptoMovementViewModel @Inject constructor(
-    private val registerCryptoMovementRepository: RegisterCryptoMovementRepository,
+    private val repository: RegisterCryptoMovementRepository,
     dispatcherProviderVm: DispatcherProvider
 ) : BaseViewModelApp(dispatcherProviderVm) {
 
@@ -26,6 +26,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     private val _cryptoNamesResultEvent: MutableLiveData<ResultEvent<List<String>>> =
         MutableLiveData<ResultEvent<List<String>>>()
     val cryptoNamesResultEvent: LiveData<ResultEvent<List<String>>> get() = _cryptoNamesResultEvent
+
+    private val _lastCryptoResultEvent: MutableLiveData<ResultEvent<CryptoMovement>> =
+        MutableLiveData<ResultEvent<CryptoMovement>>()
+    val lastCryptoResultEvent: LiveData<ResultEvent<CryptoMovement>> get() = _lastCryptoResultEvent
 
     private val _dateRetrieved: MutableLiveData<String> =
         MutableLiveData<String>()
@@ -55,7 +59,7 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         else
             executeAsyncThenMainSuspend(
                 io = {
-                    registerCryptoMovementRepository.fetchCryptoNames(nameLike)
+                    repository.fetchCryptoNames(nameLike)
                 },
                 main = {
                     _cryptoNamesResultEvent.value = it
@@ -63,9 +67,20 @@ class RegisterCryptoMovementViewModel @Inject constructor(
             )
     }
 
+    fun fetchLastCrypto(name: String) {
+        executeAsyncThenMainSuspend(
+            io = {
+                repository.fetchLastCrypto(name)
+            },
+            main = {
+                _lastCryptoResultEvent.value = it
+            }
+        )
+    }
+
     private suspend fun insertNewCrypto() {
         cryptoMovement.value?.also {
-            val result = registerCryptoMovementRepository.registerCrypto(it)
+            val result = repository.registerCrypto(it)
 
             executeMain {
                 _registerResultEvent.value = result
@@ -80,7 +95,7 @@ class RegisterCryptoMovementViewModel @Inject constructor(
 
     private suspend fun updateCrypto() {
         cryptoMovement.value?.also {
-            val result = registerCryptoMovementRepository.updateCrypto(it)
+            val result = repository.updateCrypto(it)
 
             executeMain {
                 _updateResultEvent.value = result

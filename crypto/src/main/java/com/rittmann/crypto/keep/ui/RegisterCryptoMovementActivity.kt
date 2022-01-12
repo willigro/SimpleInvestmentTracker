@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.customs.currencyType
+import com.rittmann.common.customs.valueScale
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
@@ -218,9 +220,27 @@ class RegisterCryptoMovementActivity
                     configureListResult(it.data)
             })
 
+            lastCryptoResultEvent.observe(this@RegisterCryptoMovementActivity, {
+                if (it is ResultEvent.Success)
+                    updateTheScalesAndCurrencies(it.data)
+            })
+
             dateRetrieved.observe(this@RegisterCryptoMovementActivity, {
                 binding.txtCryptoDate.text = it
             })
+        }
+    }
+
+    private fun updateTheScalesAndCurrencies(data: CryptoMovement) {
+        binding.apply {
+            editCryptoCurrentValue.valueScale(data.currentValue.scale())
+
+            editCryptoTotalValue.valueScale(data.totalValue.scale())
+
+            editCryptoBoughtAmount.valueScale(data.operatedAmount.scale())
+
+            editCryptoTax.valueScale(data.tax.scale())
+            editCryptoTax.currencyType(data.taxCurrency)
         }
     }
 
@@ -229,6 +249,7 @@ class RegisterCryptoMovementActivity
             adapter = RecyclerAdapterSearchCryptos(data) {
                 editTextSearch?.changeValue(it)
                 adapter?.hide()
+                viewModel.fetchLastCrypto(it)
             }
 
             binding.listViewCryptoNameResults.linearLayoutManager()

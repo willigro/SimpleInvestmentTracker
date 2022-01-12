@@ -17,6 +17,9 @@ interface CryptoDao {
     @Query("SELECT * FROM ${TableCryptoMovement.TABLE}")
     fun selectAll(): List<CryptoMovement>
 
+    @Query("SELECT * FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.NAME} = :name COLLATE NOCASE ORDER BY ${TableCryptoMovement.ID} DESC LIMIT 1")
+    fun selectLast(name: String): CryptoMovement
+
     @Query("SELECT * FROM ${TableCryptoMovement.TABLE} WHERE ${TableCryptoMovement.ID} = :id")
     fun selectById(id: Long): CryptoMovement?
 
