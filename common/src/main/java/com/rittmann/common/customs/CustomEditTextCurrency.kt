@@ -26,7 +26,6 @@ import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.SCALE_LIMIT
 import com.rittmann.common.utils.FormatCurrency
-import com.rittmann.common.utils.FormatNormalDecimal
 import com.rittmann.common.utils.FormatUtil
 import java.math.BigDecimal
 
@@ -363,7 +362,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             id = R.id.edit_custom_id
 
             val formatter =
-                if (formatType == DECIMAL) FormatNormalDecimal() else FormatCurrency(CurrencyType.REAL)
+                if (formatType == DECIMAL) FormatCurrency(CurrencyType.DECIMAL) else FormatCurrency(CurrencyType.REAL)
 
             editDecimalFormatController =
                 EditDecimalFormatController(this, inputValueScale, formatter)

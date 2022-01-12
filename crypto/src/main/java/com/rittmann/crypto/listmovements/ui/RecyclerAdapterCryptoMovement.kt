@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rittmann.crypto.R
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.utils.FormatDecimalController
 
 class RecyclerAdapterCryptoMovement(
@@ -35,7 +36,8 @@ class RecyclerAdapterCryptoMovement(
                 )
                 boughtAmount?.text =
                     FormatDecimalController.format(
-                        cryptoMovement.operatedAmount
+                        cryptoMovement.operatedAmount,
+                        CurrencyType.DECIMAL
                     )
                 currentValue?.text =
                     FormatDecimalController.format(

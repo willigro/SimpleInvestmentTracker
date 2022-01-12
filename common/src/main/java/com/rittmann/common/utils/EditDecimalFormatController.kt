@@ -11,12 +11,12 @@ import kotlin.math.pow
 
 class EditDecimalFormatController(
     private val editText: EditText,
-    var scale: Int = DEFAULT_SCALE,
+    private var scale: Int = DEFAULT_SCALE,
     var formatDecimal: FormatDecimal = FormatCurrency(CurrencyType.REAL)
 ) {
 
     private var watcher: TextWatcher? = null
-    var decimal: Double = 10.0
+    private var decimal: Double = 10.0
 
     var onChangeScale: MutableLiveData<Int> = MutableLiveData<Int>()
     var onChangeValue: MutableLiveData<BigDecimal> = MutableLiveData<BigDecimal>()
@@ -124,65 +124,44 @@ object FormatDecimalController {
 
     fun format(
         value: Double,
-        currencyType: CurrencyType? = null,
+        currencyType: CurrencyType,
         valueScale: Int? = null
     ): String {
         val scale = valueScale ?: value.getScale()
         val decimal = 10.0.pow(scale.toDouble())
 
-        return if (currencyType == null)
-            FormatNormalDecimal().format(
-                BigDecimal(value).setScale(
-                    scale,
-                    BigDecimal.ROUND_CEILING
-                ).toPlainString(), scale, decimal
-            )
-        else
-            FormatCurrency(currencyType).format(
-                BigDecimal(value).setScale(
-                    scale,
-                    BigDecimal.ROUND_CEILING
-                ).toPlainString(), scale, decimal
-            )
+        return FormatCurrency(currencyType).format(
+            BigDecimal(value).setScale(
+                scale,
+                BigDecimal.ROUND_CEILING
+            ).toPlainString(), scale, decimal
+        )
     }
 
     fun format(
         value: BigDecimal,
-        currencyType: CurrencyType? = null
+        currencyType: CurrencyType
     ): String {
         val scale = value.scale()
         val decimal = 10.0.pow(scale.toDouble())
 
-        return if (currencyType == null)
-            FormatNormalDecimal().format(
-                value.toPlainString(), scale, decimal
-            )
-        else
-            FormatCurrency(currencyType).format(
-                value.toPlainString(), scale, decimal
-            )
+        return FormatCurrency(currencyType).format(
+            value.toPlainString(), scale, decimal
+        )
     }
 
     fun format(
         value: String,
-        currencyType: CurrencyType? = null
+        currencyType: CurrencyType
     ): String {
         val scale = value.getScale()
         val decimal = 10.0.pow(scale.toDouble())
 
-        return if (currencyType == null)
-            FormatNormalDecimal().format(
-                BigDecimal(value).setScale(
-                    scale,
-                    BigDecimal.ROUND_CEILING
-                ).toPlainString(), scale, decimal
-            )
-        else
-            FormatCurrency(currencyType).format(
-                BigDecimal(value).setScale(
-                    scale,
-                    BigDecimal.ROUND_CEILING
-                ).toPlainString(), scale, decimal
-            )
+        return FormatCurrency(currencyType).format(
+            BigDecimal(value).setScale(
+                scale,
+                BigDecimal.ROUND_CEILING
+            ).toPlainString(), scale, decimal
+        )
     }
 }

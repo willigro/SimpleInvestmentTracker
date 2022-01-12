@@ -77,12 +77,15 @@ enum class CryptoOperationType(val value: String) : Serializable {
 }
 
 enum class CurrencyType(val value: String) : Serializable {
-    REAL("r"), CRYPTO("c");
+    REAL("r"), CRYPTO("c"), DECIMAL("d");
 
     companion object {
         fun convert(valueToConvert: String): CurrencyType {
-            return if (valueToConvert == REAL.value) REAL
-            else CRYPTO
+            return when (valueToConvert) {
+                REAL.value -> REAL
+                DECIMAL.value -> DECIMAL
+                else -> CRYPTO
+            }
         }
     }
 }
