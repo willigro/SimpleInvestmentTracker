@@ -63,6 +63,47 @@ data class CryptoMovement(
         } else
             tax.toDouble() * currentValue.toDouble()
 
+    companion object {
+        fun buy(
+            name: String,
+            date: String,
+            operatedAmount: Double,
+            currentValue: Double,
+            totalValue: Double,
+            tax: Double
+        ) = CryptoMovement(
+            name = name,
+            date = date,
+            type = CryptoOperationType.BUY,
+            operatedAmount = operatedAmount.toBigDecimal(),
+            currentValue = currentValue.toBigDecimal(),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValue = totalValue.toBigDecimal(),
+            totalValueCurrency = CurrencyType.REAL,
+            tax = tax.toBigDecimal(),
+            taxCurrency = CurrencyType.CRYPTO
+        )
+
+        fun sell(
+            name: String,
+            date: String,
+            operatedAmount: Double,
+            currentValue: Double,
+            totalValue: Double,
+            tax: Double
+        ) = CryptoMovement(
+            name = name,
+            date = date,
+            type = CryptoOperationType.SELL,
+            operatedAmount = operatedAmount.toBigDecimal(),
+            currentValue = currentValue.toBigDecimal(),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValue = totalValue.toBigDecimal(),
+            totalValueCurrency = CurrencyType.REAL,
+            tax = tax.toBigDecimal(),
+            taxCurrency = CurrencyType.REAL
+        )
+    }
 }
 
 enum class CryptoOperationType(val value: String) : Serializable {
