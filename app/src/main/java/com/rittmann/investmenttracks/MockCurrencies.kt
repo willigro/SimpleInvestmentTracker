@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-object Mock {
+object MockCurrencies {
 
     private var dao: CryptoDao? = null
 
