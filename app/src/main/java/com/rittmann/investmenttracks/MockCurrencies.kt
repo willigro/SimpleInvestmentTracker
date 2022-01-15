@@ -415,7 +415,7 @@ object MockCurrencies {
                 currentValueCurrency = CurrencyType.REAL,
                 totalValue = 99.98.toBigDecimal(),
                 totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00025070.toBigDecimal(),
+                tax = 0.00025670.toBigDecimal(),
                 taxCurrency = CurrencyType.CRYPTO
             ),
 

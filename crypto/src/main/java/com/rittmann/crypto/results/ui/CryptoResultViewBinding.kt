@@ -56,4 +56,16 @@ class CryptoResultViewBinding {
         get() = transformerIt<Pair<Double, CurrencyType?>, String>(_totalTaxPaid) {
             FormatDecimalController.format(it?.first.orZero(), it?.second?:CurrencyType.REAL, SCALE_LIMIT)
         }
+
+    val _totalTaxAmount: MutableLiveData<Pair<Double, CurrencyType?>> = MutableLiveData()
+    val totalTaxAmount: LiveData<String>
+        get() = transformerIt<Pair<Double, CurrencyType?>, String>(_totalTaxAmount) {
+            FormatDecimalController.format(it?.first.orZero(), it?.second?:CurrencyType.REAL, SCALE_LIMIT)
+        }
+
+    val _totalAmountOnHandWithoutTax: MutableLiveData<Pair<Double, CurrencyType?>> = MutableLiveData()
+    val totalAmountOnHandWithoutTax: LiveData<String>
+        get() = transformerIt<Pair<Double, CurrencyType?>, String>(_totalAmountOnHandWithoutTax) {
+            FormatDecimalController.format(it?.first.orZero(), it?.second?:CurrencyType.REAL, SCALE_LIMIT)
+        }
 }

@@ -63,6 +63,15 @@
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
             app:valueText="@{cryptoResultViewBinding.totalTaxPaid}" />
 
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_tax_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_label="@string/crypto_movement_total_tax_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_paid"
+            app:valueText="@{cryptoResultViewBinding.totalTaxAmount}" />
+
         <!-- AMOUNT -->
 
         <com.rittmann.common.customs.CustomLabelValueText
@@ -71,7 +80,7 @@
             android:layout_height="wrap_content"
             app:labelValue_label="@string/crypto_movement_total_bought_amount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_paid"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_amount"
             app:valueText="@{cryptoResultViewBinding.totalBoughtAmount}" />
 
         <com.rittmann.common.customs.CustomLabelValueText
@@ -91,5 +100,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount"
             app:valueText="@{cryptoResultViewBinding.totalOnHandAmount}" />
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_on_hand_amount_without_tax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_label="@string/crypto_movement_total_on_hand_amount_without_tax"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount"
+            app:valueText="@{cryptoResultViewBinding.totalAmountOnHandWithoutTax}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

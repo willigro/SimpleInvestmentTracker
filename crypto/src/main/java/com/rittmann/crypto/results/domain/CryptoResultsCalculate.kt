@@ -17,6 +17,7 @@ object CryptoResultsCalculate {
         var boughtAmount = 0.0
         var soldAmount = 0.0
         var taxPaid = 0.0
+        var taxAmount = 0.0
 
         data.forEach {
             if (it.type == CryptoOperationType.BUY) {
@@ -28,11 +29,15 @@ object CryptoResultsCalculate {
                 taxPaid += it.calculateTaxValue()
                 soldAmount += it.operatedAmount.toDouble()
             }
+
+            if (it.taxCurrency == CurrencyType.CRYPTO)
+                taxAmount += it.tax.toDouble()
         }
 
         val onHand: Double = earned - invested
         val onHandWithoutTax: Double = onHand - taxPaid
         val onHandAmount: Double = boughtAmount - soldAmount
+        val amountOnHandWithoutTax: Double = onHandAmount - taxAmount
 
         return cryptoResultViewBinding.apply {
             _totalOnHand.value = Pair(onHand, CurrencyType.REAL)
@@ -43,6 +48,8 @@ object CryptoResultsCalculate {
             _totalSoldAmount.value = Pair(soldAmount, CurrencyType.DECIMAL)
             _totalOnHandAmount.value = Pair(onHandAmount, CurrencyType.DECIMAL)
             _totalTaxPaid.value = Pair(taxPaid, CurrencyType.REAL)
+            _totalTaxAmount.value = Pair(taxAmount, CurrencyType.DECIMAL)
+            _totalAmountOnHandWithoutTax.value = Pair(amountOnHandWithoutTax, CurrencyType.DECIMAL)
         }
     }
 }

@@ -26,5 +26,7 @@
     <string name="crypto_movement_total_bought_amount">Total bought amount</string>
     <string name="crypto_movement_total_sold_amount">Total sold amount</string>
     <string name="crypto_movement_total_on_hand_amount">Total on hand amount</string>
+    <string name="crypto_movement_total_on_hand_amount_without_tax">Total on hand amount - Tax</string>
     <string name="crypto_movement_total_tax_paid">Total tax paid</string>
+    <string name="crypto_movement_total_tax_amount">Total tax amount</string>
 </resources>
