@@ -16,11 +16,9 @@
         <item name="robbieTypographyTheme">@style/Robbie.TypographyTheme</item>
         <item name="robbieButtonTheme">@style/Robbie.ButtonTheme</item>
         <item name="robbieTextInputTheme">@style/Robbie.TextInputTheme</item>
-
-        <item name="robbieParagraphTextColor">@color/robbie_color_text_dark_primary_2</item>
     </style>
 
-    <style name="Theme.InvestmentTracks.NoActionBar">
+    <style name="Theme.InvestmentTracks.NoActionBar" parent="Theme.InvestmentTracks">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
