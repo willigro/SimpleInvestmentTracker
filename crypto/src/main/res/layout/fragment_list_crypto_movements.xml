@@ -16,6 +16,16 @@
         tools:context=".listmovements.ui.ListCryptoMovementsFragment">
 
         <TextView
+            android:id="@+id/txt_total_on_hand"
+            style="@style/Robbie.Paragraph1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="@{viewModel.totalValueOnHand}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/txt_total_earned"
             style="@style/Robbie.Paragraph1"
             android:layout_width="0dp"
@@ -23,7 +33,7 @@
             android:text="@{viewModel.totalValueEarned}"
             app:layout_constraintEnd_toStartOf="@id/txt_total_invested"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
 
         <TextView
             android:id="@+id/txt_total_invested"
@@ -33,7 +43,7 @@
             android:text="@{viewModel.totalValueInvested}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/txt_total_earned"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_crypto_movement"

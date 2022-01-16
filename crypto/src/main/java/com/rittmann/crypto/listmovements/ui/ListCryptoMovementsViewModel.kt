@@ -49,6 +49,16 @@ class ListCryptoMovementsViewModel @Inject constructor(
             )
         }
 
+    private val _totalValueOnHand: MutableLiveData<Double> = MutableLiveData()
+    val totalValueOnHand: LiveData<String>
+        get() = transformerIt(_totalValueOnHand) {
+            FormatDecimalController.format(
+                it.orZero(),
+                CurrencyType.REAL,
+                EditDecimalFormatController.SCALE_LIMIT
+            )
+        }
+
     fun fetchAllCryptoMovements() {
         executeAsync {
             val result = listCryptoMovementsRepositoryImpl.getAll()
@@ -72,5 +82,6 @@ class ListCryptoMovementsViewModel @Inject constructor(
 
         _totalValueInvested.value = totalInvested
         _totalValueEarned.value = totalEarned
+        _totalValueOnHand.value = totalEarned - totalInvested
     }
 }
