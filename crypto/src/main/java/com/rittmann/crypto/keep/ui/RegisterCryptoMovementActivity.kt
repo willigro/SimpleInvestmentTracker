@@ -24,6 +24,7 @@ import com.rittmann.common.validations.FieldValidation
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -166,25 +167,28 @@ class RegisterCryptoMovementActivity
 
             editCryptoCurrentValue.editDecimalFormatController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
-                    val amount = editCryptoBoughtAmount.editText?.text.toString().toDoubleValid()
-                    val currentValue =
-                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency()
-                            .toDoubleValid()
-
-                    editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
+                    updateTheTotalValue()
                 }
             }
 
             editCryptoBoughtAmount.editText?.doAfterTextChanged {
                 if (checkboxUpdateTotalValue.isChecked) {
-                    val amount = it.toString().toDoubleValid()
-                    val currentValue =
-                        editCryptoCurrentValue.editDecimalFormatController?.normalCurrency()
-                            .toDoubleValid()
-
-                    editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount * currentValue)
+                    updateTheTotalValue()
                 }
             }
+        }
+    }
+
+    private fun updateTheTotalValue() {
+        binding.apply {
+            val amount = editCryptoBoughtAmount.editDecimalFormatController?.normalCurrency()
+                ?: BigDecimal(0.0)
+
+            val currentValue =
+                editCryptoCurrentValue.editDecimalFormatController?.normalCurrency()
+                    ?: BigDecimal(0.0)
+
+            editCryptoTotalValue.editDecimalFormatController?.setCurrency(amount.times(currentValue))
         }
     }
 
