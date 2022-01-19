@@ -13,7 +13,8 @@ import com.rittmann.common.utils.FormatDecimalController
 
 class RecyclerAdapterCryptoMovement(
     private val list: List<CryptoMovement>,
-    private val navigation: ListCryptoMovementsNavigation
+    private val navigation: ListCryptoMovementsNavigation,
+    private val onDeleteClicked: (CryptoMovement) -> Unit
 ) : RecyclerView.Adapter<RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoMovementViewHolder {
@@ -26,6 +27,11 @@ class RecyclerAdapterCryptoMovement(
     override fun onBindViewHolder(holder: CryptoMovementViewHolder, position: Int) {
         list[holder.adapterPosition].also { cryptoMovement ->
             holder.apply {
+
+                deleteMovement?.setOnClickListener {
+                    onDeleteClicked(cryptoMovement)
+                }
+
                 name?.text = cryptoMovement.name
                 date?.text = cryptoMovement.date
                 type?.setText(
@@ -74,6 +80,7 @@ class RecyclerAdapterCryptoMovement(
 
     class CryptoMovementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
+        val deleteMovement: View? = itemView.findViewById(R.id.adapter_view_delete_crypto_movement)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
         val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
         val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)

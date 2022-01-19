@@ -58,7 +58,12 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     is ResultEvent.Success -> {
                         binding.apply {
                             if (adapter == null) {
-                                adapter = RecyclerAdapterCryptoMovement(result.data, listCryptoMovementsNavigation)
+                                adapter = RecyclerAdapterCryptoMovement(
+                                    result.data,
+                                    listCryptoMovementsNavigation
+                                ) { cryptoMovementToDelete ->
+                                    this@ListCryptoMovementsFragment.viewModel.deleteCrypto(cryptoMovementToDelete)
+                                }
 
                                 recyclerCryptoMovement.linearLayoutManager()
                                 recyclerCryptoMovement.adapter = adapter
@@ -68,6 +73,27 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                         }
                     }
                     else -> {
+                        // TODO: error message
+                        modal(
+                            message = getString(R.string.list_crypto_error),
+                            show = true,
+                            ok = true,
+                            cancelable = true
+                        )
+                    }
+                }
+            })
+
+            cryptoMovementDeleted.observe(this@ListCryptoMovementsFragment, { result ->
+                when (result) {
+                    is ResultEvent.Success -> {
+                        // TODO: to it right, man, late I'm going to change it for the right remove
+                        //  remove the item from the list, recalculate and etc..
+
+                        this@ListCryptoMovementsFragment.viewModel.fetchAllCryptoMovements()
+                    }
+                    else -> {
+                        // TODO: error message
                         modal(
                             message = getString(R.string.list_crypto_error),
                             show = true,

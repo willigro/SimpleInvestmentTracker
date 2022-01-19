@@ -17,7 +17,7 @@ import com.rittmann.common.utils.transformerIt
 import javax.inject.Inject
 
 class ListCryptoMovementsViewModel @Inject constructor(
-    private val listCryptoMovementsRepositoryImpl: ListCryptoMovementsRepository,
+    private val repository: ListCryptoMovementsRepository,
     dispatcherProviderVm: DispatcherProvider
 ) : BaseViewModelApp(dispatcherProviderVm) {
 
@@ -59,9 +59,13 @@ class ListCryptoMovementsViewModel @Inject constructor(
             )
         }
 
+    private val _cryptoMovementDeleted: MutableLiveData<ResultEvent<Int>> = MutableLiveData()
+    val cryptoMovementDeleted: LiveData<ResultEvent<Int>>
+        get() = _cryptoMovementDeleted
+
     fun fetchAllCryptoMovements() {
         executeAsync {
-            val result = listCryptoMovementsRepositoryImpl.getAll()
+            val result = repository.getAll()
 
             executeMain {
                 _cryptoMovementsList.value = result
@@ -83,5 +87,16 @@ class ListCryptoMovementsViewModel @Inject constructor(
         _totalValueInvested.value = totalInvested
         _totalValueEarned.value = totalEarned
         _totalValueOnHand.value = totalEarned - totalInvested
+    }
+
+    fun deleteCrypto(cryptoMovementToDelete: CryptoMovement) {
+        executeAsyncThenMainSuspend(
+            io = {
+                repository.delete(cryptoMovementToDelete)
+            },
+            main = {
+                _cryptoMovementDeleted.value = it
+            }
+        )
     }
 }

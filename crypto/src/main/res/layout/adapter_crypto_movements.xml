@@ -7,46 +7,65 @@
     android:background="@color/robbie_color_brand_dark_primary_pure"
     android:padding="@dimen/padding_standard">
 
-    <TextView
-        android:id="@+id/adapter_crypto_movement_name"
-        style="@style/Robbie.H4.Bold"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adapter_container_values"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/adapter_view_delete_crypto_movement"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_name"
+            style="@style/Robbie.H4.Bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_date"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_name" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_type"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_date" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_bought_amount"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_type" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_current_value"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_bought_amount" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_total_value"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_current_value" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_tax"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_total_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/adapter_view_delete_crypto_movement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_clickable"
+        android:text="X"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_date"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_name" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_type"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_date" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_bought_amount"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_type" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_current_value"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_bought_amount" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_total_value"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_current_value" />
-
-    <TextView
-        android:id="@+id/adapter_crypto_movement_tax"
-        style="@style/Robbie.Paragraph1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_total_value" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

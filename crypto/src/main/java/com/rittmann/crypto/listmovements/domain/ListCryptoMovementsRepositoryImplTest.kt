@@ -19,4 +19,8 @@ class ListCryptoMovementsRepositoryImplTest @Inject constructor(
         else
             ResultEvent.Success(cryptoDao.selectAll())
     }
+
+    override suspend fun delete(cryptoMovement: CryptoMovement): ResultEvent<Int> {
+        return ResultEvent.Success(0)
+    }
 }

@@ -2,4 +2,5 @@
 <resources>
     <!-- Padding -->
     <dimen name="padding_standard">10dp</dimen>
+    <dimen name="padding_clickable">15dp</dimen>
 </resources>
