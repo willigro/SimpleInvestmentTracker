@@ -1,0 +1,20 @@
+- Delete movements
+    OK - delete (and relisting everything)
+    - refactor it to delete just one item from the list without relist everything
+    - adjust the error message
+    - progress
+
+Filter
+    - movements
+    - results
+
+Currencies
+    - BRL, USD...
+
+Update total using the tax too
+
+Group movements by date
+
+Keep Deposits, maybe i'm going to register a movement as Deposit
+
+Loading state and animation (progress)
