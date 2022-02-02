@@ -5,14 +5,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RawQuery
 import androidx.room.Update
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.dao.config.TableCryptoMovement
 
 @Dao
 interface CryptoDao {
-//    @RawQuery(observedEntities = [CashFlow::class])
-//    fun getAll(query: SupportSQLiteQuery): List<CashFlow>
+    @RawQuery(observedEntities = [CryptoMovement::class])
+    fun selectAll(query: SupportSQLiteQuery): List<CryptoMovement>
 
     @Query("SELECT * FROM ${TableCryptoMovement.TABLE}")
     fun selectAll(): List<CryptoMovement>

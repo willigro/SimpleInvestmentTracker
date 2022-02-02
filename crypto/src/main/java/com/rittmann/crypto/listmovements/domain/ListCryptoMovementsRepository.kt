@@ -1,6 +1,12 @@
 package com.rittmann.crypto.listmovements.domain
 
+import androidx.sqlite.db.SimpleSQLiteQuery
 import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.dao.config.QueryDAO
+import com.rittmann.common.datasource.dao.config.TableCryptoMovement
+import com.rittmann.common.datasource.dao.config.groupByThat
+import com.rittmann.common.datasource.dao.config.orderBy
+import com.rittmann.common.datasource.dao.config.selectAll
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
@@ -16,7 +22,12 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
 
     override suspend fun getAll(): ResultEvent<List<CryptoMovement>> {
         return try {
-            ResultEvent.Success(cryptoDao.selectAll())
+            val query = SimpleSQLiteQuery(
+                TableCryptoMovement.TABLE.selectAll() +
+                        TableCryptoMovement.ID.groupByThat() +
+                        TableCryptoMovement.DATE.orderBy(QueryDAO.DESC)
+            )
+            ResultEvent.Success(cryptoDao.selectAll(query))
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

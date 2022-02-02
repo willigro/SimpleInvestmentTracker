@@ -48,6 +48,9 @@ data class CryptoMovement(
     var taxCurrency: CurrencyType = CurrencyType.CRYPTO,
 ) : Serializable, Ponjo() {
 
+    @Transient
+    var useThisDate: Boolean = false
+
     override fun isInserting(): Boolean = id == 0L
 
     fun calculateTotalValue(): Double =
