@@ -23,7 +23,8 @@ class ListCryptosViewModel @Inject constructor(
     fun fetchCryptos() {
         executeAsyncThenMain(
             io = { repository.fetchCryptoNames() },
-            main = { _cryptosList.value = it }
+            main = { _cryptosList.value = it },
+            progress = true
         )
 
         executeAsyncThenMain(
@@ -31,7 +32,8 @@ class ListCryptosViewModel @Inject constructor(
             main = {
                 if (it is ResultEvent.Success)
                     CryptoResultsCalculate.calculateResults(cryptoResultViewBinding, it.data)
-            }
+            },
+            progress = true
         )
     }
 }

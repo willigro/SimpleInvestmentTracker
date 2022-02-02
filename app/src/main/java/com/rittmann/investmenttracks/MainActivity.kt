@@ -1,12 +1,12 @@
 package com.rittmann.investmenttracks
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.rittmann.baselifecycle.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.bottom_nav
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

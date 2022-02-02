@@ -64,13 +64,16 @@ class ListCryptoMovementsViewModel @Inject constructor(
         get() = _cryptoMovementDeleted
 
     fun fetchAllCryptoMovements() {
-        executeAsync {
-            val result = repository.getAll()
-
-            executeMain {
-                _cryptoMovementsList.value = result
-            }
-        }
+        showProgress()
+        executeAsyncThenMainSuspend(
+            io = {
+                repository.getAll()
+            },
+            main = {
+                _cryptoMovementsList.value = it
+            },
+            progress = true
+        )
     }
 
     private fun calculateTotalValues(result: ResultEvent<List<CryptoMovement>>?) {
@@ -96,7 +99,8 @@ class ListCryptoMovementsViewModel @Inject constructor(
             },
             main = {
                 _cryptoMovementDeleted.value = it
-            }
+            },
+            progress = true
         )
     }
 }

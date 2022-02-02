@@ -14,7 +14,8 @@ import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
 
 class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMovementsBinding>(
-    R.layout.fragment_list_crypto_movements
+    R.layout.fragment_list_crypto_movements,
+    R.id.container
 ) {
 
     @Inject
@@ -62,7 +63,9 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                                     result.data,
                                     listCryptoMovementsNavigation
                                 ) { cryptoMovementToDelete ->
-                                    this@ListCryptoMovementsFragment.viewModel.deleteCrypto(cryptoMovementToDelete)
+                                    this@ListCryptoMovementsFragment.viewModel.deleteCrypto(
+                                        cryptoMovementToDelete
+                                    )
                                 }
 
                                 recyclerCryptoMovement.linearLayoutManager()
@@ -103,6 +106,8 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     }
                 }
             })
+
+            observeProgress(this)
         }
     }
 }

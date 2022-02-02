@@ -96,22 +96,41 @@ open class BaseViewModelApp(
         }
     }
 
-    fun <T> executeAsyncThenMain(io: () -> T, main: (result: T) -> Unit) {
+    fun <T> executeAsyncThenMain(
+        io: () -> T,
+        main: (result: T) -> Unit,
+        progress: Boolean = false
+    ) {
+        if (progress)
+            showProgress()
+
         executeAsync {
             val result = io()
 
             executeMain {
                 main(result)
+
+                if (progress)
+                    hideProgress()
             }
         }
     }
 
-    fun <T> executeAsyncThenMainSuspend(io: suspend () -> T, main: (result: T) -> Unit) {
+    fun <T> executeAsyncThenMainSuspend(
+        io: suspend () -> T,
+        main: (result: T) -> Unit,
+        progress: Boolean = false
+    ) {
+        if (progress)
+            showProgress()
         executeAsync {
             val result = io()
 
             executeMain {
                 main(result)
+
+                if (progress)
+                    hideProgress()
             }
         }
     }
