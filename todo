@@ -2,7 +2,7 @@
     OK - delete (and relisting everything)
     - refactor it to delete just one item from the list without relist everything
     - adjust the error message
-    - progress
+    OK - progress
 
 Filter
     - movements
@@ -17,9 +17,9 @@ OK - Group movements by date
 
 Keep Deposits, maybe i'm going to register a movement as Deposit
 
-Loading state and animation (progress)
+OK - Loading state and animation (progress)
 
 ### ROBBIE
-- create a control for the progress to dismiss the progress only when all request is completed.
+OK - create a control for the progress to dismiss the progress only when all request is completed.
     Similar what I did at UseMobile, defining a list of items, dismiss when all is done or when a
     high priority item request to

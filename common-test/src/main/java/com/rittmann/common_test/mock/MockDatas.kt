@@ -3,13 +3,14 @@ package com.rittmann.common_test.mock
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.utils.DateUtil
 import java.lang.Exception
 import java.math.BigDecimal
 
 val newCryptoMovementMock =
     CryptoMovement(
         id = 0L,
-        date = "00/00/0000",
+        date = DateUtil.parseDate("00/00/0000"),
         name = "BTC",
         type = CryptoOperationType.BUY,
         operatedAmount = BigDecimal(2.0),

@@ -17,10 +17,6 @@ open class BaseViewModelApp(
     var dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()
 ) : BaseViewModel() {
 
-    fun forceHideProgress() {
-        _progress.postValue(false)
-    }
-
     protected fun executeAsync(
         dispatcherProvider: DispatcherProvider = this.dispatcherProvider,
         dispatcher: CoroutineDispatcher = Dispatchers.IO,

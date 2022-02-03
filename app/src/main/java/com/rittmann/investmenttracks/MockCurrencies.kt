@@ -2,8 +2,6 @@ package com.rittmann.investmenttracks
 
 import android.app.Application
 import com.rittmann.common.datasource.basic.CryptoMovement
-import com.rittmann.common.datasource.basic.CryptoOperationType
-import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.dao.config.AppDatabase
 import com.rittmann.common.datasource.dao.interfaces.CryptoDao
 import kotlinx.coroutines.Dispatchers
@@ -39,147 +37,103 @@ object MockCurrencies {
     private fun addBitcoin() {
         val name = "BTC"
         val arr = arrayListOf(
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "24/04/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00017955.toBigDecimal(),
-                currentValue = 278435.28.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 49.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000089.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00017955,
+                currentValue = 278435.28,
+                totalValue = 49.99,
+                tax = 0.00000089,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "24/04/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00017963.toBigDecimal(),
-                currentValue = 278357.00.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 49.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000089.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00017963,
+                currentValue = 278357.00,
+                totalValue = 49.99,
+                tax = 0.00000089,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "25/04/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00089818.toBigDecimal(),
-                currentValue = 278335.78.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 249.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000449.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00089818,
+                currentValue = 278335.78,
+                totalValue = 249.99,
+                tax = 0.00000449,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "11/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00033589.toBigDecimal(),
-                currentValue = 297713.48.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 99.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000167.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00033589,
+                currentValue = 297713.48,
+                totalValue = 99.99,
+                tax = 0.00000167,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "12/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00018482.toBigDecimal(),
-                currentValue = 270529.40.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 49.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000092.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00018482,
+                currentValue = 270529.40,
+                totalValue = 49.99,
+                tax = 0.00000092,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "12/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00007843.toBigDecimal(),
-                currentValue = 254999.94.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 19.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000039.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00007843,
+                currentValue = 254999.94,
+                totalValue = 19.99,
+                tax = 0.00000039,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "17/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00004168.toBigDecimal(),
-                currentValue = 239891.10.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 9.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000020.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00004168,
+                currentValue = 239891.10,
+                totalValue = 9.99,
+                tax = 0.00000020,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "21/06/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00092040.toBigDecimal(),
-                currentValue = 162954.56.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 149.98.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000460.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00092040,
+                currentValue = 162954.56,
+                totalValue = 149.98,
+                tax = 0.00000460,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "17/07/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00089559.toBigDecimal(),
-                currentValue = 167477.32.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 149.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000447.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00089559,
+                currentValue = 167477.32,
+                totalValue = 149.99,
+                tax = 0.00000447,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "20/07/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00019868.toBigDecimal(),
-                currentValue = 157129.32.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 31.21.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00000099.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00019868,
+                currentValue = 157129.32,
+                totalValue = 31.21,
+                tax = 0.00000099,
             ),
 
-            CryptoMovement(
+            CryptoMovement.sell(
                 name = name,
                 date = "16/09/2021",
-                type = CryptoOperationType.SELL,
-                operatedAmount = 0.00389328.toBigDecimal(),
-                currentValue = 252537.52.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 983.19.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 2.45.toBigDecimal(),
-                taxCurrency = CurrencyType.REAL
+                operatedAmount = 0.00389328,
+                currentValue = 252537.52,
+                totalValue = 983.19,
+                tax = 2.45,
             ),
 
             CryptoMovement.buy(
@@ -360,43 +314,31 @@ object MockCurrencies {
     private fun addEth() {
         val name = "ETH"
         val arr = arrayListOf(
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "24/04/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00400535.toBigDecimal(),
-                currentValue = 12478.56.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 49.98.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00002002.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00400535,
+                currentValue = 12478.56,
+                totalValue = 49.98,
+                tax = 0.00002002,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "05/04/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.00392112.toBigDecimal(),
-                currentValue = 12750.06.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 49.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00001960.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.00392112,
+                currentValue = 12750.06,
+                totalValue = 49.99,
+                tax = 0.00001960,
             ),
 
-            CryptoMovement(
+            CryptoMovement.sell(
                 name = name,
                 date = "04/08/2021",
-                type = CryptoOperationType.SELL,
-                operatedAmount = 0.00788682.toBigDecimal(),
-                currentValue = 14021.18.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 110.58.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.55.toBigDecimal(),
-                taxCurrency = CurrencyType.REAL
+                operatedAmount = 0.00788682,
+                currentValue = 14021.18,
+                totalValue = 110.58,
+                tax = 0.55,
             )
         )
 
@@ -406,30 +348,22 @@ object MockCurrencies {
     private fun addLtc() {
         val name = "LTC"
         val arr = arrayListOf(
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "11/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.05134023.toBigDecimal(),
-                currentValue = 1947.55.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 99.98.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00025670.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.05134023,
+                currentValue = 1947.55,
+                totalValue = 99.98,
+                tax = 0.00025670,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "11/05/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 0.01005025.toBigDecimal(),
-                currentValue = 1990.00.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 19.99.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00005025.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 0.01005025,
+                currentValue = 1990.00,
+                totalValue = 19.99,
+                tax = 0.00005025,
             )
         )
 
@@ -439,121 +373,85 @@ object MockCurrencies {
     private fun addZrx() {
         val name = "ZRX"
         val arr = arrayListOf(
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "17/07/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 10.00000000.toBigDecimal(),
-                currentValue = 3.480.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 34.800.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.05000000.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 10.00000000,
+                currentValue = 3.480,
+                totalValue = 34.800,
+                tax = 0.05000000,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "20/07/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 10.17964072.toBigDecimal(),
-                currentValue = 3.345.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 34.050.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.05089820.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 10.17964072,
+                currentValue = 3.345,
+                totalValue = 34.050,
+                tax = 0.05089820,
             ),
 
-            CryptoMovement(
+            CryptoMovement.sell(
                 name = name,
                 date = "04/08/2021",
-                type = CryptoOperationType.SELL,
-                operatedAmount = 10.00000000.toBigDecimal(),
-                currentValue = 4.214.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 42.140.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.210.toBigDecimal(),
-                taxCurrency = CurrencyType.REAL
+                operatedAmount = 10.00000000,
+                currentValue = 4.214,
+                totalValue = 42.140,
+                tax = 0.210,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "12/08/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 11.27145965.toBigDecimal(),
-                currentValue = 4.900.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 55.230.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.02817864.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 11.27145965,
+                currentValue = 4.900,
+                totalValue = 55.230,
+                tax = 0.02817864,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "17/08/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 4.08387883.toBigDecimal(),
-                currentValue = 5.510.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 22.502.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.01020969.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 4.08387883,
+                currentValue = 5.510,
+                totalValue = 22.502,
+                tax = 0.01020969,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "17/08/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 1.24697416.toBigDecimal(),
-                currentValue = 5.510.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 6.870.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.00311743.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 1.24697416,
+                currentValue = 5.510,
+                totalValue = 6.870,
+                tax = 0.00311743,
             ),
 
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "18/08/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 12.95480769.toBigDecimal(),
-                currentValue = 5.200.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 67.364.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.03238701.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 12.95480769,
+                currentValue = 5.200,
+                totalValue = 67.364,
+                tax = 0.03238701,
             ),
 
-            CryptoMovement(
+            CryptoMovement.sell(
                 name = name,
                 date = "16/09/2021",
-                type = CryptoOperationType.SELL,
-                operatedAmount = 28.66279911.toBigDecimal(),
-                currentValue = 5.940.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 170.257.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.452.toBigDecimal(),
-                taxCurrency = CurrencyType.REAL
+                operatedAmount = 28.66279911,
+                currentValue = 5.940,
+                totalValue = 170.257,
+                tax = 0.452,
             ),
 
-            CryptoMovement(
+            CryptoMovement.sell(
                 name = name,
                 date = "16/09/2021",
-                type = CryptoOperationType.SELL,
-                operatedAmount = 10.89917093.toBigDecimal(),
-                currentValue = 5.940.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 64.741.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.161.toBigDecimal(),
-                taxCurrency = CurrencyType.REAL
+                operatedAmount = 10.89917093,
+                currentValue = 5.940,
+                totalValue = 64.741,
+                tax = 0.161,
             ),
 
             CryptoMovement.buy(
@@ -975,17 +873,13 @@ object MockCurrencies {
     private fun addKnc() {
         val name = "KNC"
         val arr = arrayListOf(
-            CryptoMovement(
+            CryptoMovement.buy(
                 name = name,
                 date = "19/09/2021",
-                type = CryptoOperationType.BUY,
-                operatedAmount = 10.46783153.toBigDecimal(),
-                currentValue = 9.699.toBigDecimal(),
-                currentValueCurrency = CurrencyType.REAL,
-                totalValue = 101.536.toBigDecimal(),
-                totalValueCurrency = CurrencyType.REAL,
-                tax = 0.02616957.toBigDecimal(),
-                taxCurrency = CurrencyType.CRYPTO
+                operatedAmount = 10.46783153,
+                currentValue = 9.699,
+                totalValue = 101.536,
+                tax = 0.02616957,
             ),
 
             CryptoMovement.buy(

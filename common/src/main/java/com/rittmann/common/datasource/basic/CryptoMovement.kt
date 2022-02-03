@@ -3,10 +3,13 @@ package com.rittmann.common.datasource.basic
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.rittmann.androidtools.dateutil.DateUtilImpl
 import com.rittmann.common.datasource.dao.config.TableCryptoMovement
+import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
 import java.io.Serializable
 import java.math.BigDecimal
+import java.util.*
 
 /**
  * I'm letting this stuff here cause I wanna see how use it from here
@@ -18,7 +21,7 @@ data class CryptoMovement(
     var id: Long = 0L,
 
     @ColumnInfo(name = TableCryptoMovement.DATE)
-    var date: String = "",
+    var date: Calendar = Calendar.getInstance(),
 
     @ColumnInfo(name = TableCryptoMovement.NAME)
     var name: String = "",
@@ -76,7 +79,7 @@ data class CryptoMovement(
             tax: Double
         ) = CryptoMovement(
             name = name,
-            date = date,
+            date = DateUtil.parseDate(date),
             type = CryptoOperationType.BUY,
             operatedAmount = operatedAmount.toBigDecimal(),
             currentValue = currentValue.toBigDecimal(),
@@ -96,7 +99,7 @@ data class CryptoMovement(
             tax: Double
         ) = CryptoMovement(
             name = name,
-            date = date,
+            date = DateUtil.parseDate(date),
             type = CryptoOperationType.SELL,
             operatedAmount = operatedAmount.toBigDecimal(),
             currentValue = currentValue.toBigDecimal(),

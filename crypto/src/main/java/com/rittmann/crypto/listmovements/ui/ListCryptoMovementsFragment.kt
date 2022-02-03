@@ -1,10 +1,16 @@
 package com.rittmann.crypto.listmovements.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.androidtools.log.log
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.isOk
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.lifecycle.BaseFragmentBinding
 import com.rittmann.common.viewmodel.viewModelProvider
@@ -29,6 +35,13 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
     private var adapter: RecyclerAdapterCryptoMovement? = null
 
+    val getContent =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.isOk()) {
+                viewModel.fetchAllCryptoMovements()
+            }
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,11 +50,10 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
         initViews()
         initObservers()
-    }
 
-    override fun onResume() {
-        super.onResume()
         viewModel.fetchAllCryptoMovements()
+
+        listCryptoMovementsNavigation.setStartResult(getContent)
     }
 
     private fun initViews() {

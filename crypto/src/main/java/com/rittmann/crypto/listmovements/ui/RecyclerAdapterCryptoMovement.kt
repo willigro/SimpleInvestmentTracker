@@ -9,6 +9,7 @@ import com.rittmann.crypto.R
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.FormatDecimalController
 
 class RecyclerAdapterCryptoMovement(
@@ -21,9 +22,10 @@ class RecyclerAdapterCryptoMovement(
         set(value) {
             var lastDate = ""
             value.forEach { cash ->
-                if (lastDate != cash.date) {
+                val date = DateUtil.simpleDateFormat(cash.date)
+                if (lastDate != date) {
 
-                    lastDate = cash.date
+                    lastDate = date
 
                     cash.useThisDate = true
                 }
@@ -53,7 +55,7 @@ class RecyclerAdapterCryptoMovement(
         listMovements[holder.adapterPosition].also { cryptoMovement ->
             holder.apply {
 
-                titleDate?.text = cryptoMovement.date
+                titleDate?.text = DateUtil.simpleDateFormat(cryptoMovement.date)
 
                 deleteMovement?.setOnClickListener {
                     onDeleteClicked(cryptoMovement)
@@ -97,10 +99,7 @@ class RecyclerAdapterCryptoMovement(
     override fun getItemCount(): Int = listMovements.size
 
     fun relist(listToRelist: List<CryptoMovement>) {
-        (listMovements as ArrayList).apply {
-            clear()
-            addAll(listToRelist)
-        }
+        listMovements = listToRelist
 
         notifyDataSetChanged()
     }

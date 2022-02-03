@@ -24,7 +24,7 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
         return try {
             val query = SimpleSQLiteQuery(
                 TableCryptoMovement.TABLE.selectAll() +
-                        TableCryptoMovement.ID.groupByThat() +
+                        TableCryptoMovement.DATE.groupByThat() +
                         TableCryptoMovement.DATE.orderBy(QueryDAO.DESC)
             )
             ResultEvent.Success(cryptoDao.selectAll(query))

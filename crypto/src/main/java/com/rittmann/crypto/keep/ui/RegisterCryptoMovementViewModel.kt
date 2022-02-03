@@ -8,6 +8,7 @@ import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.result.ResultEvent
+import java.util.*
 import javax.inject.Inject
 
 class RegisterCryptoMovementViewModel @Inject constructor(
@@ -31,9 +32,9 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<CryptoMovement>>()
     val lastCryptoResultEvent: LiveData<ResultEvent<CryptoMovement>> get() = _lastCryptoResultEvent
 
-    private val _dateRetrieved: MutableLiveData<String> =
-        MutableLiveData<String>()
-    val dateRetrieved: LiveData<String> get() = _dateRetrieved
+    private val _dateRetrieved: MutableLiveData<Calendar> =
+        MutableLiveData<Calendar>()
+    val dateRetrieved: LiveData<Calendar> get() = _dateRetrieved
 
     var cryptoMovement: MutableLiveData<CryptoMovement> = MutableLiveData(CryptoMovement())
 
@@ -113,11 +114,11 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         cryptoMovement.value?.type = type
     }
 
-    fun changeDate(date: String) {
-        cryptoMovement.value?.date = date
+    fun changeDate(calendar: Calendar) {
+        cryptoMovement.value?.date = calendar
     }
 
     fun retrieveDate() {
-        _dateRetrieved.postValue(cryptoMovement.value?.date.orEmpty())
+        _dateRetrieved.postValue(cryptoMovement.value?.date)
     }
 }

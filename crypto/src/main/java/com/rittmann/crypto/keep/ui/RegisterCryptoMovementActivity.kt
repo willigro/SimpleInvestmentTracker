@@ -1,6 +1,7 @@
 package com.rittmann.crypto.keep.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -15,7 +16,6 @@ import com.rittmann.common.customs.valueScale
 import com.rittmann.common.datasource.basic.CryptoMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
-import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toast
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.utils.DateUtil
@@ -62,7 +62,7 @@ class RegisterCryptoMovementActivity
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             DateUtil.simpleDateFormat(calendar).also {
                 binding.txtCryptoDate.text = it
-                viewModel.changeDate(it)
+                viewModel.changeDate(calendar)
             }
         }
 
@@ -114,14 +114,12 @@ class RegisterCryptoMovementActivity
             }
 
             txtCryptoDate.apply {
-                DateUtil.simpleDateFormat(calendar).also {
-                    text = it
+                text = DateUtil.simpleDateFormat(calendar)
 
-                    if (isInserting())
-                        this@RegisterCryptoMovementActivity.viewModel.changeDate(it)
-                    else
-                        this@RegisterCryptoMovementActivity.viewModel.retrieveDate()
-                }
+                if (isInserting())
+                    this@RegisterCryptoMovementActivity.viewModel.changeDate(calendar)
+                else
+                    this@RegisterCryptoMovementActivity.viewModel.retrieveDate()
 
                 setOnClickListener {
                     DatePickerDialog(
@@ -201,6 +199,7 @@ class RegisterCryptoMovementActivity
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_registered))
+                        setResult(Activity.RESULT_OK)
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_registered))
@@ -212,6 +211,7 @@ class RegisterCryptoMovementActivity
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_updated))
+                        setResult(Activity.RESULT_OK)
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_updated))
@@ -230,7 +230,7 @@ class RegisterCryptoMovementActivity
             })
 
             dateRetrieved.observe(this@RegisterCryptoMovementActivity, {
-                binding.txtCryptoDate.text = it
+                binding.txtCryptoDate.text = DateUtil.simpleDateFormat(it)
             })
         }
     }
@@ -268,14 +268,19 @@ class RegisterCryptoMovementActivity
         private const val CRYPTO_MOVEMENT = "cm"
 
         fun start(context: Context) {
-            context.startActivity(Intent(context, RegisterCryptoMovementActivity::class.java))
+            context.startActivity(getIntent(context))
         }
 
         fun start(context: Context, cryptoMovement: CryptoMovement) {
+            context.startActivity(getIntent(context, cryptoMovement))
+        }
+
+        fun getIntent(context: Context) =
+            Intent(context, RegisterCryptoMovementActivity::class.java)
+
+        fun getIntent(context: Context, cryptoMovement: CryptoMovement) =
             Intent(context, RegisterCryptoMovementActivity::class.java).apply {
                 putExtra(CRYPTO_MOVEMENT, cryptoMovement)
-                context.startActivity(this)
             }
-        }
     }
 }

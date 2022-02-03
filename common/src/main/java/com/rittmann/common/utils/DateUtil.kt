@@ -14,7 +14,7 @@ interface IDate {
 
 object DateUtil : IDate {
 
-     const val REPRESENTATIVE_FORMAT = "dd/MM/yyyy"
+    const val REPRESENTATIVE_FORMAT = "dd/MM/yyyy"
     const val DB_FORMAT = "yyyy-MM-dd HH:mm:ss"
     const val monthCompletFormat = "MMMM"  // MMMM = June
     const val monthSimplifiedFormat = "MMM" // MMM = Jun
@@ -59,7 +59,11 @@ object DateUtil : IDate {
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun getMonthName(calendar: Calendar, monthFormat: String = monthCompletFormat, withYear: Boolean = true): String {
+    fun getMonthName(
+        calendar: Calendar,
+        monthFormat: String = monthCompletFormat,
+        withYear: Boolean = true
+    ): String {
         val year = if (withYear) "/yyyy" else ""
         return SimpleDateFormat("$monthFormat$year").format(calendar.time)
     }
@@ -136,7 +140,13 @@ object DateUtil : IDate {
 
         val labelInit = if (dayToInit < 10) "0$dayToInit" else dayToInit.toString()
         val labelEnd = if (dayToEnd < 10) "0$dayToEnd" else dayToEnd.toString()
-        return "$labelInit (${getMonthName(calendarInit, monthSimplifiedFormat, false)}) - $labelEnd (${getMonthName(calendar, monthSimplifiedFormat, false)})"
+        return "$labelInit (${
+            getMonthName(
+                calendarInit,
+                monthSimplifiedFormat,
+                false
+            )
+        }) - $labelEnd (${getMonthName(calendar, monthSimplifiedFormat, false)})"
     }
 
     @SuppressLint("SimpleDateFormat")
