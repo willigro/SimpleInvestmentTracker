@@ -43,7 +43,7 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
         (requireActivity() as BaseActivity).hideProgress()
     }
 
-    fun observeProgress(viewModelApp: BaseViewModelApp){
+    fun observeProgress(viewModelApp: BaseViewModelApp) {
         viewModelApp.isLoading.observe(viewLifecycleOwner, { isLoading ->
             if (isLoading == true) {
                 showProgress()
@@ -51,5 +51,9 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
                 hideProgress()
             }
         })
+    }
+
+    fun observeProgressPriority(viewModelApp: BaseViewModelApp) {
+        (requireActivity() as BaseActivity).observeLoadingPriority(viewModelApp)
     }
 }

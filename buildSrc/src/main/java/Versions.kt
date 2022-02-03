@@ -53,8 +53,8 @@ object Versions {
     const val MOCKK = "1.9.3"
 
     // Robbie
-    const val ROBBIE = "1.3.1.9"
-    const val ROBBIE_LOCAL = "1.3.0.1"
+    const val ROBBIE = "alpha-1.3.2.0"
+    const val ROBBIE_LOCAL = "1.3.1.3"
 
     // Room
     const val ROOM = "2.2.5"

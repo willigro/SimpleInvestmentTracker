@@ -80,7 +80,8 @@ object Depends {
             implement("com.rittmann:typography:${Versions.ROBBIE_LOCAL}")
             implement("com.rittmann:widgets:${Versions.ROBBIE_LOCAL}")
             implement("com.rittmann:textfield:${Versions.ROBBIE_LOCAL}")
-            implement("com.rittmann:sqltools:${Versions.ROBBIE_LOCAL}")
+            // see why it broken later
+//            implement("com.rittmann:sqltools:${Versions.ROBBIE_LOCAL}")
             implement("com.rittmann:core:${Versions.ROBBIE_LOCAL}")
             implement("com.rittmann:baselifecycle:${Versions.ROBBIE_LOCAL}")
             implement("com.rittmann:androidtools:${Versions.ROBBIE_LOCAL}")

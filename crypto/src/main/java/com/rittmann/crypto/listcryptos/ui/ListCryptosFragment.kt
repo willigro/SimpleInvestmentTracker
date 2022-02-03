@@ -55,7 +55,7 @@ class ListCryptosFragment :
                 }
             })
 
-            observeProgress(this)
+            observeProgressPriority(this)
         }
     }
 
