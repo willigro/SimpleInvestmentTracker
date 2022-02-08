@@ -1,10 +1,10 @@
 package com.rittmann.common.datasource.dao.mock
 
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 
-val newCrypto = CryptoMovement(
+val newCrypto = TradeMovement(
     0L,
     "00/00/0000",
     "BTC",

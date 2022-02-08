@@ -1,7 +1,7 @@
 package com.rittmann.crypto.keep.domain
 
 import com.rittmann.common_test.mock.newCryptoMovementMock
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
 import io.mockk.MockKAnnotations
@@ -16,22 +16,22 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class RegisterCryptoMovementRepositoryTest {
+class RegisterTradeMovementRepositoryTest {
 
     private lateinit var registerCryptoMovementRepository: RegisterCryptoMovementRepository
 
     @MockK
-    private lateinit var cryptoDao: CryptoDao
+    private lateinit var tradeDao: TradeDao
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        registerCryptoMovementRepository = RegisterCryptoMovementRepositoryImpl(cryptoDao)
+        registerCryptoMovementRepository = RegisterCryptoMovementRepositoryImpl(tradeDao)
     }
 
     @Test
     fun `register a new crypto`() = runBlockingTest {
-        coEvery { cryptoDao.insert(newCryptoMovementMock) } returns 1L
+        coEvery { tradeDao.insert(newCryptoMovementMock) } returns 1L
 
         val resultEvent = registerCryptoMovementRepository.registerCrypto(newCryptoMovementMock)
 

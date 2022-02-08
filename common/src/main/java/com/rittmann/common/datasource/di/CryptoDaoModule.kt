@@ -1,7 +1,7 @@
 package com.rittmann.common.datasource.di
 
 import com.rittmann.common.datasource.dao.config.AppDatabase
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import dagger.Module
 import dagger.Provides
 
@@ -9,5 +9,5 @@ import dagger.Provides
 class CryptoDaoModule {
 
     @Provides
-    fun providesCryptoDao(appDatabase: AppDatabase): CryptoDao = appDatabase.cryptoDao()
+    fun providesCryptoDao(appDatabase: AppDatabase): TradeDao = appDatabase.cryptoDao()
 }

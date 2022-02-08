@@ -1,7 +1,7 @@
 package com.rittmann.crypto.listmovements.ui
 
 import androidx.fragment.app.testing.launchFragmentInContainer
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
 import com.rittmann.common.extensions.orZero
@@ -28,14 +28,14 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ListCryptoMovementsFragmentTest : BaseTestActivity() {
+class ListTradeMovementsFragmentTest : BaseTestActivity() {
 
-    private val cryptoDao: CryptoDao? = dataBase?.cryptoDao()
+    private val tradeDao: TradeDao? = dataBase?.cryptoDao()
 
     @Before
     fun finish() {
         MockKAnnotations.init(this)
-        cryptoDao?.deleteAll()
+        tradeDao?.deleteAll()
     }
 
     @Test
@@ -45,7 +45,7 @@ class ListCryptoMovementsFragmentTest : BaseTestActivity() {
 
         val listInserted = arrayListOf(newCryptoMovementMock)
 
-        cryptoDao?.insert(listInserted)
+        tradeDao?.insert(listInserted)
 
         val fragmentScenario = launchFragmentInContainer<ListCryptoMovementsFragment>(
             themeResId = R.style.Theme_InvestmentTracks
@@ -57,7 +57,7 @@ class ListCryptoMovementsFragmentTest : BaseTestActivity() {
         var totalInvested = ""
 
         fragmentScenario.onFragment {
-            val result = it.viewModel.cryptoMovementsList.getOrAwaitValue()
+            val result = it.viewModel.tradeMovementsList.getOrAwaitValue()
 
             totalEarned = it.viewModel.totalValueEarned.getOrAwaitValue()
             totalInvested = it.viewModel.totalValueInvested.getOrAwaitValue()
@@ -97,7 +97,7 @@ class ListCryptoMovementsFragmentTest : BaseTestActivity() {
 
         val listInserted = arrayListOf(newCryptoMovementMock)
 
-        cryptoDao?.insert(listInserted)
+        tradeDao?.insert(listInserted)
 
         val fragmentScenario = launchFragmentInContainer<ListCryptoMovementsFragment>(
             themeResId = R.style.Theme_InvestmentTracks
@@ -106,7 +106,7 @@ class ListCryptoMovementsFragmentTest : BaseTestActivity() {
         dataBindingIdlingResource.monitorFragment(fragmentScenario)
 
         fragmentScenario.onFragment {
-            val result = it.viewModel.cryptoMovementsList.getOrAwaitValue()
+            val result = it.viewModel.tradeMovementsList.getOrAwaitValue()
 
             assertThat(result.succeeded, `is`(false))
 

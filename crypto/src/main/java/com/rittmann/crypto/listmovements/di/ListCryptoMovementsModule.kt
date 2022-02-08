@@ -9,7 +9,7 @@ import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsFragment
 import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsNavigation
 import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsNavigationImpl
 import com.rittmann.crypto.listmovements.ui.ListCryptoMovementsViewModel
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.di_utils.utils.ActivityScoped
 import com.rittmann.di_utils.utils.ViewModelKey
@@ -52,6 +52,6 @@ abstract class ListCryptoMovementsModuleDependencies {
 class ListCryptoMovementsRepositoryModule {
 
     @Provides
-    fun provideCryptoRepository(cryptoDao: CryptoDao): ListCryptoMovementsRepository =
-        ListCryptoMovementsRepositoryImpl(cryptoDao)
+    fun provideCryptoRepository(tradeDao: TradeDao): ListCryptoMovementsRepository =
+        ListCryptoMovementsRepositoryImpl(tradeDao)
 }

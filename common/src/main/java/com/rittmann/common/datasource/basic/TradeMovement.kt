@@ -3,8 +3,7 @@ package com.rittmann.common.datasource.basic
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.rittmann.androidtools.dateutil.DateUtilImpl
-import com.rittmann.common.datasource.dao.config.TableCryptoMovement
+import com.rittmann.common.datasource.dao.config.TableTradeMovement
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
 import java.io.Serializable
@@ -14,40 +13,40 @@ import java.util.*
 /**
  * I'm letting this stuff here cause I wanna see how use it from here
  * */
-@Entity(tableName = TableCryptoMovement.TABLE)
-data class CryptoMovement(
-    @ColumnInfo(name = TableCryptoMovement.ID)
+@Entity(tableName = TableTradeMovement.TABLE)
+data class TradeMovement(
+    @ColumnInfo(name = TableTradeMovement.ID)
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
 
-    @ColumnInfo(name = TableCryptoMovement.DATE)
+    @ColumnInfo(name = TableTradeMovement.DATE)
     var date: Calendar = Calendar.getInstance(),
 
-    @ColumnInfo(name = TableCryptoMovement.NAME)
+    @ColumnInfo(name = TableTradeMovement.NAME)
     var name: String = "",
 
-    @ColumnInfo(name = TableCryptoMovement.TYPE)
+    @ColumnInfo(name = TableTradeMovement.TYPE)
     var type: CryptoOperationType = CryptoOperationType.BUY,
 
-    @ColumnInfo(name = TableCryptoMovement.OPERATED_AMOUNT)
+    @ColumnInfo(name = TableTradeMovement.OPERATED_AMOUNT)
     var operatedAmount: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
-    @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE)
+    @ColumnInfo(name = TableTradeMovement.CURRENT_VALUE)
     var currentValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
-    @ColumnInfo(name = TableCryptoMovement.CURRENT_VALUE_CURRENCY)
+    @ColumnInfo(name = TableTradeMovement.CURRENT_VALUE_CURRENCY)
     var currentValueCurrency: CurrencyType = CurrencyType.REAL,
 
-    @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE)
+    @ColumnInfo(name = TableTradeMovement.TOTAL_VALUE)
     var totalValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
-    @ColumnInfo(name = TableCryptoMovement.TOTAL_VALUE_CURRENCY)
+    @ColumnInfo(name = TableTradeMovement.TOTAL_VALUE_CURRENCY)
     var totalValueCurrency: CurrencyType = CurrencyType.REAL,
 
-    @ColumnInfo(name = TableCryptoMovement.TAX)
+    @ColumnInfo(name = TableTradeMovement.TAX)
     var tax: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
-    @ColumnInfo(name = TableCryptoMovement.TAX_CURRENCY)
+    @ColumnInfo(name = TableTradeMovement.TAX_CURRENCY)
     var taxCurrency: CurrencyType = CurrencyType.CRYPTO,
 ) : Serializable, Ponjo() {
 
@@ -77,7 +76,7 @@ data class CryptoMovement(
             currentValue: Double,
             totalValue: Double,
             tax: Double
-        ) = CryptoMovement(
+        ) = TradeMovement(
             name = name,
             date = DateUtil.parseDate(date),
             type = CryptoOperationType.BUY,
@@ -97,7 +96,7 @@ data class CryptoMovement(
             currentValue: Double,
             totalValue: Double,
             tax: Double
-        ) = CryptoMovement(
+        ) = TradeMovement(
             name = name,
             date = DateUtil.parseDate(date),
             type = CryptoOperationType.SELL,
@@ -109,11 +108,20 @@ data class CryptoMovement(
             tax = tax.toBigDecimal(),
             taxCurrency = CurrencyType.REAL
         )
+
+        fun deposit() = TradeMovement(
+            name = TradeMovementOperationTypeName.DEPOSIT.value,
+            type = CryptoOperationType.DEPOSIT,
+            operatedAmount = 1.toBigDecimal(),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValueCurrency = CurrencyType.REAL,
+            taxCurrency = CurrencyType.REAL
+        )
     }
 }
 
 enum class CryptoOperationType(val value: String) : Serializable {
-    BUY("B"), SELL("S");
+    BUY("B"), SELL("S"), DEPOSIT("D");
 
     companion object {
         fun convert(valueToConvert: String): CryptoOperationType {
@@ -135,4 +143,9 @@ enum class CurrencyType(val value: String) : Serializable {
             }
         }
     }
+}
+
+enum class TradeMovementOperationTypeName(val value: String) {
+    CRYPTO("CRYPTO"),
+    DEPOSIT("DEPOSIT")
 }

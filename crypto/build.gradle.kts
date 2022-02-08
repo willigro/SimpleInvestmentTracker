@@ -1,7 +1,9 @@
 import Depends.AndroidTest.implementAndroidTest
 import Depends.AndroidTest.implementEspressoTest
 import Depends.Dagger.implementDagger
+import Depends.Databinding.implementDatabinding
 import Depends.Kotlin.implementKotlinForModule
+import Depends.LegacySupport.implementLegacySupport
 import Depends.Module.androidTestImplementationModules
 import Depends.Module.implementModules
 import Depends.Module.testImplementationModules
@@ -22,12 +24,7 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("androidx.appcompat:appcompat:1.4.0")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementLegacySupport()
 
     // =========== Modules ==============
     implementModules(Modules.common, Modules.diUtils, Modules.datasource)
@@ -45,12 +42,12 @@ dependencies {
 
     // =========== View ==============
     implementLayouts()
+    implementDatabinding()
 
     // =========== Test ==============
     implementTest()
     implementEspressoTest()
     implementAndroidTest()
-    kaptAndroidTest("androidx.databinding:databinding-compiler:7.0.4")
 
     // =========== Robbie ==============
     implementRobbie()

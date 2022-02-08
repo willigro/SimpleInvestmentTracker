@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.dao.config.AppDatabase
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.dao.mock.newCrypto
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.MatcherAssert.assertThat
@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class CryptoMovementDaoTest {
+class TradeMovementDaoTest {
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
@@ -29,7 +29,7 @@ class CryptoMovementDaoTest {
 
     private lateinit var database: AppDatabase
 
-    private lateinit var dao: CryptoDao
+    private lateinit var dao: TradeDao
 
     @Before
     fun initDb() {

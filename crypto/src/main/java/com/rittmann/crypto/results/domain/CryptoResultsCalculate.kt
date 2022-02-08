@@ -1,6 +1,6 @@
 package com.rittmann.crypto.results.domain
 
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.crypto.results.ui.CryptoResultViewBinding
@@ -9,7 +9,7 @@ object CryptoResultsCalculate {
 
     fun calculateResults(
         cryptoResultViewBinding: CryptoResultViewBinding,
-        data: List<CryptoMovement>
+        data: List<TradeMovement>
     ): CryptoResultViewBinding {
 
         var earned = 0.0

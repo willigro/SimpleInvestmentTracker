@@ -1,9 +1,9 @@
 package com.rittmann.investmenttracks
 
 import android.app.Application
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.dao.config.AppDatabase
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 
 object MockCurrencies {
 
-    private var dao: CryptoDao? = null
+    private var dao: TradeDao? = null
 
     fun mock(application: Application){
         dao = AppDatabase.getDatabase(application)?.cryptoDao()
@@ -37,7 +37,7 @@ object MockCurrencies {
     private fun addBitcoin() {
         val name = "BTC"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/04/2021",
                 operatedAmount = 0.00017955,
@@ -46,7 +46,7 @@ object MockCurrencies {
                 tax = 0.00000089,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/04/2021",
                 operatedAmount = 0.00017963,
@@ -55,7 +55,7 @@ object MockCurrencies {
                 tax = 0.00000089,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "25/04/2021",
                 operatedAmount = 0.00089818,
@@ -64,7 +64,7 @@ object MockCurrencies {
                 tax = 0.00000449,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/05/2021",
                 operatedAmount = 0.00033589,
@@ -73,7 +73,7 @@ object MockCurrencies {
                 tax = 0.00000167,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.  buy(
                 name = name,
                 date = "12/05/2021",
                 operatedAmount = 0.00018482,
@@ -82,7 +82,7 @@ object MockCurrencies {
                 tax = 0.00000092,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "12/05/2021",
                 operatedAmount = 0.00007843,
@@ -91,7 +91,7 @@ object MockCurrencies {
                 tax = 0.00000039,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "17/05/2021",
                 operatedAmount = 0.00004168,
@@ -100,7 +100,7 @@ object MockCurrencies {
                 tax = 0.00000020,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "21/06/2021",
                 operatedAmount = 0.00092040,
@@ -109,7 +109,7 @@ object MockCurrencies {
                 tax = 0.00000460,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "17/07/2021",
                 operatedAmount = 0.00089559,
@@ -118,7 +118,7 @@ object MockCurrencies {
                 tax = 0.00000447,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/07/2021",
                 operatedAmount = 0.00019868,
@@ -127,7 +127,7 @@ object MockCurrencies {
                 tax = 0.00000099,
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "16/09/2021",
                 operatedAmount = 0.00389328,
@@ -136,7 +136,7 @@ object MockCurrencies {
                 tax = 2.45,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 0.00039404,
@@ -145,7 +145,7 @@ object MockCurrencies {
                 tax = 0.00000197
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 0.0022644,
@@ -154,7 +154,7 @@ object MockCurrencies {
                 tax = 0.00001131
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "26/09/2021",
                 operatedAmount = 0.00264320,
@@ -163,7 +163,7 @@ object MockCurrencies {
                 tax = 1.56
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/10/2021",
                 operatedAmount = 0.00040507,
@@ -172,7 +172,7 @@ object MockCurrencies {
                 tax = 0.00000202
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/10/2021",
                 operatedAmount = 0.00003000,
@@ -181,7 +181,7 @@ object MockCurrencies {
                 tax = 0.00000015
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "05/10/2021",
                 operatedAmount = 0.00043289,
@@ -190,7 +190,7 @@ object MockCurrencies {
                 tax = .29
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 0.00061584,
@@ -199,7 +199,7 @@ object MockCurrencies {
                 tax = .00000153
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "11/10/2021",
                 operatedAmount = 0.00061430,
@@ -208,7 +208,7 @@ object MockCurrencies {
                 tax = .48
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "26/10/2021",
                 operatedAmount = 0.00057798,
@@ -217,7 +217,7 @@ object MockCurrencies {
                 tax = .00000144
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/11/2021",
                 operatedAmount = 0.00289854,
@@ -226,7 +226,7 @@ object MockCurrencies {
                 tax = .00000724
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "09/11/2021",
                 operatedAmount = 0.00346781,
@@ -235,7 +235,7 @@ object MockCurrencies {
                 tax = 3.22
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "16/11/2021",
                 operatedAmount = 0.00105000,
@@ -244,7 +244,7 @@ object MockCurrencies {
                 tax = 0.00000262
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "16/11/2021",
                 operatedAmount = 0.00117874,
@@ -253,7 +253,7 @@ object MockCurrencies {
                 tax = 0.00000294
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "18/11/2021",
                 operatedAmount = 0.00310559,
@@ -262,7 +262,7 @@ object MockCurrencies {
                 tax = 0.00001552
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/12/2021",
                 operatedAmount = 0.00185185,
@@ -271,7 +271,7 @@ object MockCurrencies {
                 tax = 0.00000462
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "26/11/2021",
                 operatedAmount = 0.00036624,
@@ -280,7 +280,7 @@ object MockCurrencies {
                 tax = 0.00000091
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "26/11/2021",
                 operatedAmount = 0.00126151,
@@ -289,7 +289,7 @@ object MockCurrencies {
                 tax = 0.00000315
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "28/12/2021",
                 operatedAmount = 0.00225116,
@@ -298,7 +298,7 @@ object MockCurrencies {
                 tax = 0.00000562
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "28/12/2021",
                 operatedAmount = 0.00097609,
@@ -314,7 +314,7 @@ object MockCurrencies {
     private fun addEth() {
         val name = "ETH"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/04/2021",
                 operatedAmount = 0.00400535,
@@ -323,7 +323,7 @@ object MockCurrencies {
                 tax = 0.00002002,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/04/2021",
                 operatedAmount = 0.00392112,
@@ -332,7 +332,7 @@ object MockCurrencies {
                 tax = 0.00001960,
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/08/2021",
                 operatedAmount = 0.00788682,
@@ -348,7 +348,7 @@ object MockCurrencies {
     private fun addLtc() {
         val name = "LTC"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/05/2021",
                 operatedAmount = 0.05134023,
@@ -357,7 +357,7 @@ object MockCurrencies {
                 tax = 0.00025670,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/05/2021",
                 operatedAmount = 0.01005025,
@@ -373,7 +373,7 @@ object MockCurrencies {
     private fun addZrx() {
         val name = "ZRX"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "17/07/2021",
                 operatedAmount = 10.00000000,
@@ -382,7 +382,7 @@ object MockCurrencies {
                 tax = 0.05000000,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/07/2021",
                 operatedAmount = 10.17964072,
@@ -391,7 +391,7 @@ object MockCurrencies {
                 tax = 0.05089820,
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/08/2021",
                 operatedAmount = 10.00000000,
@@ -400,7 +400,7 @@ object MockCurrencies {
                 tax = 0.210,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "12/08/2021",
                 operatedAmount = 11.27145965,
@@ -409,7 +409,7 @@ object MockCurrencies {
                 tax = 0.02817864,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "17/08/2021",
                 operatedAmount = 4.08387883,
@@ -418,7 +418,7 @@ object MockCurrencies {
                 tax = 0.01020969,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "17/08/2021",
                 operatedAmount = 1.24697416,
@@ -427,7 +427,7 @@ object MockCurrencies {
                 tax = 0.00311743,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "18/08/2021",
                 operatedAmount = 12.95480769,
@@ -436,7 +436,7 @@ object MockCurrencies {
                 tax = 0.03238701,
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "16/09/2021",
                 operatedAmount = 28.66279911,
@@ -445,7 +445,7 @@ object MockCurrencies {
                 tax = 0.452,
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "16/09/2021",
                 operatedAmount = 10.89917093,
@@ -454,7 +454,7 @@ object MockCurrencies {
                 tax = 0.161,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "19/09/2021",
                 operatedAmount = 66.94618182,
@@ -463,7 +463,7 @@ object MockCurrencies {
                 tax = 0.16736545
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "19/09/2021",
                 operatedAmount = 85.00000000,
@@ -472,7 +472,7 @@ object MockCurrencies {
                 tax = 0.21250000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "19/09/2021",
                 operatedAmount = 21.26327272,
@@ -481,7 +481,7 @@ object MockCurrencies {
                 tax = 0.05315818
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 83.00000000,
@@ -490,7 +490,7 @@ object MockCurrencies {
                 tax = 0.20750000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 1.73400000,
@@ -499,7 +499,7 @@ object MockCurrencies {
                 tax = 0.00433500
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 23.61016949,
@@ -508,7 +508,7 @@ object MockCurrencies {
                 tax = 0.05902542
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 10.00000000,
@@ -517,7 +517,7 @@ object MockCurrencies {
                 tax = 0.02500000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 3.00925209,
@@ -526,7 +526,7 @@ object MockCurrencies {
                 tax = 0.00752313
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "22/09/2021",
                 operatedAmount = 53.76301075,
@@ -535,7 +535,7 @@ object MockCurrencies {
                 tax = 0.13440752
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "27/09/2021",
                 operatedAmount = 82.00000000,
@@ -544,7 +544,7 @@ object MockCurrencies {
                 tax = 0.41000000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "27/09/2021",
                 operatedAmount = 21.76611279,
@@ -553,7 +553,7 @@ object MockCurrencies {
                 tax = 0.10883056
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "27/09/2021",
                 operatedAmount = 16.67408136,
@@ -562,7 +562,7 @@ object MockCurrencies {
                 tax = 0.08337040
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "03/10/2021",
                 operatedAmount = 467.29306527,
@@ -571,7 +571,7 @@ object MockCurrencies {
                 tax = 6.168
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "12/11/2021",
                 operatedAmount = 27.07333333,
@@ -580,7 +580,7 @@ object MockCurrencies {
                 tax = 0.06768333
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/12/2021",
                 operatedAmount = 44.44644444,
@@ -596,7 +596,7 @@ object MockCurrencies {
     private fun addSlp() {
         val name = "SLP"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "23/09/2021",
                 operatedAmount = 1585.67019027,
@@ -605,7 +605,7 @@ object MockCurrencies {
                 tax = 7.92835095
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 464.89637307,
@@ -614,7 +614,7 @@ object MockCurrencies {
                 tax = 2.32448186
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 500.00000000,
@@ -623,7 +623,7 @@ object MockCurrencies {
                 tax = 2.50000000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 500.00000000,
@@ -632,7 +632,7 @@ object MockCurrencies {
                 tax = 2.50000000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 500.00000000,
@@ -641,7 +641,7 @@ object MockCurrencies {
                 tax = 2.50000000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 500.00000000,
@@ -650,7 +650,7 @@ object MockCurrencies {
                 tax = 2.50000000
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/09/2021",
                 operatedAmount = 112.66240407,
@@ -659,7 +659,7 @@ object MockCurrencies {
                 tax = 0.56331202
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 1108.75963718,
@@ -668,7 +668,7 @@ object MockCurrencies {
                 tax = 1.222
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 22.67573696,
@@ -677,7 +677,7 @@ object MockCurrencies {
                 tax = .024
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 3010.97744843,
@@ -686,7 +686,7 @@ object MockCurrencies {
                 tax = 3.319
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 1890.00666666,
@@ -695,7 +695,7 @@ object MockCurrencies {
                 tax = 4.72501666
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 40.59706953,
@@ -704,7 +704,7 @@ object MockCurrencies {
                 tax = 0.10149267
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 2149.10988018,
@@ -713,7 +713,7 @@ object MockCurrencies {
                 tax = 5.37277470
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 550.98347344,
@@ -722,7 +722,7 @@ object MockCurrencies {
                 tax = 1.37745868
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "09/10/2021",
                 operatedAmount = 5301.29791666,
@@ -731,7 +731,7 @@ object MockCurrencies {
                 tax = 13.25304479
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/10/2021",
                 operatedAmount = 43.58353510,
@@ -740,7 +740,7 @@ object MockCurrencies {
                 tax = 0.10895883
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/10/2021",
                 operatedAmount = 67.52988461,
@@ -749,7 +749,7 @@ object MockCurrencies {
                 tax = 0.16882471
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/10/2021",
                 operatedAmount = 361.78004275,
@@ -758,7 +758,7 @@ object MockCurrencies {
                 tax = 0.90445010
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "24/10/2021",
                 operatedAmount = 800.00533333,
@@ -767,7 +767,7 @@ object MockCurrencies {
                 tax = 2.00001333
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "29/10/2021",
                 operatedAmount = 800.00000000,
@@ -776,7 +776,7 @@ object MockCurrencies {
                 tax = 0.800
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/11/2021",
                 operatedAmount = 10376.86402391,
@@ -785,7 +785,7 @@ object MockCurrencies {
                 tax = 14.787
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "11/11/2021",
                 operatedAmount = 1707.31707317,
@@ -794,7 +794,7 @@ object MockCurrencies {
                 tax = 0.06768333
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/12/2021",
                 operatedAmount = 2727.27272727,
@@ -803,7 +803,7 @@ object MockCurrencies {
                 tax = 6.81818181
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/12/2021",
                 operatedAmount = 2477.44615385,
@@ -812,7 +812,7 @@ object MockCurrencies {
                 tax = 12.38723076
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "30/11/2021",
                 operatedAmount = 2941.19117647,
@@ -821,7 +821,7 @@ object MockCurrencies {
                 tax = 14.70595588
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "22/11/2021",
                 operatedAmount = 1344.64879356,
@@ -830,7 +830,7 @@ object MockCurrencies {
                 tax = 3.36162198
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "21/12/2021",
                 operatedAmount = 4081.00000000,
@@ -839,7 +839,7 @@ object MockCurrencies {
                 tax = 2.244
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "19/12/2021",
                 operatedAmount = 4081.46842105,
@@ -848,7 +848,7 @@ object MockCurrencies {
                 tax = 10.20367105
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "16/12/2021",
                 operatedAmount = 2394.06566667,
@@ -857,7 +857,7 @@ object MockCurrencies {
                 tax = 5.98516416
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "16/12/2021",
                 operatedAmount = 105.93433333,
@@ -873,7 +873,7 @@ object MockCurrencies {
     private fun addKnc() {
         val name = "KNC"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "19/09/2021",
                 operatedAmount = 10.46783153,
@@ -882,7 +882,7 @@ object MockCurrencies {
                 tax = 0.02616957,
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "20/09/2021",
                 operatedAmount = 16.59402413,
@@ -891,7 +891,7 @@ object MockCurrencies {
                 tax = 0.04148506
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "03/10/2021",
                 operatedAmount = 116.89070718,
@@ -900,7 +900,7 @@ object MockCurrencies {
                 tax = 0.29222676
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 81.61748412,
@@ -909,7 +909,7 @@ object MockCurrencies {
                 tax = 0.20404371
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 2.81318233,
@@ -918,7 +918,7 @@ object MockCurrencies {
                 tax = 0.00703295
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/10/2021",
                 operatedAmount = 57.01704619,
@@ -927,7 +927,7 @@ object MockCurrencies {
                 tax = 0.14253511
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 17.13091797,
@@ -936,7 +936,7 @@ object MockCurrencies {
                 tax = 0.415
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 1.53072165,
@@ -945,7 +945,7 @@ object MockCurrencies {
                 tax = 0.037
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "06/10/2021",
                 operatedAmount = 0.29402150,
@@ -954,7 +954,7 @@ object MockCurrencies {
                 tax = 0.007
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "08/10/2021",
                 operatedAmount = 263.97424794,
@@ -963,7 +963,7 @@ object MockCurrencies {
                 tax = 6.335
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/11/2021",
                 operatedAmount = 16.97090096,
@@ -972,7 +972,7 @@ object MockCurrencies {
                 tax = 0.04242725
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/11/2021",
                 operatedAmount = 4.21271487,
@@ -981,7 +981,7 @@ object MockCurrencies {
                 tax = 0.01053178
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/11/2021",
                 operatedAmount = 16.19956174,
@@ -997,7 +997,7 @@ object MockCurrencies {
     private fun addAda() {
         val name = "ADA"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "30/10/2021",
                 operatedAmount = 28.04920913,
@@ -1006,7 +1006,7 @@ object MockCurrencies {
                 tax = 0.07012302
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "09/11/2021",
                 operatedAmount = 27.97828611,
@@ -1022,7 +1022,7 @@ object MockCurrencies {
     private fun addDot() {
         val name = "DOT"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "05/11/2021",
                 operatedAmount = 3.06560392,
@@ -1031,7 +1031,7 @@ object MockCurrencies {
                 tax = .00766400
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "10/11/2021",
                 operatedAmount = 4.81742856,
@@ -1040,7 +1040,7 @@ object MockCurrencies {
                 tax = .01204357
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "16/11/2021",
                 operatedAmount = 1.08695652,
@@ -1056,7 +1056,7 @@ object MockCurrencies {
     private fun addMatic() {
         val name = "MATIC"
         val arr = arrayListOf(
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "13/12/2021",
                 operatedAmount = 1.58167432,
@@ -1065,7 +1065,7 @@ object MockCurrencies {
                 tax = 0.00395418
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "13/12/2021",
                 operatedAmount = 0.45258069,
@@ -1074,7 +1074,7 @@ object MockCurrencies {
                 tax = 0.00113145
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "13/12/2021",
                 operatedAmount = 15.35704934,
@@ -1083,7 +1083,7 @@ object MockCurrencies {
                 tax = 0.03839262
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "04/12/2021",
                 operatedAmount = 52.50000000,
@@ -1092,7 +1092,7 @@ object MockCurrencies {
                 tax = 1.614
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/12/2021",
                 operatedAmount = 38.16634855,
@@ -1101,7 +1101,7 @@ object MockCurrencies {
                 tax = 0.09541587
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "04/12/2021",
                 operatedAmount = 14.46523040,
@@ -1110,7 +1110,7 @@ object MockCurrencies {
                 tax = 0.03616307
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "19/12/2021",
                 operatedAmount = 56.50213945,
@@ -1119,7 +1119,7 @@ object MockCurrencies {
                 tax = 3.565
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "19/12/2021",
                 operatedAmount = 1.96850394,
@@ -1128,7 +1128,7 @@ object MockCurrencies {
                 tax = 0.062
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "19/12/2021",
                 operatedAmount = 1.00000000,
@@ -1137,7 +1137,7 @@ object MockCurrencies {
                 tax = 0.031
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "19/12/2021",
                 operatedAmount = 0.53958251,
@@ -1146,7 +1146,7 @@ object MockCurrencies {
                 tax = 0.017
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "18/12/2021",
                 operatedAmount = 1.57472441,
@@ -1155,7 +1155,7 @@ object MockCurrencies {
                 tax = 0.049
             ),
 
-            CryptoMovement.sell(
+            TradeMovement.sell(
                 name = name,
                 date = "18/12/2021",
                 operatedAmount = 0.11721355,
@@ -1164,7 +1164,7 @@ object MockCurrencies {
                 tax = 0.003
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "13/12/2021",
                 operatedAmount = 2.11388287,
@@ -1173,7 +1173,7 @@ object MockCurrencies {
                 tax = 0.00528470
             ),
 
-            CryptoMovement.buy(
+            TradeMovement.buy(
                 name = name,
                 date = "13/12/2021",
                 operatedAmount = 42.35240032,

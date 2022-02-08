@@ -6,19 +6,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rittmann.crypto.R
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.FormatDecimalController
 
 class RecyclerAdapterCryptoMovement(
-    list: List<CryptoMovement>,
+    list: List<TradeMovement>,
     private val navigation: ListCryptoMovementsNavigation,
-    private val onDeleteClicked: (CryptoMovement) -> Unit
+    private val onDeleteClicked: (TradeMovement) -> Unit
 ) : RecyclerView.Adapter<RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>() {
 
-    private var listMovements: List<CryptoMovement> = emptyList()
+    private var listMovements: List<TradeMovement> = emptyList()
         set(value) {
             var lastDate = ""
             value.forEach { cash ->
@@ -98,7 +98,7 @@ class RecyclerAdapterCryptoMovement(
 
     override fun getItemCount(): Int = listMovements.size
 
-    fun relist(listToRelist: List<CryptoMovement>) {
+    fun relist(listToRelist: List<TradeMovement>) {
         listMovements = listToRelist
 
         notifyDataSetChanged()

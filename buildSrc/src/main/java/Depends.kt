@@ -224,6 +224,7 @@ object Depends {
     object ViewModel {
         fun DependencyHandler.implementViewModel() {
             implement("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.VIEWMODEL}")
+            implement("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.VIEWMODEL}")
         }
     }
 
@@ -232,6 +233,18 @@ object Depends {
             implement("androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}")
             implement("androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}")
             implement("androidx.navigation:navigation-dynamic-features-fragment:${Versions.NAVIGATION}")
+        }
+    }
+
+    object Databinding {
+        fun DependencyHandler.implementDatabinding() {
+            implement("androidx.databinding:databinding-compiler:7.0.4")
+        }
+    }
+
+    object LegacySupport {
+        fun DependencyHandler.implementLegacySupport() {
+            implement("androidx.legacy:legacy-support-v4:1.0.0")
         }
     }
 }

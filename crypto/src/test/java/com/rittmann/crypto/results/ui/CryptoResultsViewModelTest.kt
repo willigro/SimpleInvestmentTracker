@@ -1,6 +1,6 @@
 package com.rittmann.crypto.results.ui
 
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
@@ -38,7 +38,7 @@ class CryptoResultsViewModelTest : BaseViewModelTest() {
     fun `load all movements from BTC and calculate its results`() {
         val name = "BTC"
 
-        val crypto = CryptoMovement(
+        val crypto = TradeMovement(
             name = name,
             date = "00/00/0000",
             type = CryptoOperationType.BUY,

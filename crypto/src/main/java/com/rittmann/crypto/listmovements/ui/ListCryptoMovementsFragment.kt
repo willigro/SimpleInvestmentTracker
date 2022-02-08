@@ -1,14 +1,10 @@
 package com.rittmann.crypto.listmovements.ui
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
-import com.rittmann.androidtools.log.log
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.isOk
 import com.rittmann.common.extensions.linearLayoutManager
@@ -66,7 +62,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
     private fun initObservers() {
         viewModel.apply {
-            cryptoMovementsList.observe(this@ListCryptoMovementsFragment, { result ->
+            tradeMovementsList.observe(this@ListCryptoMovementsFragment, { result ->
                 when (result) {
                     is ResultEvent.Success -> {
                         binding.apply {

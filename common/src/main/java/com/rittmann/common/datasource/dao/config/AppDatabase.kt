@@ -6,16 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.rittmann.common.BuildConfig
-import com.rittmann.common.datasource.basic.CryptoMovement
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 
 @Database(
-    entities = [CryptoMovement::class],
+    entities = [TradeMovement::class],
     version = 1
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun cryptoDao(): CryptoDao
+    abstract fun cryptoDao(): TradeDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

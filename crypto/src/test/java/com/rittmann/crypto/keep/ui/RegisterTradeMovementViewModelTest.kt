@@ -2,7 +2,7 @@ package com.rittmann.crypto.keep.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import com.rittmann.common_test.mock.registeredCryptoMovementMock
@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class RegisterCryptoMovementViewModelTest {
+class RegisterTradeMovementViewModelTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
@@ -82,7 +82,7 @@ class RegisterCryptoMovementViewModelTest {
 
     @Test
     fun `update a crypto movement and handler its success case`() {
-        viewModel.attachCryptoMovementForUpdate(CryptoMovement(id = 1L))
+        viewModel.attachCryptoMovementForUpdate(TradeMovement(id = 1L))
 
         mainCoroutineRule.pauseDispatcher()
 

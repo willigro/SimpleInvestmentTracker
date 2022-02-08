@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.rittmann.baselifecycle.base.BaseActivity
+import com.rittmann.deposit.keep.KeepDepositActivity
 import kotlinx.android.synthetic.main.activity_main.bottom_nav
 
 class MainActivity : BaseActivity() {
@@ -14,7 +15,9 @@ class MainActivity : BaseActivity() {
 
         MockCurrencies.mock(application)
 
-        initNavigation()
+//        initNavigation()
+
+        KeepDepositActivity.start(this)
     }
 
     private fun initNavigation() {

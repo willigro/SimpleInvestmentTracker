@@ -56,9 +56,9 @@ open class BaseViewModelApp(
     }
 
     fun <T> executeAsyncThenMainSuspend(
+        progress: Boolean = false,
         io: suspend () -> T,
-        main: (result: T) -> Unit,
-        progress: Boolean = false
+        main: (result: T) -> Unit
     ) {
         if (progress)
             showProgress()

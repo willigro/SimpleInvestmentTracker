@@ -2,7 +2,7 @@ package com.rittmann.crypto.results.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.common.viewmodel.ViewModelFactory
 import com.rittmann.crypto.results.domain.CryptoResultsRepository
@@ -52,6 +52,6 @@ abstract class CryptoResultsModuleDependencies {
 class CryptoResultsRepositoryModule {
 
     @Provides
-    fun provideCryptoRepository(cryptoDao: CryptoDao): CryptoResultsRepository =
-        CryptoResultsRepositoryImpl(cryptoDao)
+    fun provideCryptoRepository(tradeDao: TradeDao): CryptoResultsRepository =
+        CryptoResultsRepositoryImpl(tradeDao)
 }

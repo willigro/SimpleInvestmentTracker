@@ -2,7 +2,7 @@ package com.rittmann.crypto.listcryptos.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.di.CryptoDaoModule
 import com.rittmann.common.viewmodel.ViewModelFactory
 import com.rittmann.crypto.listcryptos.domain.ListCryptosRepository
@@ -52,6 +52,6 @@ abstract class ListCryptosModuleDependencies {
 class ListCryptosRepositoryModule {
 
     @Provides
-    fun provideCryptoRepository(cryptoDao: CryptoDao): ListCryptosRepository =
-        ListCryptosRepositoryImpl(cryptoDao)
+    fun provideCryptoRepository(tradeDao: TradeDao): ListCryptosRepository =
+        ListCryptosRepositoryImpl(tradeDao)
 }

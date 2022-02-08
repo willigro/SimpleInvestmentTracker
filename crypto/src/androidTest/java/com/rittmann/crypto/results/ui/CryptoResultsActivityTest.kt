@@ -1,9 +1,9 @@
 package com.rittmann.crypto.results.ui
 
 import androidx.test.core.app.ApplicationProvider
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common_test.EspressoUtil.checkValue
 import com.rittmann.crypto.BaseTestActivity
 import com.rittmann.crypto.R
@@ -15,18 +15,18 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class CryptoResultsActivityTest : BaseTestActivity() {
 
-    private val cryptoDao: CryptoDao? = dataBase?.cryptoDao()
+    private val tradeDao: TradeDao? = dataBase?.cryptoDao()
 
     @Before
     fun setup() {
-        cryptoDao?.deleteAll()
+        tradeDao?.deleteAll()
     }
 
     @Test
     fun loadAnExistentCurrency_BTC_Success() = runBlockingTest {
         val name = "BTC"
 
-        val crypto = CryptoMovement(
+        val crypto = TradeMovement(
             name = "BTC",
             date = "00/00/0000",
             type = CryptoOperationType.BUY,
@@ -51,7 +51,7 @@ class CryptoResultsActivityTest : BaseTestActivity() {
             )
         )
 
-        cryptoDao?.insert(list)
+        tradeDao?.insert(list)
 
         val activityScenario = getActivity<CryptoResultsActivity>(
             intent = CryptoResultsActivity.intent(

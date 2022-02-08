@@ -1,19 +1,19 @@
 package com.rittmann.crypto.results.domain
 
-import com.rittmann.common.datasource.basic.CryptoMovement
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import java.lang.Exception
 
 interface CryptoResultsRepository {
-    fun fetchCryptos(cryptoName: String): ResultEvent<List<CryptoMovement>>
+    fun fetchCryptos(cryptoName: String): ResultEvent<List<TradeMovement>>
 }
 
-class CryptoResultsRepositoryImpl(private val cryptoDao: CryptoDao): CryptoResultsRepository {
+class CryptoResultsRepositoryImpl(private val tradeDao: TradeDao): CryptoResultsRepository {
 
-    override fun fetchCryptos(cryptoName: String): ResultEvent<List<CryptoMovement>> {
+    override fun fetchCryptos(cryptoName: String): ResultEvent<List<TradeMovement>> {
         return try {
-            ResultEvent.Success(cryptoDao.selectByName(cryptoName))
+            ResultEvent.Success(tradeDao.selectByName(cryptoName))
         }catch (e: Exception){
             ResultEvent.Error(e)
         }

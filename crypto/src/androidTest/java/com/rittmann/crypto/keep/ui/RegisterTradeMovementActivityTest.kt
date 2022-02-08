@@ -3,7 +3,7 @@ package com.rittmann.crypto.keep.ui
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
 import com.rittmann.common.datasource.dao.config.AppDatabase
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.utils.monitorActivity
 import com.rittmann.common_test.EspressoUtil.checkValue
 import com.rittmann.common_test.EspressoUtil.performClick
@@ -21,9 +21,9 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 @LargeTest
-class RegisterCryptoMovementActivityTest : BaseTestActivity() {
+class RegisterTradeMovementActivityTest : BaseTestActivity() {
 
-    private val cryptoDao: CryptoDao? =
+    private val tradeDao: TradeDao? =
         AppDatabase.getDatabase(ApplicationProvider.getApplicationContext())?.cryptoDao()
 
     @Before
@@ -33,7 +33,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
     @After
     fun finish() {
-        cryptoDao?.deleteAll()
+        tradeDao?.deleteAll()
     }
 
     @Test
@@ -59,7 +59,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
         performClick(R.id.btn_register)
 
-        val registeredCrypto = cryptoDao?.selectAll()?.last()
+        val registeredCrypto = tradeDao?.selectAll()?.last()
 
         assertThat(registeredCrypto?.name, `is`(name))
         assertThat(registeredCrypto?.date, `is`(date))
@@ -96,7 +96,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
             performClick(R.id.btn_register)
 
-            val registeredCrypto = cryptoDao?.selectAll()?.last()
+            val registeredCrypto = tradeDao?.selectAll()?.last()
 
             assertThat(registeredCrypto?.name, `is`(name))
             assertThat(registeredCrypto?.date, `is`(date))
@@ -123,7 +123,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
             performClick(R.id.btn_register)
 
-            val updatedCrypto = cryptoDao?.selectAll()?.last()
+            val updatedCrypto = tradeDao?.selectAll()?.last()
 
             assertThat(updatedCrypto?.name, `is`(nameUpdate))
             assertThat(updatedCrypto?.date, `is`(dateUpdate))
@@ -140,7 +140,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
     @Test
     fun showAnExistentCryptoMovent_UpdateIt_ShowTheSuccessDialog() = runBlockingTest {
 
-        val resultId = cryptoDao?.insert(newCryptoMovementMock) ?: 0L
+        val resultId = tradeDao?.insert(newCryptoMovementMock) ?: 0L
 
         val crypto = newCryptoMovementMock.copy(id = resultId)
 
@@ -185,7 +185,7 @@ class RegisterCryptoMovementActivityTest : BaseTestActivity() {
 
         performClick(R.id.btn_register)
 
-        val registeredCrypto = cryptoDao?.selectAll()?.last()
+        val registeredCrypto = tradeDao?.selectAll()?.last()
 
         assertThat(registeredCrypto?.name, `is`(name))
         assertThat(registeredCrypto?.date, `is`(date))

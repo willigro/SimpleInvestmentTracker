@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.result.ResultEvent
 import java.util.*
@@ -16,9 +16,9 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     dispatcherProviderVm: DispatcherProvider
 ) : BaseViewModelApp(dispatcherProviderVm) {
 
-    private val _registerResultEvent: MutableLiveData<ResultEvent<CryptoMovement>> =
-        MutableLiveData<ResultEvent<CryptoMovement>>()
-    val registerResultEvent: LiveData<ResultEvent<CryptoMovement>> get() = _registerResultEvent
+    private val _registerResultEvent: MutableLiveData<ResultEvent<TradeMovement>> =
+        MutableLiveData<ResultEvent<TradeMovement>>()
+    val registerResultEvent: LiveData<ResultEvent<TradeMovement>> get() = _registerResultEvent
 
     private val _updateResultEvent: MutableLiveData<ResultEvent<Int>> =
         MutableLiveData<ResultEvent<Int>>()
@@ -28,25 +28,25 @@ class RegisterCryptoMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<List<String>>>()
     val cryptoNamesResultEvent: LiveData<ResultEvent<List<String>>> get() = _cryptoNamesResultEvent
 
-    private val _lastCryptoResultEvent: MutableLiveData<ResultEvent<CryptoMovement>> =
-        MutableLiveData<ResultEvent<CryptoMovement>>()
-    val lastCryptoResultEvent: LiveData<ResultEvent<CryptoMovement>> get() = _lastCryptoResultEvent
+    private val _lastTradeResultEvent: MutableLiveData<ResultEvent<TradeMovement>> =
+        MutableLiveData<ResultEvent<TradeMovement>>()
+    val lastTradeResultEvent: LiveData<ResultEvent<TradeMovement>> get() = _lastTradeResultEvent
 
     private val _dateRetrieved: MutableLiveData<Calendar> =
         MutableLiveData<Calendar>()
     val dateRetrieved: LiveData<Calendar> get() = _dateRetrieved
 
-    var cryptoMovement: MutableLiveData<CryptoMovement> = MutableLiveData(CryptoMovement())
+    var tradeMovement: MutableLiveData<TradeMovement> = MutableLiveData(TradeMovement())
 
-    fun attachCryptoMovementForUpdate(cryptoMovement: CryptoMovement?) {
-        cryptoMovement?.also {
-            this.cryptoMovement.value = cryptoMovement
+    fun attachCryptoMovementForUpdate(tradeMovement: TradeMovement?) {
+        tradeMovement?.also {
+            this.tradeMovement.value = tradeMovement
         }
     }
 
     fun saveCrypto() {
         showProgress()
-        if (cryptoMovement.value?.isInserting() == true)
+        if (tradeMovement.value?.isInserting() == true)
             insertNewCrypto()
         else
             updateCrypto()
@@ -72,13 +72,13 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                 repository.fetchLastCrypto(name)
             },
             main = {
-                _lastCryptoResultEvent.value = it
+                _lastTradeResultEvent.value = it
             }
         )
     }
 
     private fun insertNewCrypto() {
-        cryptoMovement.value?.also {
+        tradeMovement.value?.also {
             executeAsyncThenMainSuspend(
                 io = {
                     repository.registerCrypto(it)
@@ -87,7 +87,7 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                     _registerResultEvent.value = result
 
                     if (result is ResultEvent.Success)
-                        cryptoMovement.value?.id = result.data.id
+                        tradeMovement.value?.id = result.data.id
 
                     hideProgress()
                 }
@@ -96,7 +96,7 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     }
 
     private fun updateCrypto() {
-        cryptoMovement.value?.also {
+        tradeMovement.value?.also {
             executeAsyncThenMainSuspend(
                 io = {
                     repository.updateCrypto(it)
@@ -111,14 +111,14 @@ class RegisterCryptoMovementViewModel @Inject constructor(
     }
 
     fun onCryptoOperationTypeChanged(type: CryptoOperationType) {
-        cryptoMovement.value?.type = type
+        tradeMovement.value?.type = type
     }
 
     fun changeDate(calendar: Calendar) {
-        cryptoMovement.value?.date = calendar
+        tradeMovement.value?.date = calendar
     }
 
     fun retrieveDate() {
-        _dateRetrieved.postValue(cryptoMovement.value?.date)
+        _dateRetrieved.postValue(tradeMovement.value?.date)
     }
 }

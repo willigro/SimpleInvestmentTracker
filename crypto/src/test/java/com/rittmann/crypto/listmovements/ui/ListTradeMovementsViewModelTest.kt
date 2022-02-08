@@ -20,7 +20,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class ListCryptoMovementsViewModelTest : BaseViewModelTest() {
+class ListTradeMovementsViewModelTest : BaseViewModelTest() {
 
 
     private lateinit var viewModel: ListCryptoMovementsViewModel
@@ -44,7 +44,7 @@ class ListCryptoMovementsViewModelTest : BaseViewModelTest() {
 
         viewModel.fetchAllCryptoMovements()
 
-        val result = viewModel.cryptoMovementsList.getOrAwaitValue()
+        val result = viewModel.tradeMovementsList.getOrAwaitValue()
 
         assertThat(result.succeeded, `is`(true))
 

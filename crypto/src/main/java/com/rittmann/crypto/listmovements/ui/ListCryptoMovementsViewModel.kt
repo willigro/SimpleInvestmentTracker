@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.common.lifecycle.DispatcherProvider
 import com.rittmann.crypto.listmovements.domain.ListCryptoMovementsRepository
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.result.ResultEvent
@@ -21,10 +21,10 @@ class ListCryptoMovementsViewModel @Inject constructor(
     dispatcherProviderVm: DispatcherProvider
 ) : BaseViewModelApp(dispatcherProviderVm) {
 
-    private val _cryptoMovementsList: MutableLiveData<ResultEvent<List<CryptoMovement>>> =
+    private val _tradeMovementsList: MutableLiveData<ResultEvent<List<TradeMovement>>> =
         MutableLiveData()
-    val cryptoMovementsList: LiveData<ResultEvent<List<CryptoMovement>>>
-        get() = Transformations.map(_cryptoMovementsList) { result ->
+    val tradeMovementsList: LiveData<ResultEvent<List<TradeMovement>>>
+        get() = Transformations.map(_tradeMovementsList) { result ->
             calculateTotalValues(result)
             result
         }
@@ -70,13 +70,13 @@ class ListCryptoMovementsViewModel @Inject constructor(
                 repository.getAll()
             },
             main = {
-                _cryptoMovementsList.value = it
+                _tradeMovementsList.value = it
             },
             progress = true
         )
     }
 
-    private fun calculateTotalValues(result: ResultEvent<List<CryptoMovement>>?) {
+    private fun calculateTotalValues(result: ResultEvent<List<TradeMovement>>?) {
         var totalInvested = 0.0
         var totalEarned = 0.0
 
@@ -92,10 +92,10 @@ class ListCryptoMovementsViewModel @Inject constructor(
         _totalValueOnHand.value = totalEarned - totalInvested
     }
 
-    fun deleteCrypto(cryptoMovementToDelete: CryptoMovement) {
+    fun deleteCrypto(tradeMovementToDelete: TradeMovement) {
         executeAsyncThenMainSuspend(
             io = {
-                repository.delete(cryptoMovementToDelete)
+                repository.delete(tradeMovementToDelete)
             },
             main = {
                 _cryptoMovementDeleted.value = it

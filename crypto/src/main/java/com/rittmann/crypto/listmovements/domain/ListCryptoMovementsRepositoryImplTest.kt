@@ -1,26 +1,26 @@
 package com.rittmann.crypto.listmovements.domain
 
-import com.rittmann.common.datasource.basic.CryptoMovement
-import com.rittmann.common.datasource.dao.interfaces.CryptoDao
+import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import javax.inject.Inject
 
 class ListCryptoMovementsRepositoryImplTest @Inject constructor(
-    private val cryptoDao: CryptoDao
+    private val tradeDao: TradeDao
 ) : ListCryptoMovementsRepository {
 
     companion object {
         var returnsError = true
     }
 
-    override suspend fun getAll(): ResultEvent<List<CryptoMovement>> {
+    override suspend fun getAll(): ResultEvent<List<TradeMovement>> {
         return if (returnsError)
             ResultEvent.Error(Exception())
         else
-            ResultEvent.Success(cryptoDao.selectAll())
+            ResultEvent.Success(tradeDao.selectAll())
     }
 
-    override suspend fun delete(cryptoMovement: CryptoMovement): ResultEvent<Int> {
+    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<Int> {
         return ResultEvent.Success(0)
     }
 }

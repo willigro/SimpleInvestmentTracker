@@ -13,7 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.customs.currencyType
 import com.rittmann.common.customs.valueScale
-import com.rittmann.common.datasource.basic.CryptoMovement
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.extensions.toast
@@ -45,8 +45,8 @@ class RegisterCryptoMovementActivity
 
     private var field: FieldValidation? = null
 
-    private val cryptoMovement: CryptoMovement? by lazy {
-        intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as CryptoMovement?
+    private val tradeMovement: TradeMovement? by lazy {
+        intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as TradeMovement?
     }
 
     private var adapter: RecyclerAdapterSearchCryptos? = null
@@ -71,7 +71,7 @@ class RegisterCryptoMovementActivity
 
         viewModel = viewModelProvider(viewModelFactory)
         binding.viewModel = viewModel
-        viewModel.attachCryptoMovementForUpdate(cryptoMovement)
+        viewModel.attachCryptoMovementForUpdate(tradeMovement)
 
         initViews()
         initObservers()
@@ -191,7 +191,7 @@ class RegisterCryptoMovementActivity
     }
 
     private fun isInserting(): Boolean =
-        cryptoMovement == null || cryptoMovement?.isInserting() == true
+        tradeMovement == null || tradeMovement?.isInserting() == true
 
     private fun initObservers() {
         viewModel.apply {
@@ -224,7 +224,7 @@ class RegisterCryptoMovementActivity
                     configureListResult(it.data)
             })
 
-            lastCryptoResultEvent.observe(this@RegisterCryptoMovementActivity, {
+            lastTradeResultEvent.observe(this@RegisterCryptoMovementActivity, {
                 if (it is ResultEvent.Success)
                     updateTheScalesAndCurrencies(it.data)
             })
@@ -235,7 +235,7 @@ class RegisterCryptoMovementActivity
         }
     }
 
-    private fun updateTheScalesAndCurrencies(data: CryptoMovement) {
+    private fun updateTheScalesAndCurrencies(data: TradeMovement) {
         binding.apply {
             editCryptoCurrentValue.valueScale(data.currentValue.scale())
 
@@ -271,16 +271,16 @@ class RegisterCryptoMovementActivity
             context.startActivity(getIntent(context))
         }
 
-        fun start(context: Context, cryptoMovement: CryptoMovement) {
-            context.startActivity(getIntent(context, cryptoMovement))
+        fun start(context: Context, tradeMovement: TradeMovement) {
+            context.startActivity(getIntent(context, tradeMovement))
         }
 
         fun getIntent(context: Context) =
             Intent(context, RegisterCryptoMovementActivity::class.java)
 
-        fun getIntent(context: Context, cryptoMovement: CryptoMovement) =
+        fun getIntent(context: Context, tradeMovement: TradeMovement) =
             Intent(context, RegisterCryptoMovementActivity::class.java).apply {
-                putExtra(CRYPTO_MOVEMENT, cryptoMovement)
+                putExtra(CRYPTO_MOVEMENT, tradeMovement)
             }
     }
 }
