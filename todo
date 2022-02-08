@@ -19,6 +19,8 @@ Keep Deposits, maybe i'm going to register a movement as Deposit
 
 OK - Loading state and animation (progress)
 
+- endless scroll
+
 ### ROBBIE
 OK - create a control for the progress to dismiss the progress only when all request is completed.
     Similar what I did at UseMobile, defining a list of items, dismiss when all is done or when a
