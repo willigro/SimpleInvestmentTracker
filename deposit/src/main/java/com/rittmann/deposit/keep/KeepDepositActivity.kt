@@ -1,10 +1,15 @@
 package com.rittmann.deposit.keep
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.toDoubleValid
+import com.rittmann.common.extensions.toast
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.utils.DateListenerUtil
 import com.rittmann.common.utils.DateUtil
@@ -30,13 +35,20 @@ class KeepDepositActivity :
 
     private val dateListenerUtil = DateListenerUtil()
 
+    private val tradeMovement: TradeMovement? by lazy {
+        intent?.extras?.getSerializable(DEPOSIT_MOVEMENT) as TradeMovement?
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel = viewModelProvider(viewModelFactory)
         binding.viewModel = viewModel
 
+        viewModel.attachTradeMovementForUpdate(tradeMovement)
+
         initViews()
+        initObservers()
     }
 
     private fun initViews() {
@@ -47,7 +59,25 @@ class KeepDepositActivity :
             }
         }
 
+        tradeMovement?.also {
+            dateListenerUtil.calendar = it.date
+            DateUtil.simpleDateFormat(it.date).also { date ->
+                binding.txtCryptoDate.text = date
+            }
+        }
+
         binding.apply {
+            field = FieldValidation(btnRegister).apply {
+                add(editText = editCryptoTotalValue.editText) {
+                    editCryptoTotalValue.editDecimalFormatController?.normalCurrency()
+                        ?.toDoubleValid() ?: 0.0 > 0.0
+                }
+
+                start()
+
+                runValidations()
+            }
+
             txtCryptoDate.apply {
                 setOnClickListener {
                     dateListenerUtil.show(this@KeepDepositActivity)
@@ -59,10 +89,40 @@ class KeepDepositActivity :
         }
     }
 
+    private fun initObservers() {
+        viewModel.apply {
+            registerResultEvent.observe(this@KeepDepositActivity, {
+                when (it) {
+                    is ResultEvent.Success -> {
+                        toast(getString(R.string.deposit_was_registered))
+                        setResult(Activity.RESULT_OK)
+                    }
+                    else -> {
+                        toast(getString(R.string.deposit_was_not_registered))
+                    }
+                }
+            })
+
+            updateResultEvent.observe(this@KeepDepositActivity, {
+                when (it) {
+                    is ResultEvent.Success -> {
+                        toast(getString(R.string.deposit_was_updated))
+                        setResult(Activity.RESULT_OK)
+                    }
+                    else -> {
+                        toast(getString(R.string.deposit_was_not_updated))
+                    }
+                }
+            })
+        }
+    }
+
     companion object {
-        fun start(context: Context) {
-            Intent(context, KeepDepositActivity::class.java).apply {
-                context.startActivity(this)
+        private const val DEPOSIT_MOVEMENT = "dm"
+
+        fun getIntent(context: Context, tradeMovement: TradeMovement? = null): Intent {
+            return Intent(context, KeepDepositActivity::class.java).apply {
+                putExtra(DEPOSIT_MOVEMENT, tradeMovement)
             }
         }
     }

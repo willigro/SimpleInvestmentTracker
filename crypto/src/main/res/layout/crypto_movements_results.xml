@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="cryptoResultViewBinding"
             type="com.rittmann.crypto.results.ui.CryptoResultViewBinding" />
@@ -14,21 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- DEPOSITED -->
+
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_deposited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_label="@string/crypto_movement_total_deposited"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:valueText="@{cryptoResultViewBinding.totalDeposited}" />
+
         <!-- TOTAL -->
 
         <com.rittmann.common.customs.CustomLabelValueText
             android:id="@+id/txt_crypto_results_total_earned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_earned"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_deposited"
             app:valueText="@{cryptoResultViewBinding.totalEarned}" />
 
         <com.rittmann.common.customs.CustomLabelValueText
             android:id="@+id/txt_crypto_results_total_invested"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_invested"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_earned"
@@ -38,6 +53,7 @@
             android:id="@+id/txt_crypto_results_total_on_hand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_on_hand"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_invested"
@@ -47,6 +63,7 @@
             android:id="@+id/txt_crypto_results_total_on_hand_without_tax"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_on_hand_without_tax"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand"
@@ -58,6 +75,7 @@
             android:id="@+id/txt_crypto_results_total_tax_paid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_tax_paid"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
@@ -67,6 +85,7 @@
             android:id="@+id/txt_crypto_results_total_tax_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_tax_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_paid"
@@ -78,6 +97,7 @@
             android:id="@+id/txt_crypto_results_total_bought_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_bought_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_amount"
@@ -87,6 +107,7 @@
             android:id="@+id/txt_crypto_results_total_sold_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_sold_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_bought_amount"
@@ -96,6 +117,7 @@
             android:id="@+id/txt_crypto_results_total_on_hand_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_on_hand_amount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount"
@@ -105,6 +127,7 @@
             android:id="@+id/txt_crypto_results_total_on_hand_amount_without_tax"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_on_hand_amount_without_tax"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount"

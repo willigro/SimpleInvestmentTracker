@@ -125,8 +125,11 @@ enum class CryptoOperationType(val value: String) : Serializable {
 
     companion object {
         fun convert(valueToConvert: String): CryptoOperationType {
-            return if (valueToConvert == BUY.value) BUY
-            else SELL
+            return when (valueToConvert) {
+                BUY.value -> BUY
+                SELL.value -> SELL
+                else -> DEPOSIT
+            }
         }
     }
 }

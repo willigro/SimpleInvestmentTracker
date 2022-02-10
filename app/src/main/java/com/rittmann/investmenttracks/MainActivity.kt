@@ -1,10 +1,12 @@
 package com.rittmann.investmenttracks
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rittmann.baselifecycle.base.BaseActivity
-import com.rittmann.deposit.keep.KeepDepositActivity
 import kotlinx.android.synthetic.main.activity_main.bottom_nav
 
 class MainActivity : BaseActivity() {
@@ -13,11 +15,11 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        MockCurrencies.mock(application)
+//        MockCurrencies.mock(application)
 
-//        initNavigation()
+        initNavigation()
 
-        KeepDepositActivity.start(this)
+//        KeepDepositActivity.start(this)
     }
 
     private fun initNavigation() {

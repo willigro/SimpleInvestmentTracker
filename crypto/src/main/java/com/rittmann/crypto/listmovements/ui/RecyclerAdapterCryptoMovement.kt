@@ -90,7 +90,7 @@ class RecyclerAdapterCryptoMovement(
                         cryptoMovement.taxCurrency
                     )
                 layout?.setOnClickListener {
-                    navigation.goToUpdateCrypto(cryptoMovement)
+                    navigation.goToUpdate(cryptoMovement)
                 }
             }
         }

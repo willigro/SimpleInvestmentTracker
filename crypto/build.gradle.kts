@@ -27,7 +27,7 @@ dependencies {
     implementLegacySupport()
 
     // =========== Modules ==============
-    implementModules(Modules.common, Modules.diUtils, Modules.datasource)
+    implementModules(Modules.common, Modules.diUtils, Modules.datasource, Modules.deposit)
     androidTestImplementationModules(Modules.commonTest)
     testImplementationModules(Modules.commonTest)
 

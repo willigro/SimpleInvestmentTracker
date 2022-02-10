@@ -1,10 +1,14 @@
 package com.rittmann.crypto.listmovements.ui
 
+import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.isOk
 import com.rittmann.common.extensions.linearLayoutManager
@@ -38,6 +42,8 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
             }
         }
 
+    private var mDialog: Dialog? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,7 +61,25 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
     private fun initViews() {
         binding.apply {
             buttonRegisterNewCrypto.setOnClickListener {
-                listCryptoMovementsNavigation.goToRegisterNewCrypto()
+                if (mDialog == null) {
+                    val mView = LayoutInflater.from(requireContext())
+                        .inflate(R.layout.content_bottom_sheet_keep_movement, null, false)
+                    mDialog = createBootomSheet(
+                        mView
+                    )
+                    mView?.findViewById<View>(R.id.content_bottom_sheet_keep_movement)
+                        ?.setBackgroundColor(Color.TRANSPARENT)
+
+                    mView?.findViewById<View>(R.id.txt_open_keep_deposit)?.setOnClickListener {
+                        listCryptoMovementsNavigation.goToRegisterNewDeposit()
+                    }
+
+                    mView?.findViewById<View>(R.id.txt_open_keep_crypto)?.setOnClickListener {
+                        listCryptoMovementsNavigation.goToRegisterNewCrypto()
+                    }
+                }
+
+                mDialog?.show()
             }
         }
     }
@@ -117,5 +141,15 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
             observeProgress(this)
         }
+    }
+
+    private fun createBootomSheet(view: View?): Dialog? {
+        if (view == null) throw NullPointerException("Não é possível criar um Bottom Sheet Dialog com uma view null, passe uma view válida para continuar.")
+        if (view.context == null) throw NullPointerException("Não é possível criar um Bottom Sheet Dialog com um context null, passe uma view com context válido para continuar.")
+        val dialog: Dialog = BottomSheetDialog(view.context)
+        dialog.setContentView(view)
+        dialog.setCancelable(true)
+        dialog.show()
+        return dialog
     }
 }

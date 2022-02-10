@@ -14,6 +14,7 @@ import com.rittmann.common.extensions.orZero
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.FormatDecimalController
 import com.rittmann.common.utils.transformerIt
+import com.rittmann.crypto.results.domain.CryptoResultsCalculate
 import javax.inject.Inject
 
 class ListCryptoMovementsViewModel @Inject constructor(
@@ -59,6 +60,16 @@ class ListCryptoMovementsViewModel @Inject constructor(
             )
         }
 
+    private val _totalValueDeposit: MutableLiveData<Double> = MutableLiveData()
+    val totalValueDeposit: LiveData<String>
+        get() = transformerIt(_totalValueDeposit) {
+            FormatDecimalController.format(
+                it.orZero(),
+                CurrencyType.REAL,
+                EditDecimalFormatController.SCALE_LIMIT
+            )
+        }
+
     private val _cryptoMovementDeleted: MutableLiveData<ResultEvent<Int>> = MutableLiveData()
     val cryptoMovementDeleted: LiveData<ResultEvent<Int>>
         get() = _cryptoMovementDeleted
@@ -79,17 +90,20 @@ class ListCryptoMovementsViewModel @Inject constructor(
     private fun calculateTotalValues(result: ResultEvent<List<TradeMovement>>?) {
         var totalInvested = 0.0
         var totalEarned = 0.0
+        var totalDeposited = 0.0
 
         if (result is ResultEvent.Success) result.data.forEach { crypto ->
-            if (crypto.type == CryptoOperationType.BUY) {
-                totalInvested += crypto.calculateTotalValue()
-            } else
-                totalEarned += crypto.calculateTotalValue()
+            when (crypto.type) {
+                CryptoOperationType.BUY -> totalInvested += crypto.calculateTotalValue()
+                CryptoOperationType.SELL -> totalEarned += crypto.calculateTotalValue()
+                CryptoOperationType.DEPOSIT -> totalDeposited += crypto.calculateTotalValue()
+            }
         }
 
         _totalValueInvested.value = totalInvested
         _totalValueEarned.value = totalEarned
-        _totalValueOnHand.value = totalEarned - totalInvested
+        _totalValueDeposit.value = totalDeposited
+        _totalValueOnHand.value = CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested)
     }
 
     fun deleteCrypto(tradeMovementToDelete: TradeMovement) {

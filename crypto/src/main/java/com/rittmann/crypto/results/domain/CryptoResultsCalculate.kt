@@ -9,8 +9,9 @@ object CryptoResultsCalculate {
 
     fun calculateResults(
         cryptoResultViewBinding: CryptoResultViewBinding,
-        data: List<TradeMovement>
-    ): CryptoResultViewBinding {
+        data: List<TradeMovement>,
+
+        ): CryptoResultViewBinding {
 
         var earned = 0.0
         var invested = 0.0
@@ -18,23 +19,35 @@ object CryptoResultsCalculate {
         var soldAmount = 0.0
         var taxPaid = 0.0
         var taxAmount = 0.0
+        var totalDeposited = 0.0
 
-        data.forEach {
-            if (it.type == CryptoOperationType.BUY) {
-                invested += it.calculateTotalValue()
-                taxPaid += it.calculateTaxValue()
-                boughtAmount += it.operatedAmount.toDouble()
-            } else {
-                earned += it.calculateTotalValue()
-                taxPaid += it.calculateTaxValue()
-                soldAmount += it.operatedAmount.toDouble()
+        var isDeposit = true
+
+        for (trade in data) {
+            when (trade.type) {
+                CryptoOperationType.DEPOSIT -> {
+                    totalDeposited += trade.calculateTotalValue()
+                    taxPaid += trade.calculateTaxValue()
+                }
+                CryptoOperationType.BUY -> {
+                    invested += trade.calculateTotalValue()
+                    taxPaid += trade.calculateTaxValue()
+                    boughtAmount += trade.operatedAmount.toDouble()
+                    isDeposit = false
+                }
+                CryptoOperationType.SELL -> {
+                    earned += trade.calculateTotalValue()
+                    taxPaid += trade.calculateTaxValue()
+                    soldAmount += trade.operatedAmount.toDouble()
+                    isDeposit = false
+                }
             }
 
-            if (it.taxCurrency == CurrencyType.CRYPTO)
-                taxAmount += it.tax.toDouble()
+            if (trade.taxCurrency == CurrencyType.CRYPTO)
+                taxAmount += trade.tax.toDouble()
         }
 
-        val onHand: Double = earned - invested
+        val onHand: Double = calculateTotalOnHand(totalDeposited, earned, invested)
         val onHandWithoutTax: Double = onHand - taxPaid
         val onHandAmount: Double = boughtAmount - soldAmount
         val amountOnHandWithoutTax: Double = onHandAmount - taxAmount
@@ -50,6 +63,11 @@ object CryptoResultsCalculate {
             _totalTaxPaid.value = Pair(taxPaid, CurrencyType.REAL)
             _totalTaxAmount.value = Pair(taxAmount, CurrencyType.DECIMAL)
             _totalAmountOnHandWithoutTax.value = Pair(amountOnHandWithoutTax, CurrencyType.DECIMAL)
+            _totalDeposited.value = Pair(totalDeposited, CurrencyType.REAL)
+            _isDeposit.value = isDeposit
         }
     }
+
+    fun calculateTotalOnHand(deposit: Double, earned: Double, invested: Double) =
+        earned + (deposit - invested)
 }

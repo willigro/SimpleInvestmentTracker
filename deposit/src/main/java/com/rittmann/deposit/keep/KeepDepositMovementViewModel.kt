@@ -1,7 +1,9 @@
 package com.rittmann.deposit.keep
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.deposit.domain.KeepDepositRepository
 import java.util.*
@@ -13,24 +15,58 @@ class KeepDepositMovementViewModel @Inject constructor(
 
     var tradeMovement: MutableLiveData<TradeMovement> = MutableLiveData(TradeMovement.deposit())
 
-    fun saveTrade() {
-        tradeMovement.value?.also {
-            executeAsyncThenMainSuspend(
-                io = {
-                    it.currentValue = it.totalValue
-                    repositoryImpl.register(it)
-                },
-                main = {
+    private val _registerResultEvent: MutableLiveData<ResultEvent<TradeMovement>> =
+        MutableLiveData<ResultEvent<TradeMovement>>()
+    val registerResultEvent: LiveData<ResultEvent<TradeMovement>> get() = _registerResultEvent
 
-                },
-                progress = true
-            )
+    private val _updateResultEvent: MutableLiveData<ResultEvent<Int>> =
+        MutableLiveData<ResultEvent<Int>>()
+    val updateResultEvent: LiveData<ResultEvent<Int>> get() = _updateResultEvent
+
+    fun saveTrade() {
+        tradeMovement.value?.also { tradeMovement ->
+            tradeMovement.currentValue = tradeMovement.totalValue
+
+            if (tradeMovement.isInserting()) {
+                insertDeposit(tradeMovement)
+            } else
+                updateDeposit(tradeMovement)
         }
+    }
+
+    private fun insertDeposit(tradeMovement: TradeMovement) {
+        executeAsyncThenMainSuspend(
+            io = {
+                repositoryImpl.register(tradeMovement)
+            },
+            main = {
+                _registerResultEvent.value = it
+            },
+            progress = true
+        )
+    }
+
+    private fun updateDeposit(tradeMovement: TradeMovement) {
+        executeAsyncThenMainSuspend(
+            io = {
+                repositoryImpl.update(tradeMovement)
+            },
+            main = {
+                _updateResultEvent.value = it
+            },
+            progress = true
+        )
     }
 
     fun changeDate(calendar: Calendar) {
         tradeMovement.value?.also {
             it.date = calendar
+        }
+    }
+
+    fun attachTradeMovementForUpdate(tradeMovement: TradeMovement?) {
+        tradeMovement?.also {
+            this.tradeMovement.value = tradeMovement
         }
     }
 }

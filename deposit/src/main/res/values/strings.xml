@@ -1,1 +1,7 @@
-<resources></resources>
+<resources>
+    <!-- Register Deposit -->
+    <string name="deposit_was_registered">Your new deposit was registered</string>
+    <string name="deposit_was_not_registered">Your new deposit was not registered</string>
+    <string name="deposit_was_updated">Your new deposit was updated</string>
+    <string name="deposit_was_not_updated">Your new deposit was not updated</string>
+</resources>
