@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rittmann.crypto.R
 import com.rittmann.common.datasource.basic.TradeMovement
@@ -12,29 +14,23 @@ import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.FormatDecimalController
 
+private class DiffCallback : DiffUtil.ItemCallback<TradeMovement>() {
+
+    override fun areItemsTheSame(oldItem: TradeMovement, newItem: TradeMovement) =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: TradeMovement, newItem: TradeMovement) =
+        oldItem == newItem
+}
+
 class RecyclerAdapterCryptoMovement(
     list: List<TradeMovement>,
     private val navigation: ListCryptoMovementsNavigation,
     private val onDeleteClicked: (TradeMovement) -> Unit
-) : RecyclerView.Adapter<RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>() {
-
-    private var listMovements: List<TradeMovement> = emptyList()
-        set(value) {
-            var lastDate = ""
-            value.forEach { cash ->
-                val date = DateUtil.simpleDateFormat(cash.date)
-                if (lastDate != date) {
-
-                    lastDate = date
-
-                    cash.useThisDate = true
-                }
-            }
-            field = value
-        }
+) : ListAdapter<TradeMovement, RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>(DiffCallback()) {
 
     init {
-        listMovements = list
+        submitList(list.toMutableList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoMovementViewHolder {
@@ -48,11 +44,11 @@ class RecyclerAdapterCryptoMovement(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (listMovements[position].useThisDate) DATE_AND_CONTENT else CONTENT
+        return if (currentList[position].useThisDate) DATE_AND_CONTENT else CONTENT
     }
 
     override fun onBindViewHolder(holder: CryptoMovementViewHolder, position: Int) {
-        listMovements[holder.adapterPosition].also { cryptoMovement ->
+        currentList[holder.adapterPosition].also { cryptoMovement ->
             holder.apply {
 
                 titleDate?.text = DateUtil.simpleDateFormat(cryptoMovement.date)
@@ -96,12 +92,20 @@ class RecyclerAdapterCryptoMovement(
         }
     }
 
-    override fun getItemCount(): Int = listMovements.size
+    override fun getItemCount(): Int = currentList.size
 
-    fun relist(listToRelist: List<TradeMovement>) {
-        listMovements = listToRelist
+    override fun submitList(list: MutableList<TradeMovement>?) {
+        var lastDate = ""
+        list?.forEach { cash ->
+            val date = DateUtil.simpleDateFormat(cash.date)
+            if (lastDate != date) {
 
-        notifyDataSetChanged()
+                lastDate = date
+
+                cash.useThisDate = true
+            }
+        }
+        super.submitList(list)
     }
 
     class CryptoMovementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

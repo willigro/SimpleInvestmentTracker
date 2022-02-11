@@ -103,7 +103,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                                 recyclerCryptoMovement.linearLayoutManager()
                                 recyclerCryptoMovement.adapter = adapter
                             } else {
-                                adapter?.relist(result.data)
+                                adapter?.submitList(result.data.toMutableList())
                             }
                         }
                     }
