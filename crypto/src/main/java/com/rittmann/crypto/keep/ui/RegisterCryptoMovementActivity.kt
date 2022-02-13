@@ -199,7 +199,10 @@ class RegisterCryptoMovementActivity
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_registered))
-                        setResult(Activity.RESULT_OK)
+                        Intent().apply {
+                            putExtra(CRYPTO_MOVEMENT_RESULT_INSERTED, it.data)
+                            setResult(Activity.RESULT_OK, this)
+                        }
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_registered))
@@ -211,7 +214,10 @@ class RegisterCryptoMovementActivity
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_updated))
-                        setResult(Activity.RESULT_OK)
+                        Intent().apply {
+                            putExtra(CRYPTO_MOVEMENT_RESULT_UPDATED, it.data)
+                            setResult(Activity.RESULT_OK, this)
+                        }
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_updated))
@@ -266,6 +272,8 @@ class RegisterCryptoMovementActivity
     companion object {
 
         private const val CRYPTO_MOVEMENT = "cm"
+        const val CRYPTO_MOVEMENT_RESULT_UPDATED = "cmu"
+        const val CRYPTO_MOVEMENT_RESULT_INSERTED = "cmi"
 
         fun start(context: Context) {
             context.startActivity(getIntent(context))

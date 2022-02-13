@@ -19,6 +19,8 @@ import com.rittmann.common.utils.pagination.PagingUtils
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.FragmentListCryptoMovementsBinding
+import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_INSERTED
+import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_UPDATED
 import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
 
@@ -41,7 +43,16 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.isOk()) {
-                fetchTradeMovements()
+                result.data?.extras?.apply {
+                    getSerializable(CRYPTO_MOVEMENT_RESULT_UPDATED)?.also { data ->
+                        viewModel.tradeMovementWasUpdated(data as TradeMovement)
+                    }
+
+                    getSerializable(CRYPTO_MOVEMENT_RESULT_INSERTED)?.also { data ->
+                        viewModel.tradeMovementWasInserted(data as TradeMovement)
+                    }
+                }
+//                fetchTradeMovements()
             }
         }
 

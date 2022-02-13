@@ -7,7 +7,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 interface RegisterCryptoMovementRepository {
 
     suspend fun registerCrypto(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
-    suspend fun updateCrypto(tradeMovement: TradeMovement): ResultEvent<Int>
+    suspend fun updateCrypto(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
     suspend fun fetchCryptoNames(nameLike: String): ResultEvent<List<String>>
     suspend fun fetchLastCrypto(name: String): ResultEvent<TradeMovement>
 }
@@ -27,9 +27,12 @@ class RegisterCryptoMovementRepositoryImpl(
         }
     }
 
-    override suspend fun updateCrypto(tradeMovement: TradeMovement): ResultEvent<Int> {
+    override suspend fun updateCrypto(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
         return try {
-            ResultEvent.Success(tradeDao.update(tradeMovement))
+            if (tradeDao.update(tradeMovement) > 0)
+                ResultEvent.Success(tradeMovement)
+            else
+                ResultEvent.Error(Exception())
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

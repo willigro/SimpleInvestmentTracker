@@ -10,12 +10,14 @@ import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.indexOfBy
 import com.rittmann.common.extensions.orZero
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.FormatDecimalController
 import com.rittmann.common.utils.pagination.PageInfo
 import com.rittmann.common.utils.transformerIt
 import com.rittmann.crypto.results.domain.CryptoResultsCalculate
+import java.io.Serializable
 import javax.inject.Inject
 
 class ListCryptoMovementsViewModel @Inject constructor(
@@ -141,5 +143,23 @@ class ListCryptoMovementsViewModel @Inject constructor(
             },
             progress = true
         )
+    }
+
+    fun tradeMovementWasUpdated(data: TradeMovement) {
+        val list = _tradeMovementsList.value ?: arrayListOf()
+
+        val index = list.indexOfBy {
+            it.id == data.id
+        }
+        if (index != -1)
+            (list as ArrayList)[index] = data
+
+        _tradeMovementsList.value = list
+    }
+
+    fun tradeMovementWasInserted(data: TradeMovement) {
+        val list = _tradeMovementsList.value ?: arrayListOf()
+        (list as ArrayList).add(data)
+        _tradeMovementsList.value = list
     }
 }
