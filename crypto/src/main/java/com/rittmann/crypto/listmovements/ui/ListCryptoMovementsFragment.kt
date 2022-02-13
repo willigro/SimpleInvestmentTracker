@@ -21,6 +21,7 @@ import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.FragmentListCryptoMovementsBinding
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_INSERTED
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_UPDATED
+import com.rittmann.deposit.keep.KeepDepositActivity.Companion.DEPOSIT_MOVEMENT_RESULT_INSERTED
 import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
 
@@ -49,6 +50,10 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     }
 
                     getSerializable(CRYPTO_MOVEMENT_RESULT_INSERTED)?.also { data ->
+                        viewModel.tradeMovementWasInserted(data as TradeMovement)
+                    }
+
+                    getSerializable(DEPOSIT_MOVEMENT_RESULT_INSERTED)?.also { data ->
                         viewModel.tradeMovementWasInserted(data as TradeMovement)
                     }
                 }
