@@ -21,7 +21,7 @@ class ListCryptoMovementsRepositoryImplTest @Inject constructor(
             ResultEvent.Success(tradeDao.selectAll())
     }
 
-    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<Int> {
-        return ResultEvent.Success(0)
+    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
+        return ResultEvent.Success(tradeMovement)
     }
 }

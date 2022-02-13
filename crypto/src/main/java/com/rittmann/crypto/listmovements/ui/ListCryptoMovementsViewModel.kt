@@ -71,8 +71,9 @@ class ListCryptoMovementsViewModel @Inject constructor(
             )
         }
 
-    private val _cryptoMovementDeleted: MutableLiveData<ResultEvent<Int>> = MutableLiveData()
-    val cryptoMovementDeleted: LiveData<ResultEvent<Int>>
+    private val _cryptoMovementDeleted: MutableLiveData<ResultEvent<TradeMovement>> =
+        MutableLiveData()
+    val cryptoMovementDeleted: LiveData<ResultEvent<TradeMovement>>
         get() = _cryptoMovementDeleted
 
     var pageInfo: PageInfo<TradeMovement> = PageInfo()
@@ -128,6 +129,14 @@ class ListCryptoMovementsViewModel @Inject constructor(
                 repository.delete(tradeMovementToDelete)
             },
             main = {
+                if (it is ResultEvent.Success) {
+                    val list = _tradeMovementsList.value ?: arrayListOf()
+
+                    (list as ArrayList).remove(tradeMovementToDelete)
+
+                    _tradeMovementsList.value = list
+                }
+
                 _cryptoMovementDeleted.value = it
             },
             progress = true

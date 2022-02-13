@@ -5,7 +5,6 @@ import com.rittmann.androidtools.log.log
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.dao.config.QueryDAO
 import com.rittmann.common.datasource.dao.config.TableTradeMovement
-import com.rittmann.common.datasource.dao.config.groupByThat
 import com.rittmann.common.datasource.dao.config.limitAndOffset
 import com.rittmann.common.datasource.dao.config.orderBy
 import com.rittmann.common.datasource.dao.config.selectAll
@@ -16,7 +15,7 @@ import javax.inject.Inject
 
 interface ListCryptoMovementsRepository {
     suspend fun getAll(pageInfo: PageInfo<TradeMovement>): ResultEvent<List<TradeMovement>>
-    suspend fun delete(tradeMovement: TradeMovement): ResultEvent<Int>
+    suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
 }
 
 class ListCryptoMovementsRepositoryImpl @Inject constructor(
@@ -40,9 +39,12 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<Int> {
+    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
         return try {
-            ResultEvent.Success(tradeDao.delete(tradeMovement))
+            if (tradeDao.delete(tradeMovement) > 0)
+                ResultEvent.Success(tradeMovement)
+            else
+                ResultEvent.Error(Exception())
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

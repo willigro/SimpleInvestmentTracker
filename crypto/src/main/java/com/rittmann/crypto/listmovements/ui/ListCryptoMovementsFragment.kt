@@ -116,23 +116,20 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
             })
 
             cryptoMovementDeleted.observe(this@ListCryptoMovementsFragment, { result ->
-                when (result) {
-                    is ResultEvent.Success -> {
-                        // TODO: to it right, man, late I'm going to change it for the right remove
-                        //  remove the item from the list, recalculate and etc..
-
-                        fetchTradeMovements()
+                val msg = when (result) {
+                    is ResultEvent.Error -> {
+                        getString(R.string.trade_movement_delete_was_successful)
                     }
                     else -> {
-                        // TODO: error message
-                        modal(
-                            message = getString(R.string.list_crypto_error),
-                            show = true,
-                            ok = true,
-                            cancelable = true
-                        )
+                        getString(R.string.trade_movement_delete_was_not_successful)
                     }
                 }
+                modal(
+                    message = msg,
+                    show = true,
+                    ok = true,
+                    cancelable = true
+                )
             })
 
             observeProgress(this)
