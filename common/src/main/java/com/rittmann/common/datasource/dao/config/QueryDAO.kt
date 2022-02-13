@@ -1,5 +1,7 @@
 package com.rittmann.common.datasource.dao.config
 
+import com.rittmann.androidtools.log.log
+
 object QueryDAO {
     const val ASC = " ASC "
     const val DESC = " DESC "
@@ -64,4 +66,10 @@ fun String.groupByThat(): String {
 
 fun String.like(like: String): String {
     return if (like.isEmpty()) "" else " $this LIKE '$like%' "
+}
+
+fun String.limitAndOffset(limit: Int, offset: Int): String {
+    return "$this limit $offset, $limit ".apply {
+        log()
+    }
 }

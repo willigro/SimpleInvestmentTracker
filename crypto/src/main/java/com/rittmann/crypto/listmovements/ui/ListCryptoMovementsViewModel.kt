@@ -13,6 +13,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.orZero
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.FormatDecimalController
+import com.rittmann.common.utils.pagination.PageInfo
 import com.rittmann.common.utils.transformerIt
 import com.rittmann.crypto.results.domain.CryptoResultsCalculate
 import javax.inject.Inject
@@ -22,9 +23,9 @@ class ListCryptoMovementsViewModel @Inject constructor(
     dispatcherProviderVm: DispatcherProvider
 ) : BaseViewModelApp(dispatcherProviderVm) {
 
-    private val _tradeMovementsList: MutableLiveData<ResultEvent<List<TradeMovement>>> =
+    private val _tradeMovementsList: MutableLiveData<List<TradeMovement>> =
         MutableLiveData()
-    val tradeMovementsList: LiveData<ResultEvent<List<TradeMovement>>>
+    val tradeMovementsList: LiveData<List<TradeMovement>>
         get() = Transformations.map(_tradeMovementsList) { result ->
             calculateTotalValues(result)
             result
@@ -74,25 +75,39 @@ class ListCryptoMovementsViewModel @Inject constructor(
     val cryptoMovementDeleted: LiveData<ResultEvent<Int>>
         get() = _cryptoMovementDeleted
 
-    fun fetchAllCryptoMovements() {
+    var pageInfo: PageInfo<TradeMovement> = PageInfo()
+
+    fun fetchAllCryptoMovements(next: Boolean) {
+        pageInfo.setEnableRefresh(PageInfo.PageState.LOADING)
         showProgress()
         executeAsyncThenMainSuspend(
             io = {
-                repository.getAll()
+                repository.getAll(pageInfo.getNextPage(next))
             },
             main = {
-                _tradeMovementsList.value = it
+
+                val pageResult = if (it is ResultEvent.Success) {
+                    if (it.data.isEmpty())
+                        PageInfo.PageResult(isEndList = true)
+                    else
+                        PageInfo.PageResult(it.data)
+                } else
+                    PageInfo.PageResult(isEndList = true)
+
+                _tradeMovementsList.value = pageInfo.getResult(pageResult)
+
+                pageInfo.setEnableRefresh(PageInfo.PageState.IDLE)
             },
             progress = true
         )
     }
 
-    private fun calculateTotalValues(result: ResultEvent<List<TradeMovement>>?) {
+    private fun calculateTotalValues(result: List<TradeMovement>?) {
         var totalInvested = 0.0
         var totalEarned = 0.0
         var totalDeposited = 0.0
 
-        if (result is ResultEvent.Success) result.data.forEach { crypto ->
+        result?.forEach { crypto ->
             when (crypto.type) {
                 CryptoOperationType.BUY -> totalInvested += crypto.calculateTotalValue()
                 CryptoOperationType.SELL -> totalEarned += crypto.calculateTotalValue()
@@ -103,7 +118,8 @@ class ListCryptoMovementsViewModel @Inject constructor(
         _totalValueInvested.value = totalInvested
         _totalValueEarned.value = totalEarned
         _totalValueDeposit.value = totalDeposited
-        _totalValueOnHand.value = CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested)
+        _totalValueOnHand.value =
+            CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested)
     }
 
     fun deleteCrypto(tradeMovementToDelete: TradeMovement) {

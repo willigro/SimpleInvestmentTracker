@@ -3,6 +3,7 @@ package com.rittmann.crypto.listmovements.domain
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.utils.pagination.PageInfo
 import javax.inject.Inject
 
 class ListCryptoMovementsRepositoryImplTest @Inject constructor(
@@ -13,7 +14,7 @@ class ListCryptoMovementsRepositoryImplTest @Inject constructor(
         var returnsError = true
     }
 
-    override suspend fun getAll(): ResultEvent<List<TradeMovement>> {
+    override suspend fun getAll(pageInfo: PageInfo<TradeMovement>): ResultEvent<List<TradeMovement>> {
         return if (returnsError)
             ResultEvent.Error(Exception())
         else

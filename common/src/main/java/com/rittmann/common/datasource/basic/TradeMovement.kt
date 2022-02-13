@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.rittmann.common.datasource.dao.config.TableTradeMovement
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.EditDecimalFormatController.Companion.DEFAULT_SCALE
+import com.rittmann.common.utils.pagination.PageItem
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
@@ -48,7 +49,8 @@ data class TradeMovement(
 
     @ColumnInfo(name = TableTradeMovement.TAX_CURRENCY)
     var taxCurrency: CurrencyType = CurrencyType.CRYPTO,
-) : Serializable, Ponjo() {
+) : Serializable, Ponjo(), PageItem {
+    override fun getIdentification(): String = id.toString()
 
     @Transient
     var useThisDate: Boolean = false

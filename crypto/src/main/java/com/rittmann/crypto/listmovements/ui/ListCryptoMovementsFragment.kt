@@ -1,5 +1,6 @@
 package com.rittmann.crypto.listmovements.ui
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.isOk
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.lifecycle.BaseFragmentBinding
+import com.rittmann.common.utils.pagination.PagingUtils
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
 import com.rittmann.crypto.databinding.FragmentListCryptoMovementsBinding
@@ -35,10 +37,10 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
     private var adapter: RecyclerAdapterCryptoMovement? = null
 
-    val getContent =
+    private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.isOk()) {
-                viewModel.fetchAllCryptoMovements()
+                fetchTradeMovements()
             }
         }
 
@@ -53,18 +55,19 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
         initViews()
         initObservers()
 
-        viewModel.fetchAllCryptoMovements()
+        fetchTradeMovements()
 
         listCryptoMovementsNavigation.setStartResult(getContent)
     }
 
+    @SuppressLint("InflateParams")
     private fun initViews() {
         binding.apply {
             buttonRegisterNewCrypto.setOnClickListener {
                 if (mDialog == null) {
                     val mView = LayoutInflater.from(requireContext())
                         .inflate(R.layout.content_bottom_sheet_keep_movement, null, false)
-                    mDialog = createBootomSheet(
+                    mDialog = createBottomSheet(
                         mView
                     )
                     mView?.findViewById<View>(R.id.content_bottom_sheet_keep_movement)
@@ -81,40 +84,33 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
                 mDialog?.show()
             }
+
+            PagingUtils.setUpPaging(
+                scroll = recyclerCryptoMovement,
+                enableRefresh = this@ListCryptoMovementsFragment.viewModel.pageInfo.enableRefresh,
+                refreshList = ::fetchTradeMovementsWithPaging
+            )
         }
     }
 
     private fun initObservers() {
         viewModel.apply {
             tradeMovementsList.observe(this@ListCryptoMovementsFragment, { result ->
-                when (result) {
-                    is ResultEvent.Success -> {
-                        binding.apply {
-                            if (adapter == null) {
-                                adapter = RecyclerAdapterCryptoMovement(
-                                    result.data,
-                                    listCryptoMovementsNavigation
-                                ) { cryptoMovementToDelete ->
-                                    this@ListCryptoMovementsFragment.viewModel.deleteCrypto(
-                                        cryptoMovementToDelete
-                                    )
-                                }
-
-                                recyclerCryptoMovement.linearLayoutManager()
-                                recyclerCryptoMovement.adapter = adapter
-                            } else {
-                                adapter?.submitList(result.data.toMutableList())
-                            }
+                binding.apply {
+                    if (adapter == null) {
+                        adapter = RecyclerAdapterCryptoMovement(
+                            result,
+                            listCryptoMovementsNavigation
+                        ) { cryptoMovementToDelete ->
+                            this@ListCryptoMovementsFragment.viewModel.deleteCrypto(
+                                cryptoMovementToDelete
+                            )
                         }
-                    }
-                    else -> {
-                        // TODO: error message
-                        modal(
-                            message = getString(R.string.list_crypto_error),
-                            show = true,
-                            ok = true,
-                            cancelable = true
-                        )
+
+                        recyclerCryptoMovement.linearLayoutManager()
+                        recyclerCryptoMovement.adapter = adapter
+                    } else {
+                        adapter?.submitList(result.toMutableList())
                     }
                 }
             })
@@ -125,7 +121,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                         // TODO: to it right, man, late I'm going to change it for the right remove
                         //  remove the item from the list, recalculate and etc..
 
-                        this@ListCryptoMovementsFragment.viewModel.fetchAllCryptoMovements()
+                        fetchTradeMovements()
                     }
                     else -> {
                         // TODO: error message
@@ -143,7 +139,17 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
         }
     }
 
-    private fun createBootomSheet(view: View?): Dialog? {
+    private fun fetchTradeMovementsWithPaging() {
+        fetchTradeMovements(true)
+    }
+
+    private fun fetchTradeMovements(
+        next: Boolean = false
+    ) {
+        viewModel.fetchAllCryptoMovements(next)
+    }
+
+    private fun createBottomSheet(view: View?): Dialog {
         if (view == null) throw NullPointerException("Não é possível criar um Bottom Sheet Dialog com uma view null, passe uma view válida para continuar.")
         if (view.context == null) throw NullPointerException("Não é possível criar um Bottom Sheet Dialog com um context null, passe uma view com context válido para continuar.")
         val dialog: Dialog = BottomSheetDialog(view.context)
