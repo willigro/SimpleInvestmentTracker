@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.isOk
 import com.rittmann.common.extensions.linearLayoutManager
@@ -100,12 +101,9 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     if (adapter == null) {
                         adapter = RecyclerAdapterCryptoMovement(
                             result,
-                            listCryptoMovementsNavigation
-                        ) { cryptoMovementToDelete ->
-                            this@ListCryptoMovementsFragment.viewModel.deleteCrypto(
-                                cryptoMovementToDelete
-                            )
-                        }
+                            listCryptoMovementsNavigation,
+                            ::deleteTradeMovement
+                        )
 
                         recyclerCryptoMovement.linearLayoutManager()
                         recyclerCryptoMovement.adapter = adapter
@@ -117,7 +115,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
             cryptoMovementDeleted.observe(this@ListCryptoMovementsFragment, { result ->
                 val msg = when (result) {
-                    is ResultEvent.Error -> {
+                    is ResultEvent.Success -> {
                         getString(R.string.trade_movement_delete_was_successful)
                     }
                     else -> {
@@ -134,6 +132,19 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
             observeProgress(this)
         }
+    }
+
+    private fun deleteTradeMovement(trade: TradeMovement) {
+        modal(
+            message = getString(R.string.do_you_wanna_delete_this_trade),
+            show = true,
+            cancelable = true,
+            onClickConclude = {
+                viewModel.deleteCrypto(
+                    trade
+                )
+            }
+        )
     }
 
     private fun fetchTradeMovementsWithPaging() {

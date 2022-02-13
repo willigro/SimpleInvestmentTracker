@@ -17,6 +17,7 @@
     <string name="crypto_movement_operated_movement">Quantidade operada</string>
 
     <!-- Delete Crypto -->
+    <string name="do_you_wanna_delete_this_trade">Do you want to delete the trade movement?</string>
     <string name="trade_movement_delete_was_successful">Trade was deleted</string>
     <string name="trade_movement_delete_was_not_successful">Trade was not deleted</string>
 
