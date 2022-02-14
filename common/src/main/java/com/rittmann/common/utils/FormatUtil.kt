@@ -86,10 +86,13 @@ class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
             }
 
         currencyFormatted = formatted.let {
-            val diff = it.split(",")[1].length
-            if (diff < scale)
-                it + "0".repeat(scale - diff)
-            else
+            if (it.contains(",")) {
+                val diff = it.split(",")[1].length
+                if (diff < scale)
+                    it + "0".repeat(scale - diff)
+                else
+                    it
+            } else
                 it
         }
 

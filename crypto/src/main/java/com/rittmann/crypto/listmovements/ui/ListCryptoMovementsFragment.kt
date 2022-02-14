@@ -25,6 +25,11 @@ import com.rittmann.deposit.keep.KeepDepositActivity.Companion.DEPOSIT_MOVEMENT_
 import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
 
+
+// TODO: when update or insert, change the items positions
+//  also I need to see if when I insert one new item, that will be get later from the DAO, that it
+//  will be ignored from the pagination, to not add a duplicated item
+
 class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMovementsBinding>(
     R.layout.fragment_list_crypto_movements,
     R.id.container
@@ -57,7 +62,6 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                         viewModel.tradeMovementWasInserted(data as TradeMovement)
                     }
                 }
-//                fetchTradeMovements()
             }
         }
 

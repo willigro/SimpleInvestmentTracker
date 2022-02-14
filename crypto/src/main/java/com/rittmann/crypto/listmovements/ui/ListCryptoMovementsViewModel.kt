@@ -17,7 +17,6 @@ import com.rittmann.common.utils.FormatDecimalController
 import com.rittmann.common.utils.pagination.PageInfo
 import com.rittmann.common.utils.transformerIt
 import com.rittmann.crypto.results.domain.CryptoResultsCalculate
-import java.io.Serializable
 import javax.inject.Inject
 
 class ListCryptoMovementsViewModel @Inject constructor(
@@ -146,20 +145,25 @@ class ListCryptoMovementsViewModel @Inject constructor(
     }
 
     fun tradeMovementWasUpdated(data: TradeMovement) {
-        val list = _tradeMovementsList.value ?: arrayListOf()
-
-        val index = list.indexOfBy {
+        val index = pageInfo.completeList.indexOfBy {
             it.id == data.id
         }
         if (index != -1)
-            (list as ArrayList)[index] = data
-
-        _tradeMovementsList.value = list
+            (pageInfo.completeList as ArrayList).apply {
+                this[index] = data
+                _tradeMovementsList.value = sortedByDescending { it.date }
+            }
     }
 
     fun tradeMovementWasInserted(data: TradeMovement) {
-        val list = _tradeMovementsList.value ?: arrayListOf()
-        (list as ArrayList).add(data)
-        _tradeMovementsList.value = list
+        pageInfo.apply {
+            addOnlyIfNotContains(data)
+            (completeList as ArrayList).apply {
+                val arr = completeList.sortedByDescending { it.date }
+                clear()
+                addAll(arr)
+            }
+            _tradeMovementsList.value = completeList
+        }
     }
 }

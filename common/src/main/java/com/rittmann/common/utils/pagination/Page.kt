@@ -91,7 +91,7 @@ data class PageInfo<T : PageItem>(
     }
 
     fun addOnlyIfNotContains(pageResult: PageResult<T>) {
-        (completeList as ArrayList).apply {
+        completeList.apply {
             for (new in pageResult.list) {
                 var found = false
                 for (complete in this) {
@@ -101,8 +101,22 @@ data class PageInfo<T : PageItem>(
                     }
                 }
                 if (found.not())
-                    add(new)
+                    (completeList as ArrayList).add(new)
             }
+        }
+    }
+
+    fun addOnlyIfNotContains(item: T) {
+        (completeList as ArrayList).apply {
+            var found = false
+            for (complete in this) {
+                if (item.getIdentification() == complete.getIdentification()) {
+                    found = true
+                    break
+                }
+            }
+            if (found.not())
+                add(item)
         }
     }
 

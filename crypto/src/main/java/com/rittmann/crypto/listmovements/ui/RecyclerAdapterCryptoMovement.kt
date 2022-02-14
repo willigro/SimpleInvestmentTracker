@@ -97,6 +97,7 @@ class RecyclerAdapterCryptoMovement(
     override fun submitList(list: MutableList<TradeMovement>?) {
         var lastDate = ""
         list?.forEach { cash ->
+            cash.useThisDate = false
             val date = DateUtil.simpleDateFormat(cash.date)
             if (lastDate != date) {
 
