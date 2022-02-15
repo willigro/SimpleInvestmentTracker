@@ -110,7 +110,10 @@ class KeepDepositActivity :
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.deposit_was_updated))
-                        setResult(Activity.RESULT_OK)
+                        Intent().apply {
+                            putExtra(DEPOSIT_MOVEMENT_RESULT_UPDATED, it.data)
+                            setResult(Activity.RESULT_OK, this)
+                        }
                     }
                     else -> {
                         toast(getString(R.string.deposit_was_not_updated))
@@ -123,6 +126,7 @@ class KeepDepositActivity :
     companion object {
         private const val DEPOSIT_MOVEMENT = "dm"
         const val DEPOSIT_MOVEMENT_RESULT_INSERTED = "dmi"
+        const val DEPOSIT_MOVEMENT_RESULT_UPDATED = "dmu"
 
         fun getIntent(context: Context, tradeMovement: TradeMovement? = null): Intent {
             return Intent(context, KeepDepositActivity::class.java).apply {

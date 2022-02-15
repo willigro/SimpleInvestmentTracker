@@ -165,6 +165,8 @@ class ListCryptoMovementsViewModel @Inject constructor(
             (pageInfo.completeList as ArrayList).apply {
                 this[index] = data
                 _tradeMovementsList.value = sortedByDescending { it.date }
+
+                calculateTotalValues(this)
             }
     }
 
@@ -177,6 +179,8 @@ class ListCryptoMovementsViewModel @Inject constructor(
                 addAll(arr)
             }
             _tradeMovementsList.value = completeList
+
+            calculateTotalValues(completeList)
         }
     }
 }

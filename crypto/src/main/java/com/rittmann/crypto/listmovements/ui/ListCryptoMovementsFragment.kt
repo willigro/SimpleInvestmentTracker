@@ -22,13 +22,9 @@ import com.rittmann.crypto.databinding.FragmentListCryptoMovementsBinding
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_INSERTED
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity.Companion.CRYPTO_MOVEMENT_RESULT_UPDATED
 import com.rittmann.deposit.keep.KeepDepositActivity.Companion.DEPOSIT_MOVEMENT_RESULT_INSERTED
+import com.rittmann.deposit.keep.KeepDepositActivity.Companion.DEPOSIT_MOVEMENT_RESULT_UPDATED
 import com.rittmann.widgets.dialog.modal
 import javax.inject.Inject
-
-
-// TODO: when update or insert, change the items positions
-//  also I need to see if when I insert one new item, that will be get later from the DAO, that it
-//  will be ignored from the pagination, to not add a duplicated item
 
 class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMovementsBinding>(
     R.layout.fragment_list_crypto_movements,
@@ -51,6 +47,10 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
             if (result.isOk()) {
                 result.data?.extras?.apply {
                     getSerializable(CRYPTO_MOVEMENT_RESULT_UPDATED)?.also { data ->
+                        viewModel.tradeMovementWasUpdated(data as TradeMovement)
+                    }
+
+                    getSerializable(DEPOSIT_MOVEMENT_RESULT_UPDATED)?.also { data ->
                         viewModel.tradeMovementWasUpdated(data as TradeMovement)
                     }
 

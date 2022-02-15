@@ -21,9 +21,9 @@ class KeepDepositMovementViewModel @Inject constructor(
         MutableLiveData<ResultEvent<TradeMovement>>()
     val registerResultEvent: LiveData<ResultEvent<TradeMovement>> get() = _registerResultEvent
 
-    private val _updateResultEvent: MutableLiveData<ResultEvent<Int>> =
-        MutableLiveData<ResultEvent<Int>>()
-    val updateResultEvent: LiveData<ResultEvent<Int>> get() = _updateResultEvent
+    private val _updateResultEvent: MutableLiveData<ResultEvent<TradeMovement>> =
+        MutableLiveData<ResultEvent<TradeMovement>>()
+    val updateResultEvent: LiveData<ResultEvent<TradeMovement>> get() = _updateResultEvent
 
     fun saveTrade() {
         tradeMovement.value?.also { tradeMovement ->

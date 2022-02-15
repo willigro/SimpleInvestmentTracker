@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.extensions.itCanBe
 import com.rittmann.crypto.keep.ui.RegisterCryptoMovementActivity
 import com.rittmann.deposit.keep.KeepDepositActivity
 
@@ -41,7 +42,7 @@ class ListCryptoMovementsNavigationImpl(
     }
 
     override fun goToUpdate(tradeMovement: TradeMovement) {
-        if (tradeMovement.type == CryptoOperationType.DEPOSIT)
+        if (tradeMovement.type.itCanBe(CryptoOperationType.DEPOSIT, CryptoOperationType.WITHDRAW))
             content.launch(KeepDepositActivity.getIntent(fragment.requireContext(), tradeMovement))
         else
             content.launch(RegisterCryptoMovementActivity.getIntent(fragment.requireContext(), tradeMovement))

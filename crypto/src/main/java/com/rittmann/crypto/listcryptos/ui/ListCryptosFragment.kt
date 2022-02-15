@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.isNot
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.lifecycle.BaseFragmentBinding
 import com.rittmann.common.viewmodel.viewModelProvider
@@ -81,13 +82,6 @@ class ListCryptosFragment :
             }
         }
     }
-}
-
-private fun <A, B> B.isNot(vararg that: A): Boolean {
-    for (t in that)
-        if (t == this)
-            return false
-    return true
 }
 
 //infix fun <A> Boolean.andNot(that: A): Boolean = this && this != that

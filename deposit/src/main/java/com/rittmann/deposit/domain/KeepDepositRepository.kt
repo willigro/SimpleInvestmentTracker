@@ -6,7 +6,7 @@ import com.rittmann.common.datasource.result.ResultEvent
 
 interface KeepDepositRepository {
     suspend fun register(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
-    suspend fun update(tradeMovement: TradeMovement): ResultEvent<Int>
+    suspend fun update(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
 }
 
 class KeepDepositRepositoryImpl(private val tradeDao: TradeDao) :
@@ -22,9 +22,12 @@ class KeepDepositRepositoryImpl(private val tradeDao: TradeDao) :
         }
     }
 
-    override suspend fun update(tradeMovement: TradeMovement): ResultEvent<Int> {
+    override suspend fun update(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
         return try {
-            ResultEvent.Success(tradeDao.update(tradeMovement))
+            if (tradeDao.update(tradeMovement) > 0)
+                ResultEvent.Success(tradeMovement)
+            else
+                ResultEvent.Error(java.lang.Exception())
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }
