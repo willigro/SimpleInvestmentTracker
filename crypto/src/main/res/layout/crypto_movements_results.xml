@@ -27,6 +27,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:valueText="@{cryptoResultViewBinding.totalDeposited}" />
 
+        <com.rittmann.common.customs.CustomLabelValueText
+            android:id="@+id/txt_crypto_results_total_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelValue_label="@string/crypto_movement_total_withdraw"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_deposited"
+            app:valueText="@{cryptoResultViewBinding.totalWithdraw}" />
+
         <!-- TOTAL -->
 
         <com.rittmann.common.customs.CustomLabelValueText
@@ -36,7 +45,7 @@
             android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
             app:labelValue_label="@string/crypto_movement_total_earned"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_deposited"
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_withdraw"
             app:valueText="@{cryptoResultViewBinding.totalEarned}" />
 
         <com.rittmann.common.customs.CustomLabelValueText

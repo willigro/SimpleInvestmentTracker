@@ -72,6 +72,16 @@ class ListCryptoMovementsViewModel @Inject constructor(
             )
         }
 
+    private val _totalValueWithdraw: MutableLiveData<Double> = MutableLiveData()
+    val totalValueWithdraw: LiveData<String>
+        get() = transformerIt(_totalValueWithdraw) {
+            FormatDecimalController.format(
+                it.orZero(),
+                CurrencyType.REAL,
+                EditDecimalFormatController.SCALE_LIMIT
+            )
+        }
+
     private val _cryptoMovementDeleted: MutableLiveData<ResultEvent<TradeMovement>> =
         MutableLiveData()
     val cryptoMovementDeleted: LiveData<ResultEvent<TradeMovement>>
@@ -108,20 +118,23 @@ class ListCryptoMovementsViewModel @Inject constructor(
         var totalInvested = 0.0
         var totalEarned = 0.0
         var totalDeposited = 0.0
+        var totalWithdraw = 0.0
 
         result?.forEach { crypto ->
             when (crypto.type) {
                 CryptoOperationType.BUY -> totalInvested += crypto.calculateTotalValue()
                 CryptoOperationType.SELL -> totalEarned += crypto.calculateTotalValue()
                 CryptoOperationType.DEPOSIT -> totalDeposited += crypto.calculateTotalValue()
+                CryptoOperationType.WITHDRAW -> totalWithdraw += crypto.calculateTotalValue()
             }
         }
 
         _totalValueInvested.value = totalInvested
         _totalValueEarned.value = totalEarned
         _totalValueDeposit.value = totalDeposited
+        _totalValueWithdraw.value = totalWithdraw
         _totalValueOnHand.value =
-            CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested)
+            CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested, totalWithdraw)
     }
 
     fun deleteCrypto(tradeMovementToDelete: TradeMovement) {

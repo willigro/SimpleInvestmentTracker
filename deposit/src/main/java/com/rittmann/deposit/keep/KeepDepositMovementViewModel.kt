@@ -2,7 +2,9 @@ package com.rittmann.deposit.keep
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.TradeMovement
+import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.lifecycle.BaseViewModelApp
 import com.rittmann.deposit.domain.KeepDepositRepository
@@ -67,6 +69,16 @@ class KeepDepositMovementViewModel @Inject constructor(
     fun attachTradeMovementForUpdate(tradeMovement: TradeMovement?) {
         tradeMovement?.also {
             this.tradeMovement.value = tradeMovement
+        }
+    }
+
+    fun onTradeoOperationTypeChanged(type: CryptoOperationType) {
+        tradeMovement.value?.apply {
+            this.type = type
+            if (type == CryptoOperationType.DEPOSIT)
+                name = TradeMovementOperationTypeName.DEPOSIT.value
+            else if (type == CryptoOperationType.WITHDRAW)
+                name = TradeMovementOperationTypeName.WITHDRAW.value
         }
     }
 }

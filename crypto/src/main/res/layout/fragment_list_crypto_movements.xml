@@ -36,6 +36,16 @@
             app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
 
         <TextView
+            android:id="@+id/txt_total_withdraw"
+            style="@style/Robbie.Paragraph1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="@{viewModel.totalValueWithdraw}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_total_deposited" />
+
+        <TextView
             android:id="@+id/txt_total_earned"
             style="@style/Robbie.Paragraph1"
             android:layout_width="0dp"
@@ -43,7 +53,7 @@
             android:text="@{viewModel.totalValueEarned}"
             app:layout_constraintEnd_toStartOf="@id/txt_total_invested"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_deposited" />
+            app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
 
         <TextView
             android:id="@+id/txt_total_invested"
@@ -53,7 +63,7 @@
             android:text="@{viewModel.totalValueInvested}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/txt_total_earned"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_deposited" />
+            app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_crypto_movement"

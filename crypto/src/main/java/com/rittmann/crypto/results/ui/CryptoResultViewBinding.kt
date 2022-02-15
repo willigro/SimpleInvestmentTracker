@@ -10,9 +10,9 @@ import com.rittmann.common.utils.transformerIt
 
 class CryptoResultViewBinding {
 
-    val _isDeposit: MutableLiveData<Boolean> = MutableLiveData()
+    val _isDepositOrWithdraw: MutableLiveData<Boolean> = MutableLiveData()
     val isDeposit: LiveData<Boolean>
-        get() = _isDeposit
+        get() = _isDepositOrWithdraw
 
     val _totalOnHand: MutableLiveData<Pair<Double, CurrencyType?>> = MutableLiveData()
     val totalOnHand: LiveData<String>
@@ -118,6 +118,16 @@ class CryptoResultViewBinding {
     val _totalDeposited: MutableLiveData<Pair<Double, CurrencyType?>> = MutableLiveData()
     val totalDeposited: LiveData<String>
         get() = transformerIt<Pair<Double, CurrencyType?>, String>(_totalDeposited) {
+            FormatDecimalController.format(
+                it?.first.orZero(),
+                it?.second ?: CurrencyType.REAL,
+                SCALE_LIMIT
+            )
+        }
+
+    val _totalWithdraw: MutableLiveData<Pair<Double, CurrencyType?>> = MutableLiveData()
+    val totalWithdraw: LiveData<String>
+        get() = transformerIt<Pair<Double, CurrencyType?>, String>(_totalWithdraw) {
             FormatDecimalController.format(
                 it?.first.orZero(),
                 it?.second ?: CurrencyType.REAL,

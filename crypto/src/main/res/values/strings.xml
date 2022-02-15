@@ -4,7 +4,7 @@
     <string name="list_crypto_error">Error</string>
     <string name="crypto_movement_operation_sell">Venda</string>
     <string name="crypto_movement_operation_buy">Compra</string>
-    <string name="trade_movement_open_deposit">Deposit</string>
+    <string name="trade_movement_open_deposit">Deposit or Withdraw</string>
     <string name="trade_movement_open_crypto">Crypto</string>
 
     <!-- Insert Crypto -->
@@ -12,6 +12,8 @@
     <string name="new_crypto_movement_was_not_registered">Your new crypto movement was not registered</string>
     <string name="crypto_movement_type_buy">Buy</string>
     <string name="crypto_movement_type_sell">Sell</string>
+    <string name="crypto_movement_type_deposit">Deposit</string>
+    <string name="crypto_movement_type_withdraw">Withdraw</string>
     <string name="crypto_movement_current_value">Current value</string>
     <string name="crypto_movement_update_the_total_according_by_current_and_amount">Atualizar o total a partir da Quantidade * Valor</string>
     <string name="crypto_movement_operated_movement">Quantidade operada</string>
@@ -27,6 +29,7 @@
 
     <!-- Result Crypto -->
     <string name="crypto_movement_total_deposited">Total deposited</string>
+    <string name="crypto_movement_total_withdraw">Total withdraw</string>
     <string name="crypto_movement_total_earned">Total earned</string>
     <string name="crypto_movement_total_invested">Total invested</string>
     <string name="crypto_movement_total_on_hand">Total on hand</string>

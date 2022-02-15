@@ -20,8 +20,10 @@ object CryptoResultsCalculate {
         var taxPaid = 0.0
         var taxAmount = 0.0
         var totalDeposited = 0.0
+        var totalWithdraw = 0.0
 
         var isDeposit = true
+        var isWithDraw = true
 
         for (trade in data) {
             when (trade.type) {
@@ -29,17 +31,23 @@ object CryptoResultsCalculate {
                     totalDeposited += trade.calculateTotalValue()
                     taxPaid += trade.calculateTaxValue()
                 }
+                CryptoOperationType.WITHDRAW -> {
+                    totalWithdraw += trade.calculateTotalValue()
+                    taxPaid += trade.calculateTaxValue()
+                }
                 CryptoOperationType.BUY -> {
                     invested += trade.calculateTotalValue()
                     taxPaid += trade.calculateTaxValue()
                     boughtAmount += trade.operatedAmount.toDouble()
                     isDeposit = false
+                    isWithDraw = false
                 }
                 CryptoOperationType.SELL -> {
                     earned += trade.calculateTotalValue()
                     taxPaid += trade.calculateTaxValue()
                     soldAmount += trade.operatedAmount.toDouble()
                     isDeposit = false
+                    isWithDraw = false
                 }
             }
 
@@ -47,7 +55,7 @@ object CryptoResultsCalculate {
                 taxAmount += trade.tax.toDouble()
         }
 
-        val onHand: Double = calculateTotalOnHand(totalDeposited, earned, invested)
+        val onHand: Double = calculateTotalOnHand(totalDeposited, earned, invested, totalWithdraw)
         val onHandWithoutTax: Double = onHand - taxPaid
         val onHandAmount: Double = boughtAmount - soldAmount
         val amountOnHandWithoutTax: Double = onHandAmount - taxAmount
@@ -64,10 +72,11 @@ object CryptoResultsCalculate {
             _totalTaxAmount.value = Pair(taxAmount, CurrencyType.DECIMAL)
             _totalAmountOnHandWithoutTax.value = Pair(amountOnHandWithoutTax, CurrencyType.DECIMAL)
             _totalDeposited.value = Pair(totalDeposited, CurrencyType.REAL)
-            _isDeposit.value = isDeposit
+            _totalWithdraw.value = Pair(totalWithdraw, CurrencyType.REAL)
+            _isDepositOrWithdraw.value = isDeposit || isWithDraw
         }
     }
 
-    fun calculateTotalOnHand(deposit: Double, earned: Double, invested: Double) =
-        earned + (deposit - invested)
+    fun calculateTotalOnHand(deposit: Double, earned: Double, invested: Double, withdraw: Double) =
+        earned + (deposit - invested) - withdraw
 }

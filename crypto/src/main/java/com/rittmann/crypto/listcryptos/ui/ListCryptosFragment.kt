@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.extensions.linearLayoutManager
 import com.rittmann.common.lifecycle.BaseFragmentBinding
@@ -61,14 +62,32 @@ class ListCryptosFragment :
 
     private fun loadList(result: ResultEvent.Success<List<String>>) {
         binding.apply {
+            val list =
+                // Doing it for fun
+                result.data.filter {
+                    it.isNot(
+                        TradeMovementOperationTypeName.WITHDRAW.value,
+                        TradeMovementOperationTypeName.DEPOSIT.value
+                    )
+                }
+
             if (adapter == null) {
-                adapter = RecyclerAdapterCryptos(result.data, listCryptosNavigation)
+                adapter = RecyclerAdapterCryptos(list, listCryptosNavigation)
 
                 recyclerCryptos.linearLayoutManager()
                 recyclerCryptos.adapter = adapter
             } else {
-                adapter?.relist(result.data)
+                adapter?.relist(list)
             }
         }
     }
 }
+
+private fun <A, B> B.isNot(vararg that: A): Boolean {
+    for (t in that)
+        if (t == this)
+            return false
+    return true
+}
+
+//infix fun <A> Boolean.andNot(that: A): Boolean = this && this != that

@@ -13,7 +13,7 @@ object MockCurrencies {
 
     private var dao: TradeDao? = null
 
-    fun mock(application: Application){
+    fun mock(application: Application) {
         dao = AppDatabase.getDatabase(application)?.cryptoDao()
         dao?.apply {
             GlobalScope.launch {
@@ -28,6 +28,8 @@ object MockCurrencies {
                         addDot()
                         addSlp()
                         addMatic()
+                        addDeposit()
+                        addWithdraw()
                     }
                 }
             }
@@ -73,7 +75,7 @@ object MockCurrencies {
                 tax = 0.00000167,
             ),
 
-            TradeMovement.  buy(
+            TradeMovement.buy(
                 name = name,
                 date = "12/05/2021",
                 operatedAmount = 0.00018482,
@@ -1183,6 +1185,110 @@ object MockCurrencies {
             )
         )
 
+        dao?.insert(arr)
+    }
+
+    private fun addDeposit() {
+        val arr = arrayListOf(
+            TradeMovement.deposit(
+                date = "24/04/2021",
+                totalValue = 50.00
+            ),
+
+            TradeMovement.deposit(
+                date = "24/04/2021",
+                totalValue = 100.00
+            ),
+
+            TradeMovement.deposit(
+                date = "25/04/2021",
+                totalValue = 300.00
+            ),
+
+            TradeMovement.deposit(
+                date = "11/05/2021",
+                totalValue = 300.00
+            ),
+
+            TradeMovement.deposit(
+                date = "21/06/2021",
+                totalValue = 150.00
+            ),
+
+            TradeMovement.deposit(
+                date = "17/07/2021",
+                totalValue = 250.00
+            ),
+
+            TradeMovement.deposit(
+                date = "20/09/2021",
+                totalValue = 700.00
+            ),
+
+            TradeMovement.deposit(
+                date = "21/09/2021",
+                totalValue = 1000.00
+            ),
+
+            TradeMovement.deposit(
+                date = "24/09/2021",
+                totalValue = 500.00
+            ),
+
+            TradeMovement.deposit(
+                date = "24/09/2021",
+                totalValue = 1000.00
+            ),
+
+            TradeMovement.deposit(
+                date = "24/10/2021",
+                totalValue = 500.00
+            ),
+
+            TradeMovement.deposit(
+                date = "16/11/2021",
+                totalValue = 1000.00
+            ),
+
+            TradeMovement.deposit(
+                date = "18/11/2021",
+                totalValue = 2000.00
+            ),
+            TradeMovement.deposit(
+                date = "30/11/2021",
+                totalValue = 1000.00
+            ),
+
+            TradeMovement.deposit(
+                date = "04/12/2021",
+                totalValue = 1000.00
+            ),
+
+            TradeMovement.deposit(
+                date = "07/12/2021",
+                totalValue = 1500.00
+            ),
+
+            TradeMovement.deposit(
+                date = "15/12/2021",
+                totalValue = 500.00
+            ),
+
+            TradeMovement.deposit(
+                date = "22/01/2022",
+                totalValue = 1000.00
+            )
+        )
+        dao?.insert(arr)
+    }
+
+    private fun addWithdraw(){
+        val arr = arrayListOf(
+            TradeMovement.withdraw(
+                date = "05/11/2021",
+                totalValue = 3000.0
+            )
+        )
         dao?.insert(arr)
     }
 }

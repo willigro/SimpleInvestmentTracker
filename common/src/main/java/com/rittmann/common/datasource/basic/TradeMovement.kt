@@ -111,6 +111,21 @@ data class TradeMovement(
             taxCurrency = CurrencyType.REAL
         )
 
+        fun deposit(
+            date: String,
+            totalValue: Double = 0.0
+        ) = TradeMovement(
+            name = TradeMovementOperationTypeName.DEPOSIT.value,
+            date = DateUtil.parseDate(date),
+            type = CryptoOperationType.DEPOSIT,
+            operatedAmount = 1.toBigDecimal(),
+            currentValue = totalValue.toBigDecimal(),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValue = totalValue.toBigDecimal(),
+            totalValueCurrency = CurrencyType.REAL,
+            taxCurrency = CurrencyType.REAL
+        )
+
         fun deposit() = TradeMovement(
             name = TradeMovementOperationTypeName.DEPOSIT.value,
             type = CryptoOperationType.DEPOSIT,
@@ -119,17 +134,32 @@ data class TradeMovement(
             totalValueCurrency = CurrencyType.REAL,
             taxCurrency = CurrencyType.REAL
         )
+
+        fun withdraw(
+            date: String,
+            totalValue: Double = 0.0
+        ) = TradeMovement(
+            date = DateUtil.parseDate(date),
+            name = TradeMovementOperationTypeName.WITHDRAW.value,
+            type = CryptoOperationType.WITHDRAW,
+            operatedAmount = 1.toBigDecimal(),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValue = totalValue.toBigDecimal(),
+            totalValueCurrency = CurrencyType.REAL,
+            taxCurrency = CurrencyType.REAL
+        )
     }
 }
 
 enum class CryptoOperationType(val value: String) : Serializable {
-    BUY("B"), SELL("S"), DEPOSIT("D");
+    BUY("B"), SELL("S"), DEPOSIT("D"), WITHDRAW("W");
 
     companion object {
         fun convert(valueToConvert: String): CryptoOperationType {
             return when (valueToConvert) {
                 BUY.value -> BUY
                 SELL.value -> SELL
+                WITHDRAW.value -> WITHDRAW
                 else -> DEPOSIT
             }
         }
@@ -152,5 +182,6 @@ enum class CurrencyType(val value: String) : Serializable {
 
 enum class TradeMovementOperationTypeName(val value: String) {
     CRYPTO("CRYPTO"),
-    DEPOSIT("DEPOSIT")
+    DEPOSIT("DEPOSIT"),
+    WITHDRAW("WITHDRAW"),
 }
