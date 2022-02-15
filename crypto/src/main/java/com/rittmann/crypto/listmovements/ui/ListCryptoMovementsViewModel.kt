@@ -149,6 +149,8 @@ class ListCryptoMovementsViewModel @Inject constructor(
                     (list as ArrayList).remove(tradeMovementToDelete)
 
                     _tradeMovementsList.value = list
+
+                    calculateTotalValues(list)
                 }
 
                 _cryptoMovementDeleted.value = it
