@@ -15,11 +15,18 @@
         tools:context=".listcryptos.ui.ListCryptosFragment">
 
         <include
+            layout="@layout/custom_default_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
             layout="@layout/crypto_movements_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:cryptoResultViewBinding="@{viewModel.cryptoResultViewBinding}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_title"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_cryptos"

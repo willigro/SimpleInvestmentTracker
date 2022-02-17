@@ -2,7 +2,7 @@
     <!-- Titles -->
     <string name="list_crypto_movements_title">Movements</string>
     <string name="crypto_movements_result_title">Cryptos</string>
-    <string name="app_name">common</string>
+    <string name="app_name">CryptoTracker</string>
 
     <!-- CustomEditText -->
     <string name="custom_edit_currency_decimal_place_label">Casas decimais</string>

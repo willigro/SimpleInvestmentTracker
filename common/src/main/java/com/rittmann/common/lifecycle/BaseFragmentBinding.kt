@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.rittmann.baselifecycle.base.BaseActivity
 import com.rittmann.common.R
-import com.rittmann.common.extensions.gone
+import com.rittmann.common.extensions.visible
 import dagger.android.support.DaggerAppCompatDialogFragment
 
 abstract class BaseFragmentBinding<T : ViewDataBinding>(
@@ -60,16 +60,17 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
         (requireActivity() as BaseActivity).observeLoadingPriority(viewModelApp)
     }
 
-    fun configureToolbar(title: String, onClickFilter: (() -> Unit)? = null) {
-        rootView.findViewById<TextView>(R.id.toolbar_title)?.text = title
+    fun configureToolbar(title: String? = null, onClickFilter: (() -> Unit)? = null) {
+        if (title != null)
+            rootView.findViewById<TextView>(R.id.toolbar_title)?.text = title
 
         rootView.findViewById<View>(R.id.toolbar_filter)?.apply {
-            if (onClickFilter == null) {
-                gone()
-            } else
+            if (onClickFilter != null) {
+                visible()
                 setOnClickListener {
                     onClickFilter.invoke()
                 }
+            }
         }
     }
 }

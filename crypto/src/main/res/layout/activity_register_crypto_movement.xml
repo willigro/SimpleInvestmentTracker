@@ -14,126 +14,135 @@
             type="com.rittmann.crypto.keep.ui.RegisterCryptoMovementViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_view_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/register_container"
+        <include layout="@layout/custom_default_toolbar" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/robbie_color_brand_dark_primary_pure"
-            android:padding="@dimen/padding_standard"
-            tools:context=".keep.ui.RegisterCryptoMovementActivity">
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <TextView
-                android:id="@+id/txt_crypto_date"
-                style="@style/Robbie.Paragraph1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.rittmann.common.customs.CustomEditText
-                android:id="@+id/edit_crypto_name"
-                style="@style/Robbie.TextInput.Filled"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/register_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:labelText="Name"
-                app:layout_constraintTop_toBottomOf="@id/txt_crypto_date"
-                app:textFromEdit="@={viewModel.tradeMovement.name}" />
+                android:background="@color/robbie_color_brand_dark_primary_pure"
+                android:padding="@dimen/padding_standard"
+                tools:context=".keep.ui.RegisterCryptoMovementActivity">
 
-            <RadioGroup
-                android:id="@+id/radio_group_crypto_operation_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name">
 
-                <RadioButton
-                    android:id="@+id/radio_crypto_operation_type_buy"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/txt_crypto_date"
+                    style="@style/Robbie.Paragraph1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.rittmann.common.customs.CustomEditText
+                    android:id="@+id/edit_crypto_name"
+                    style="@style/Robbie.TextInput.Filled"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.BUY.value}"
-                    android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.BUY)}"
-                    android:text="@string/crypto_movement_type_buy" />
+                    app:labelText="Name"
+                    app:layout_constraintTop_toBottomOf="@id/txt_crypto_date"
+                    app:textFromEdit="@={viewModel.tradeMovement.name}" />
 
-                <RadioButton
-                    android:id="@+id/radio_crypto_operation_type_sell"
-                    android:layout_width="wrap_content"
+                <RadioGroup
+                    android:id="@+id/radio_group_crypto_operation_type"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.SELL.value}"
-                    android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.SELL)}"
-                    android:text="@string/crypto_movement_type_sell" />
-            </RadioGroup>
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_name">
 
-            <com.rittmann.common.customs.CustomEditTextCurrency
-                android:id="@+id/edit_crypto_bought_amount"
-                style="@style/Robbie.TextInput.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:formatType="decimal"
-                app:labelText="@string/crypto_movement_operated_movement"
-                app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
-                app:textFromEdit="@={viewModel.tradeMovement.operatedAmount}" />
+                    <RadioButton
+                        android:id="@+id/radio_crypto_operation_type_buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.BUY.value}"
+                        android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.BUY)}"
+                        android:text="@string/crypto_movement_type_buy" />
 
-            <com.rittmann.common.customs.CustomEditTextCurrency
-                android:id="@+id/edit_crypto_current_value"
-                style="@style/Robbie.TextInput.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:currencyType="@={viewModel.tradeMovement.currentValueCurrency}"
-                app:enableChangeCurrencyType="false"
-                app:labelText="@string/crypto_movement_current_value"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
-                app:textFromEdit="@={viewModel.tradeMovement.currentValue}" />
+                    <RadioButton
+                        android:id="@+id/radio_crypto_operation_type_sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.SELL.value}"
+                        android:onClick="@{() -> viewModel.onCryptoOperationTypeChanged(CryptoOperationType.SELL)}"
+                        android:text="@string/crypto_movement_type_sell" />
+                </RadioGroup>
 
-            <CheckBox
-                android:id="@+id/checkbox_update_total_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/crypto_movement_update_the_total_according_by_current_and_amount"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value" />
+                <com.rittmann.common.customs.CustomEditTextCurrency
+                    android:id="@+id/edit_crypto_bought_amount"
+                    style="@style/Robbie.TextInput.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:formatType="decimal"
+                    app:labelText="@string/crypto_movement_operated_movement"
+                    app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type"
+                    app:textFromEdit="@={viewModel.tradeMovement.operatedAmount}" />
 
-            <com.rittmann.common.customs.CustomEditTextCurrency
-                android:id="@+id/edit_crypto_total_value"
-                style="@style/Robbie.TextInput.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:currencyType="@={viewModel.tradeMovement.totalValueCurrency}"
-                app:labelText="Total value"
-                app:layout_constraintTop_toBottomOf="@id/checkbox_update_total_value"
-                app:textFromEdit="@={viewModel.tradeMovement.totalValue}" />
+                <com.rittmann.common.customs.CustomEditTextCurrency
+                    android:id="@+id/edit_crypto_current_value"
+                    style="@style/Robbie.TextInput.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currencyType="@={viewModel.tradeMovement.currentValueCurrency}"
+                    app:enableChangeCurrencyType="false"
+                    app:labelText="@string/crypto_movement_current_value"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_bought_amount"
+                    app:textFromEdit="@={viewModel.tradeMovement.currentValue}" />
 
-            <com.rittmann.common.customs.CustomEditTextCurrency
-                android:id="@+id/edit_crypto_tax"
-                style="@style/Robbie.TextInput.Filled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:currencyType="@={viewModel.tradeMovement.taxCurrency}"
-                app:labelText="Tax"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
-                app:textFromEdit="@={viewModel.tradeMovement.tax}" />
+                <CheckBox
+                    android:id="@+id/checkbox_update_total_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/crypto_movement_update_the_total_according_by_current_and_amount"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value" />
 
-            <Button
-                android:id="@+id/btn_register"
-                style="@style/Robbie.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.saveCrypto()}"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_tax" />
+                <com.rittmann.common.customs.CustomEditTextCurrency
+                    android:id="@+id/edit_crypto_total_value"
+                    style="@style/Robbie.TextInput.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currencyType="@={viewModel.tradeMovement.totalValueCurrency}"
+                    app:labelText="Total value"
+                    app:layout_constraintTop_toBottomOf="@id/checkbox_update_total_value"
+                    app:textFromEdit="@={viewModel.tradeMovement.totalValue}" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_view_crypto_name_results"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintHeight_max="300dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_crypto_name"
-                tools:itemCount="2" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <com.rittmann.common.customs.CustomEditTextCurrency
+                    android:id="@+id/edit_crypto_tax"
+                    style="@style/Robbie.TextInput.Filled"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currencyType="@={viewModel.tradeMovement.taxCurrency}"
+                    app:labelText="Tax"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
+                    app:textFromEdit="@={viewModel.tradeMovement.tax}" />
+
+                <Button
+                    android:id="@+id/btn_register"
+                    style="@style/Robbie.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.saveCrypto()}"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_tax" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list_view_crypto_name_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintHeight_max="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_name"
+                    tools:itemCount="2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

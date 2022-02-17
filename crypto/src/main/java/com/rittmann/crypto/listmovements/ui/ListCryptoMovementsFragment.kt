@@ -85,7 +85,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
     @SuppressLint("InflateParams")
     private fun initViews() {
-        configureToolbar(getString(R.string.trade_movement_list_screen_name)) {
+        configureToolbar {
             viewModel.fetchAllCryptoMovementsName()
         }
 

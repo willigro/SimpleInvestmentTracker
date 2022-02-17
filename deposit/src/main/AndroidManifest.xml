@@ -5,7 +5,8 @@
     <application>
         <activity
             android:name=".keep.KeepDepositActivity"
-            android:exported="true"></activity>
+            android:exported="true"
+            android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
     </application>
 
 </manifest>
