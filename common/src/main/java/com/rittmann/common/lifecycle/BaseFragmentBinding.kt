@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.rittmann.baselifecycle.base.BaseActivity
+import com.rittmann.common.R
+import com.rittmann.common.extensions.gone
 import dagger.android.support.DaggerAppCompatDialogFragment
 
 abstract class BaseFragmentBinding<T : ViewDataBinding>(
@@ -55,5 +58,18 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
 
     fun observeProgressPriority(viewModelApp: BaseViewModelApp) {
         (requireActivity() as BaseActivity).observeLoadingPriority(viewModelApp)
+    }
+
+    fun configureToolbar(title: String, onClickFilter: (() -> Unit)? = null) {
+        rootView.findViewById<TextView>(R.id.toolbar_title)?.text = title
+
+        rootView.findViewById<View>(R.id.toolbar_filter)?.apply {
+            if (onClickFilter == null) {
+                gone()
+            } else
+                setOnClickListener {
+                    onClickFilter.invoke()
+                }
+        }
     }
 }

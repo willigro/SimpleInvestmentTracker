@@ -11,21 +11,45 @@ import com.rittmann.common.datasource.dao.config.selectAll
 import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.utils.pagination.PageInfo
+import com.rittmann.crypto.listmovements.ui.TradeFilter
 import javax.inject.Inject
 
 interface ListCryptoMovementsRepository {
-    suspend fun getAll(pageInfo: PageInfo<TradeMovement>): ResultEvent<List<TradeMovement>>
+    suspend fun getAll(
+        pageInfo: PageInfo<TradeMovement>,
+        tradeFilter: TradeFilter
+    ): ResultEvent<List<TradeMovement>>
+
     suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
+    suspend fun fetchTradeNames(): ResultEvent<List<String>>
 }
 
 class ListCryptoMovementsRepositoryImpl @Inject constructor(
     private val tradeDao: TradeDao
 ) : ListCryptoMovementsRepository {
 
-    override suspend fun getAll(pageInfo: PageInfo<TradeMovement>): ResultEvent<List<TradeMovement>> {
+    override suspend fun getAll(
+        pageInfo: PageInfo<TradeMovement>,
+        tradeFilter: TradeFilter
+    ): ResultEvent<List<TradeMovement>> {
         return try {
-            val strQuery = TableTradeMovement.TABLE.selectAll() +
-//                    TableTradeMovement.DATE.groupByThat() +
+
+            val where = if (tradeFilter.nameFilters.isEmpty()) ""
+            else {
+                var nameIn = " ${TableTradeMovement.NAME} IN ("
+                tradeFilter.nameFilters.forEachIndexed { index, s ->
+                    if (s.isNotEmpty()) {
+                        nameIn += if (index == 0) {
+                            "'$s'"
+                        } else {
+                            " , '$s'"
+                        }
+                    }
+                }
+                "$nameIn)"
+            }
+
+            val strQuery = TableTradeMovement.TABLE.selectAll(where) +
                     TableTradeMovement.DATE.orderBy(QueryDAO.DESC)
                         .limitAndOffset(pageInfo.size, pageInfo.page)
             val query = SimpleSQLiteQuery(
@@ -45,6 +69,14 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
                 ResultEvent.Success(tradeMovement)
             else
                 ResultEvent.Error(Exception())
+        } catch (e: Exception) {
+            ResultEvent.Error(e)
+        }
+    }
+
+    override suspend fun fetchTradeNames(): ResultEvent<List<String>> {
+        return try {
+            ResultEvent.Success(tradeDao.selectNames())
         } catch (e: Exception) {
             ResultEvent.Error(e)
         }

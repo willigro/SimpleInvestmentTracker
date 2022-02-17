@@ -90,7 +90,7 @@ data class PageInfo<T : PageItem>(
         return result
     }
 
-    fun addOnlyIfNotContains(pageResult: PageResult<T>) {
+    private fun addOnlyIfNotContains(pageResult: PageResult<T>) {
         completeList.apply {
             for (new in pageResult.list) {
                 var found = false
@@ -137,7 +137,7 @@ data class PageInfo<T : PageItem>(
         }
     }
 
-    private fun reset() {
+     fun reset() {
         requestedPage = DEFAULT_PAGE_INDEX
         page = DEFAULT_PAGE_INDEX
         (completeList as ArrayList).clear()

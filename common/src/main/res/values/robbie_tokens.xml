@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="robbie_color_brand_dark_primary_pure">#FFF</color>
+
+    <!-- TODO create a background color on Robbie -->
     <color name="robbie_input_text_background">#FFF</color>
 
     <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>

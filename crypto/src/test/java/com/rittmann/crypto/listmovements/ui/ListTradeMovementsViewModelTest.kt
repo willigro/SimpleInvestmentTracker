@@ -1,7 +1,6 @@
 package com.rittmann.crypto.listmovements.ui
 
 import com.rittmann.common.datasource.result.ResultEvent
-import com.rittmann.common.datasource.result.succeeded
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.common_test.mock.currentTotalEarned

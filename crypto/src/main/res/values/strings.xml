@@ -1,6 +1,10 @@
 <resources>
 
     <!-- List Trader -->
+    <string name="trade_movement_list_screen_name">Error</string>
+    <string name="trade_movement_list_filter_title">Filter</string>
+    <string name="trade_movement_list_filter_message">Select the trades for name that you want to filter</string>
+    <string name="trade_movement_list_filter_error_while_trying_to_get_the_names">Something goes wrong ai trying to get the names</string>
     <string name="list_crypto_error">Error</string>
     <string name="crypto_movement_operation_sell">Venda</string>
     <string name="crypto_movement_operation_buy">Compra</string>

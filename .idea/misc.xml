@@ -6,6 +6,7 @@
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input.xml" value="0.26615384615384613" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input_error.xml" value="0.26615384615384613" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input_valid.xml" value="0.26615384615384613" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_default_toolbar.xml" value="0.264" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_edit_text_currency.xml" value="0.2210144927536232" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_edit_text_with_label.xml" value="0.2210144927536232" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_label_value.xml" value="0.2210144927536232" />
@@ -18,7 +19,9 @@
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/content_bottom_sheet_keep_movement.xml" value="0.20380434782608695" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/crypto_movements_results.xml" value="0.2" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog.xml" value="0.12360688956433637" />
-        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_crypto_movements.xml" value="0.12360688956433637" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog_trade_filter_names_adapter.xml" value="0.14673913043478262" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog_trade_filters.xml" value="0.264" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_crypto_movements.xml" value="0.176" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_cryptos.xml" value="0.19610507246376813" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/list_cryptos_fragment.xml" value="0.19610507246376813" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/deposit/src/main/res/layout/activity_keep_deposit.xml" value="0.21920289855072464" />

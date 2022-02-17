@@ -87,14 +87,25 @@ class ListCryptoMovementsViewModel @Inject constructor(
     val cryptoMovementDeleted: LiveData<ResultEvent<TradeMovement>>
         get() = _cryptoMovementDeleted
 
+    private val _tradeNameList: MutableLiveData<ResultEvent<List<String>>> =
+        MutableLiveData()
+    val tradeNameList: LiveData<ResultEvent<List<String>>>
+        get() = _tradeNameList
+
     var pageInfo: PageInfo<TradeMovement> = PageInfo()
 
-    fun fetchAllCryptoMovements(next: Boolean) {
+    fun fetchAllCryptoMovements(
+        next: Boolean,
+        resetPaging: Boolean = false,
+        tradeFilter: TradeFilter
+    ) {
         pageInfo.setEnableRefresh(PageInfo.PageState.LOADING)
+        if (resetPaging)
+            pageInfo.reset()
         showProgress()
         executeAsyncThenMainSuspend(
             io = {
-                repository.getAll(pageInfo.getNextPage(next))
+                repository.getAll(pageInfo.getNextPage(next), tradeFilter)
             },
             main = {
 
@@ -134,7 +145,12 @@ class ListCryptoMovementsViewModel @Inject constructor(
         _totalValueDeposit.value = totalDeposited
         _totalValueWithdraw.value = totalWithdraw
         _totalValueOnHand.value =
-            CryptoResultsCalculate.calculateTotalOnHand(totalDeposited, totalEarned, totalInvested, totalWithdraw)
+            CryptoResultsCalculate.calculateTotalOnHand(
+                totalDeposited,
+                totalEarned,
+                totalInvested,
+                totalWithdraw
+            )
     }
 
     fun deleteCrypto(tradeMovementToDelete: TradeMovement) {
@@ -154,6 +170,18 @@ class ListCryptoMovementsViewModel @Inject constructor(
                 }
 
                 _cryptoMovementDeleted.value = it
+            },
+            progress = true
+        )
+    }
+
+    fun fetchAllCryptoMovementsName() {
+        executeAsyncThenMainSuspend(
+            io = {
+                repository.fetchTradeNames()
+            },
+            main = {
+                _tradeNameList.value = it
             },
             progress = true
         )

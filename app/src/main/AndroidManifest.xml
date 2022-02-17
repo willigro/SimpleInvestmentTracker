@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InvestmentTracks">
         <activity
+            android:theme="@style/Theme.InvestmentTracks.NoActionBar"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
