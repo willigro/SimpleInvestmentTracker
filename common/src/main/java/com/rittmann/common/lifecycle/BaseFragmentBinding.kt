@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.rittmann.baselifecycle.base.BaseActivity
@@ -36,6 +37,13 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as BaseActivity).resIdViewReference = resIdContainer
+
+        rootView.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.robbie_color_brand_dark_primary_pure
+            )
+        )
     }
 
     fun showProgress() {

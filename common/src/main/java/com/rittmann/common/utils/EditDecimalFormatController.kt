@@ -99,7 +99,7 @@ class EditDecimalFormatController(
 
     fun setCurrencyType(currencyType: CurrencyType) {
         if (formatDecimal is FormatCurrency) {
-            (formatDecimal as FormatCurrency).currencyType = currencyType
+            formatDecimal.changeCurrencyType(currencyType)
 
             onChangeCurrencyType.value = currencyType
 

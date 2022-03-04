@@ -3,11 +3,14 @@ package com.rittmann.crypto.listcryptos.ui
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.getDeviceHeightInPercentage
 import com.rittmann.common.extensions.isNot
 import com.rittmann.common.extensions.linearLayoutManager
+import com.rittmann.common.extensions.visible
 import com.rittmann.common.lifecycle.BaseFragmentBinding
 import com.rittmann.common.viewmodel.viewModelProvider
 import com.rittmann.crypto.R
@@ -28,6 +31,8 @@ class ListCryptosFragment :
 
     private var adapter: RecyclerAdapterCryptos? = null
 
+    private val resultHeightPercentage: Float = 30.0F
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,7 +49,34 @@ class ListCryptosFragment :
     }
 
     private fun initViews() {
+        binding.resultsContent.apply {
+            cryptoMovementsResultBtnExpand.visible()
 
+            containerCryptoResults.post {
+
+                containerCryptoResults.tag = true
+                containerCryptoResults.layoutParams = LinearLayoutCompat.LayoutParams(
+                    LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                    requireActivity().getDeviceHeightInPercentage(resultHeightPercentage)
+                )
+            }
+
+            cryptoMovementsResultBtnExpand.setOnClickListener {
+                if (containerCryptoResults.tag == true) {
+                    containerCryptoResults.tag = false
+                    containerCryptoResults.layoutParams = LinearLayoutCompat.LayoutParams(
+                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        LinearLayoutCompat.LayoutParams.WRAP_CONTENT
+                    )
+                } else {
+                    containerCryptoResults.tag = true
+                    containerCryptoResults.layoutParams = LinearLayoutCompat.LayoutParams(
+                        LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+                        requireActivity().getDeviceHeightInPercentage(resultHeightPercentage)
+                    )
+                }
+            }
+        }
     }
 
     private fun initObservers() {

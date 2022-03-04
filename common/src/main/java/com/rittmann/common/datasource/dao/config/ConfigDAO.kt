@@ -11,6 +11,7 @@ object TableTradeMovement {
     const val CURRENT_VALUE = "tb_trade_movement_current_value"
     const val CURRENT_VALUE_CURRENCY = "tb_trade_movement_current_value_currency"
     const val TOTAL_VALUE = "tb_trade_movement_total_value"
+    const val CONCRETE_TOTAL_VALUE = "tb_trade_movement_concrete_total_value"
     const val TOTAL_VALUE_CURRENCY = "tb_trade_movement_total_value_currency"
     const val TAX = "tb_trade_movement_tax"
     const val TAX_CURRENCY = "tb_trade_movement_tax_currency"

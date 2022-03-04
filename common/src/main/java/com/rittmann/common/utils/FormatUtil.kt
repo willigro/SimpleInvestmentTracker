@@ -50,6 +50,7 @@ interface FormatDecimal {
     fun isDifferent(currency: String): Boolean
     fun retrieveValue(): BigDecimal
     fun hasFormat(): Boolean
+    fun changeCurrencyType(currencyType: CurrencyType)
 }
 
 class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
@@ -110,5 +111,9 @@ class FormatCurrency(var currencyType: CurrencyType) : FormatDecimal {
     override fun hasFormat(): Boolean {
         return currencyFormatted.contains(CURRENCY_SYMBOL_REAL) ||
                 currencyFormatted.contains(CURRENCY_SYMBOL_DEFAULT_COIN)
+    }
+
+    override fun changeCurrencyType(currencyType: CurrencyType) {
+        this.currencyType = currencyType
     }
 }

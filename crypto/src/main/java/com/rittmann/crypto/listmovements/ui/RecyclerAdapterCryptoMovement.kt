@@ -80,6 +80,11 @@ class RecyclerAdapterCryptoMovement(
                         cryptoMovement.totalValue,
                         cryptoMovement.totalValueCurrency
                     )
+                concreteTotalValue ?.text =
+                    FormatDecimalController.format(
+                        cryptoMovement.concreteTotalValue,
+                        cryptoMovement.totalValueCurrency
+                    )
                 tax?.text =
                     FormatDecimalController.format(
                         cryptoMovement.tax,
@@ -120,6 +125,7 @@ class RecyclerAdapterCryptoMovement(
         val currentValue: TextView? =
             itemView.findViewById(R.id.adapter_crypto_movement_current_value)
         val totalValue: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_total_value)
+        val concreteTotalValue: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_concrete_total_value)
         val tax: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_tax)
         val titleDate: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_title_date)
     }

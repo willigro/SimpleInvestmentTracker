@@ -16,15 +16,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_confirm"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
+            style="@style/Robbie.Button"
             android:gravity="center"
-            android:text="@string/conclude_"
-            android:textStyle="normal"/>
+            android:text="@string/conclude_" />
     </LinearLayout>
 
     <LinearLayout

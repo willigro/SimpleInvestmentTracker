@@ -41,6 +41,9 @@ data class TradeMovement(
     @ColumnInfo(name = TableTradeMovement.TOTAL_VALUE)
     var totalValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
 
+    @ColumnInfo(name = TableTradeMovement.CONCRETE_TOTAL_VALUE)
+    var concreteTotalValue: BigDecimal = BigDecimal(0.0).setScale(DEFAULT_SCALE),
+
     @ColumnInfo(name = TableTradeMovement.TOTAL_VALUE_CURRENCY)
     var totalValueCurrency: CurrencyType = CurrencyType.REAL,
 
@@ -57,9 +60,12 @@ data class TradeMovement(
 
     override fun isInserting(): Boolean = id == 0L
 
-    fun calculateTotalValue(): Double =
+    fun calculateTotalValue(concreteValue: Boolean = false): Double =
         if (totalValueCurrency == CurrencyType.REAL)
-            totalValue.toDouble()
+            if (concreteValue)
+                concreteTotalValue.toDouble()
+            else
+                totalValue.toDouble()
         else {
             operatedAmount.toDouble() * currentValue.toDouble()
         }
@@ -70,6 +76,19 @@ data class TradeMovement(
         } else
             tax.toDouble() * currentValue.toDouble()
 
+    fun calculateTotalsAndTax(concreteValue: Boolean = false, callback: (total: Double, taxAsCurrency: Double, taxAsCoins: Double) -> Unit){
+        callback(
+            calculateTotalValue(concreteValue),
+            calculateTaxValue(),
+            if (taxCurrency == CurrencyType.CRYPTO) tax.toDouble() else 0.0
+        )
+    }
+
+    fun calculateTotalValueToDeposit() {
+        currentValue = totalValue
+        concreteTotalValue = totalValue
+    }
+
     companion object {
         fun buy(
             name: String,
@@ -77,6 +96,7 @@ data class TradeMovement(
             operatedAmount: Double,
             currentValue: Double,
             totalValue: Double,
+            concreteTotalValue: Double = -1.0,
             tax: Double
         ) = TradeMovement(
             name = name,
@@ -86,6 +106,11 @@ data class TradeMovement(
             currentValue = currentValue.toBigDecimal(),
             currentValueCurrency = CurrencyType.REAL,
             totalValue = totalValue.toBigDecimal(),
+
+            concreteTotalValue =
+            if (concreteTotalValue == -1.0) totalValue.toBigDecimal()
+            else concreteTotalValue.toBigDecimal(),
+
             totalValueCurrency = CurrencyType.REAL,
             tax = tax.toBigDecimal(),
             taxCurrency = CurrencyType.CRYPTO
@@ -106,6 +131,7 @@ data class TradeMovement(
             currentValue = currentValue.toBigDecimal(),
             currentValueCurrency = CurrencyType.REAL,
             totalValue = totalValue.toBigDecimal(),
+            concreteTotalValue = totalValue.toBigDecimal(),
             totalValueCurrency = CurrencyType.REAL,
             tax = tax.toBigDecimal(),
             taxCurrency = CurrencyType.REAL
@@ -122,6 +148,7 @@ data class TradeMovement(
             currentValue = totalValue.toBigDecimal(),
             currentValueCurrency = CurrencyType.REAL,
             totalValue = totalValue.toBigDecimal(),
+            concreteTotalValue = totalValue.toBigDecimal(),
             totalValueCurrency = CurrencyType.REAL,
             taxCurrency = CurrencyType.REAL
         )
@@ -145,6 +172,7 @@ data class TradeMovement(
             operatedAmount = 1.toBigDecimal(),
             currentValueCurrency = CurrencyType.REAL,
             totalValue = totalValue.toBigDecimal(),
+            concreteTotalValue = totalValue.toBigDecimal(),
             totalValueCurrency = CurrencyType.REAL,
             taxCurrency = CurrencyType.REAL
         )

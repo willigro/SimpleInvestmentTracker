@@ -27,7 +27,7 @@ class KeepDepositMovementViewModel @Inject constructor(
 
     fun saveTrade() {
         tradeMovement.value?.also { tradeMovement ->
-            tradeMovement.currentValue = tradeMovement.totalValue
+            tradeMovement.calculateTotalValueToDeposit()
 
             if (tradeMovement.isInserting()) {
                 insertDeposit(tradeMovement)

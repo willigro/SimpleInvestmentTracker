@@ -3,7 +3,7 @@
     <!-- List Trader -->
     <string name="trade_movement_list_screen_name">Error</string>
     <string name="trade_movement_list_filter_title">Filter</string>
-    <string name="trade_movement_list_filter_message">Select the trades for name that you want to filter</string>
+    <string name="trade_movement_list_filter_message">Select the trade name that you want to filter</string>
     <string name="trade_movement_list_filter_error_while_trying_to_get_the_names">Something goes wrong ai trying to get the names</string>
     <string name="list_crypto_error">Error</string>
     <string name="crypto_movement_operation_sell">Venda</string>
@@ -20,7 +20,10 @@
     <string name="crypto_movement_type_withdraw">Withdraw</string>
     <string name="crypto_movement_current_value">Current value</string>
     <string name="crypto_movement_update_the_total_according_by_current_and_amount">Atualizar o total a partir da Quantidade * Valor</string>
+    <string name="crypto_movement_update_the_total_calculated_according_by_total">Atualizar o total calculado a partir da valor total</string>
     <string name="crypto_movement_operated_movement">Quantidade operada</string>
+    <string name="trade_movement_total_value">Total value</string>
+    <string name="trade_movement_concrete_total_value">Used total value</string>
 
     <!-- Delete Crypto -->
     <string name="do_you_wanna_delete_this_trade">Do you want to delete the trade movement?</string>
@@ -33,15 +36,30 @@
 
     <!-- Result Crypto -->
     <string name="crypto_movement_total_deposited">Total deposited</string>
+    <string name="crypto_movement_total_deposited_lees_fees">Total deposited lees fees</string>
+    <string name="crypto_movement_total_deposited_fees_as_currency">Total deposited fees as currency</string>
+    <string name="crypto_movement_total_deposited_fees_as_coins">Total deposited fees as coins</string>
+
     <string name="crypto_movement_total_withdraw">Total withdraw</string>
+    <string name="crypto_movement_total_withdraw_lees_fees">Total withdraw lees fees</string>
+    <string name="crypto_movement_total_withdraw_fees_as_currency">Total withdraw fees as currency</string>
+    <string name="crypto_movement_total_withdraw_fees_as_coins">Total withdraw fees as coins</string>
+
     <string name="crypto_movement_total_earned">Total earned</string>
-    <string name="crypto_movement_total_invested">Total invested</string>
-    <string name="crypto_movement_total_on_hand">Total on hand</string>
-    <string name="crypto_movement_total_on_hand_without_tax">Total on hand - Tax</string>
-    <string name="crypto_movement_total_bought_amount">Total bought amount</string>
+    <string name="crypto_movement_total_real_earned">Total real earned (less tax)</string>
+    <string name="crypto_movement_total_earned_fees_as_currency">Total fees as currency from sell</string>
+    <string name="crypto_movement_total_earned_fees_as_coins">Total fees as coins from sell</string>
     <string name="crypto_movement_total_sold_amount">Total sold amount</string>
+
+    <string name="crypto_movement_total_invested">Total invested</string>
+    <string name="crypto_movement_total_concrete_invested">Total real invested</string>
+    <string name="crypto_movement_total_invested_bought_fees_as_currency">Total bought fees as currency</string>
+    <string name="crypto_movement_total_invested_bought_fees_as_coins">Total bought fees as coins</string>
+    <string name="crypto_movement_total_bought_amount">Total bought amount</string>
+    <string name="crypto_movement_total_bought_amount_lees_fess">Total bought amount - fees</string>
+
+    <string name="crypto_movement_total_on_hand">Total on hand</string>
     <string name="crypto_movement_total_on_hand_amount">Total on hand amount</string>
-    <string name="crypto_movement_total_on_hand_amount_without_tax">Total on hand amount - Tax</string>
-    <string name="crypto_movement_total_tax_paid">Total tax paid</string>
-    <string name="crypto_movement_total_tax_amount">Total tax amount</string>
+    <string name="crypto_movement_total_fees_paid_as_currency">Total fees paid as currency</string>
+    <string name="crypto_movement_total_fees_paid_as_coins">Total fees paid as coins</string>
 </resources>

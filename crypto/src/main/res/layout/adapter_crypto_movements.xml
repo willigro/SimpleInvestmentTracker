@@ -53,10 +53,16 @@
             app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_current_value" />
 
         <TextView
-            android:id="@+id/adapter_crypto_movement_tax"
+            android:id="@+id/adapter_crypto_movement_concrete_total_value"
             style="@style/Robbie.Paragraph1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_total_value" />
+
+        <TextView
+            android:id="@+id/adapter_crypto_movement_tax"
+            style="@style/Robbie.Paragraph1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_concrete_total_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

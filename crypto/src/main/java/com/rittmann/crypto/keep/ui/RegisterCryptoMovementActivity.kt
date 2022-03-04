@@ -153,15 +153,11 @@ class RegisterCryptoMovementActivity
 
     private fun configureReactiveViews() {
         binding.apply {
+            // Observer current value
             editCryptoCurrentValue.editDecimalFormatController?.onChangeScale?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked)
                     editCryptoTotalValue.editDecimalFormatController?.changeScale(it)
             }
-
-//            editCryptoCurrentValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
-//                if (checkboxUpdateTotalValue.isChecked)
-//                    editCryptoTotalValue.editDecimalFormatController?.setCurrencyType(it)
-//            }
 
             editCryptoCurrentValue.editDecimalFormatController?.onChangeValue?.observeForever {
                 if (checkboxUpdateTotalValue.isChecked) {
@@ -169,10 +165,32 @@ class RegisterCryptoMovementActivity
                 }
             }
 
+            // Observer bought amount
             editCryptoBoughtAmount.editText?.doAfterTextChanged {
                 if (checkboxUpdateTotalValue.isChecked) {
                     updateTheTotalValue()
                 }
+            }
+
+            // Observer total value
+            editCryptoTotalValue.editText?.doAfterTextChanged {
+                if (checkboxUpdateTotalValueCalculateAfterTransaction.isChecked) {
+                    val value =
+                        editCryptoTotalValue.editDecimalFormatController?.normalCurrency()
+                            ?: BigDecimal(0.0)
+
+                    editCryptoConcreteTotalValue.editDecimalFormatController?.setCurrency(value)
+                }
+            }
+
+            editCryptoTotalValue.editDecimalFormatController?.onChangeScale?.observeForever {
+                if (checkboxUpdateTotalValueCalculateAfterTransaction.isChecked)
+                    editCryptoConcreteTotalValue.editDecimalFormatController?.changeScale(it)
+            }
+
+            editCryptoTotalValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
+                if (checkboxUpdateTotalValueCalculateAfterTransaction.isChecked)
+                    editCryptoConcreteTotalValue.editDecimalFormatController?.setCurrencyType(it)
             }
         }
     }

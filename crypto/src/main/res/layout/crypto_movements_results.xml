@@ -10,136 +10,208 @@
             type="com.rittmann.crypto.results.ui.CryptoResultViewBinding" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/container_crypto_results"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <!-- DEPOSITED -->
-
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_deposited"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_crypto_results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelValue_label="@string/crypto_movement_total_deposited"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:valueText="@{cryptoResultViewBinding.totalDeposited}" />
+            android:orientation="vertical">
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_withdraw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:labelValue_label="@string/crypto_movement_total_withdraw"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_deposited"
-            app:valueText="@{cryptoResultViewBinding.totalWithdraw}" />
+            <!-- DEPOSITED -->
 
-        <!-- TOTAL -->
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_deposited"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_deposited"
+                app:valueText="@{cryptoResultViewBinding.totalDeposited}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_earned"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_earned"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_withdraw"
-            app:valueText="@{cryptoResultViewBinding.totalEarned}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_deposited_less_fees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_deposited_lees_fees"
+                app:valueText="@{cryptoResultViewBinding.totalDepositedLeesFees}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_invested"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_invested"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_earned"
-            app:valueText="@{cryptoResultViewBinding.totalInvested}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_deposited_fees_as_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_deposited_fees_as_currency"
+                app:valueText="@{cryptoResultViewBinding.totalDepositedFeesAsCurrency}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_on_hand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_on_hand"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_invested"
-            app:valueText="@{cryptoResultViewBinding.totalOnHand}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_deposited_fees_as_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_deposited_fees_as_coins"
+                app:valueText="@{cryptoResultViewBinding.totalDepositedFeesAsCoins}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_on_hand_without_tax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_on_hand_without_tax"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand"
-            app:valueText="@{cryptoResultViewBinding.totalOnHandWithoutTax}" />
+            <!-- WITHDRAW -->
 
-        <!-- TAX -->
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_withdraw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_withdraw"
+                app:valueText="@{cryptoResultViewBinding.totalWithdraw}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_tax_paid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_tax_paid"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_without_tax"
-            app:valueText="@{cryptoResultViewBinding.totalTaxPaid}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_withdraw_lees_fees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_withdraw_lees_fees"
+                app:valueText="@{cryptoResultViewBinding.totalWithdrawLeesFees}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_tax_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_tax_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_paid"
-            app:valueText="@{cryptoResultViewBinding.totalTaxAmount}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_withdraw_fees_as_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_withdraw_fees_as_currency"
+                app:valueText="@{cryptoResultViewBinding.totalWithdrawFeesAsCurrency}" />
 
-        <!-- AMOUNT -->
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_withdraw_fees_as_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:labelValue_label="@string/crypto_movement_total_withdraw_fees_as_coins"
+                app:valueText="@{cryptoResultViewBinding.totalWithdrawFeesAsCoins}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_bought_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_bought_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_tax_amount"
-            app:valueText="@{cryptoResultViewBinding.totalBoughtAmount}" />
+            <!-- TOTAL EARNED -->
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_sold_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_sold_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_bought_amount"
-            app:valueText="@{cryptoResultViewBinding.totalSoldAmount}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_real_earned"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_real_earned"
+                app:valueText="@{cryptoResultViewBinding.totalRealEarned}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_on_hand_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_on_hand_amount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_sold_amount"
-            app:valueText="@{cryptoResultViewBinding.totalOnHandAmount}" />
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_earned"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_earned"
+                app:valueText="@{cryptoResultViewBinding.totalEarned}" />
 
-        <com.rittmann.common.customs.CustomLabelValueText
-            android:id="@+id/txt_crypto_results_total_on_hand_amount_without_tax"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
-            app:labelValue_label="@string/crypto_movement_total_on_hand_amount_without_tax"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_total_on_hand_amount"
-            app:valueText="@{cryptoResultViewBinding.totalAmountOnHandWithoutTax}" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_earned_fees_as_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_earned_fees_as_currency"
+                app:valueText="@{cryptoResultViewBinding.totalFeesAsCurrencyFromEarned}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_earned_fees_as_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_earned_fees_as_coins"
+                app:valueText="@{cryptoResultViewBinding.totalFeesAsCoinsFromEarned}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_sould_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_sold_amount"
+                app:valueText="@{cryptoResultViewBinding.souldAmount}" />
+
+            <!-- TOTAL INVESTED -->
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_concrete_invested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_concrete_invested"
+                app:valueText="@{cryptoResultViewBinding.totalConcreteInvested}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_invested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_invested"
+                app:valueText="@{cryptoResultViewBinding.totalInvested}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_bought_fees_as_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_invested_bought_fees_as_currency"
+                app:valueText="@{cryptoResultViewBinding.totalBoughtFeesAsCurrency}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_bought_fees_as_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_invested_bought_fees_as_coins"
+                app:valueText="@{cryptoResultViewBinding.totalBoughtFeesAsCoins}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_bought_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_bought_amount"
+                app:valueText="@{cryptoResultViewBinding.totalBoughtAmount}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_bought_amount_lees_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_bought_amount_lees_fess"
+                app:valueText="@{cryptoResultViewBinding.totalBoughtAmountWithFees}" />
+
+            <!-- TOTAL ON HAND -->
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_on_hand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_on_hand"
+                app:valueText="@{cryptoResultViewBinding.totalOnHandConcrete}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_on_hand_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_on_hand_amount"
+                app:valueText="@{cryptoResultViewBinding.totalOnHandAmount}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_fees_paid_as_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_fees_paid_as_currency"
+                app:valueText="@{cryptoResultViewBinding.totalFeesPaidAsCurrency}" />
+
+            <com.rittmann.common.customs.CustomLabelValueText
+                android:id="@+id/txt_crypto_results_total_fees_paid_as_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{cryptoResultViewBinding.isDeposit ? View.GONE : View.VISIBLE}"
+                app:labelValue_label="@string/crypto_movement_total_fees_paid_as_coins"
+                app:valueText="@{cryptoResultViewBinding.totalFeesPaidAsCoins}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/crypto_movements_result_btn_expand"
+            style="@style/Robbie.Button" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
