@@ -3,7 +3,11 @@
     <color name="robbie_color_brand_dark_primary_pure">#FFF</color>
 
     <!-- TODO create a background color on Robbie -->
-    <color name="robbie_input_text_background">#FFF</color>
+    <color name="robbie_input_text_background">@color/text_primary</color>
+
+    <color name="robbie_button_text_color_primary">@color/text_secondary</color>
+    <color name="robbie_button_text_color_secondary">@color/text_secondary</color>
+    <color name="robbie_button_color_primary" category="color">@color/pure_brand_secondary</color>
 
     <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>
 </resources>

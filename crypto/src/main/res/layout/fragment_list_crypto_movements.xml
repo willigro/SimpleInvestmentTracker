@@ -74,9 +74,9 @@
             app:layout_constraintBottom_toTopOf="@id/button_register_new_crypto"
             app:layout_constraintTop_toBottomOf="@id/txt_total_invested" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_register_new_crypto"
-            style="@style/Robbie.Button"
+            style="@style/Robbie.Button.Primary.Complete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

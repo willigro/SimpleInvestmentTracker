@@ -88,9 +88,9 @@
                         android:text="@string/crypto_movement_type_withdraw" />
                 </RadioGroup>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
-                    style="@style/Robbie.Button"
+                    style="@style/Robbie.Button.Primary.Complete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.saveTrade()}"

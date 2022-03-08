@@ -16,6 +16,11 @@
         <item name="robbieTypographyTheme">@style/Robbie.TypographyTheme</item>
         <item name="robbieButtonTheme">@style/Robbie.ButtonTheme</item>
         <item name="robbieTextInputTheme">@style/Robbie.TextInputTheme</item>
+
+        <item name="robbieButtonIconTintColorPrimary">@color/white</item>
+        <item name="robbieButtonIconTintColorSecondary">@color/white</item>
+        <item name="robbieButtonBackgroundPrimary">@color/robbie_button_color_primary</item>
+        <item name="robbieButtonBackgroundSecondary">@color/robbie_button_color_primary</item>
     </style>
 
     <style name="Theme.InvestmentTracks.NoActionBar">
