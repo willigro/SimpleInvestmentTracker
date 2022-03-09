@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <padding
-        android:bottom="10dp"
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp" />
-    <stroke
-        android:width="1.5dp"
-        android:color="@color/robbie_button_text_color_secondary" />
-    <corners android:radius="7dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="bottom">
+        <shape>
+            <size android:height="@dimen/robbie_button_underline_height" />
+            <solid android:color="@color/input_error" />
+        </shape>
+    </item>
+</layer-list>

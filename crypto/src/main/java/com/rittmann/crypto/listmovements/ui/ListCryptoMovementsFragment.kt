@@ -97,14 +97,14 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
                     mDialog = createBottomSheet(
                         mView
                     )
-                    mView?.findViewById<View>(R.id.content_bottom_sheet_keep_movement)
-                        ?.setBackgroundColor(Color.TRANSPARENT)
+//                    mView?.findViewById<View>(R.id.content_bottom_sheet_keep_movement)
+//                        ?.setBackgroundColor(Color.TRANSPARENT)
 
-                    mView?.findViewById<View>(R.id.txt_open_keep_deposit)?.setOnClickListener {
+                    mView?.findViewById<View>(R.id.view_open_keep_deposit)?.setOnClickListener {
                         listCryptoMovementsNavigation.goToRegisterNewDeposit()
                     }
 
-                    mView?.findViewById<View>(R.id.txt_open_keep_crypto)?.setOnClickListener {
+                    mView?.findViewById<View>(R.id.view_open_keep_crypto)?.setOnClickListener {
                         listCryptoMovementsNavigation.goToRegisterNewCrypto()
                     }
                 }

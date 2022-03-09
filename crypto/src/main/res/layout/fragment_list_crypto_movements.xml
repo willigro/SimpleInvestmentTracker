@@ -17,69 +17,152 @@
 
         <include layout="@layout/custom_default_toolbar" />
 
-        <TextView
-            android:id="@+id/txt_total_on_hand"
-            style="@style/Robbie.Paragraph1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@{viewModel.totalValueOnHand}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <TextView
-            android:id="@+id/txt_total_deposited"
-            style="@style/Robbie.Paragraph1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@{viewModel.totalValueDeposit}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
-
-        <TextView
-            android:id="@+id/txt_total_withdraw"
-            style="@style/Robbie.Paragraph1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@{viewModel.totalValueWithdraw}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_deposited" />
-
-        <TextView
-            android:id="@+id/txt_total_earned"
-            style="@style/Robbie.Paragraph1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@{viewModel.totalValueEarned}"
-            app:layout_constraintEnd_toStartOf="@id/txt_total_invested"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
-
-        <TextView
-            android:id="@+id/txt_total_invested"
-            style="@style/Robbie.Paragraph1"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@{viewModel.totalValueInvested}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txt_total_earned"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
-
+        <!-- It needs to stay below -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_crypto_movement"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="-10dp"
+            android:paddingBottom="@dimen/padding_standard"
             app:layout_constraintBottom_toTopOf="@id/button_register_new_crypto"
-            app:layout_constraintTop_toBottomOf="@id/txt_total_invested" />
+            app:layout_constraintTop_toBottomOf="@id/container_results" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_toolbar_shadow_inverse"
+            android:background="@drawable/background_results"
+            android:paddingTop="@dimen/padding_standard"
+            android:paddingBottom="@dimen/padding_standard_larger"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                android:id="@+id/label_total_on_hand"
+                style="@style/Robbie.Paragraph2"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/trade_movement_label_total_value_on_hand"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_total_on_hand"
+                style="@style/Robbie.H3.Bold"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:padding="@dimen/padding_standard_small"
+                android:text="@{viewModel.totalValueOnHand}"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_total_on_hand"
+                tools:text="@string/stub_currency" />
+
+            <TextView
+                android:id="@+id/label_total_deposited"
+                style="@style/Robbie.Paragraph2"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/trade_movement_label_total_value_deposited"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@id/txt_total_deposited"
+                app:layout_constraintStart_toStartOf="@id/txt_total_deposited"
+                app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
+
+            <TextView
+                android:id="@+id/txt_total_deposited"
+                style="@style/Robbie.Subtitle2.Bold"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@{viewModel.totalValueDeposit}"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txt_total_withdraw"
+                app:layout_constraintTop_toBottomOf="@id/label_total_deposited"
+                tools:text="@string/stub_currency" />
+
+            <TextView
+                android:id="@+id/label_total_withdrew"
+                style="@style/Robbie.Paragraph2"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/trade_movement_label_total_value_withdrew"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@id/txt_total_withdraw"
+                app:layout_constraintStart_toStartOf="@id/txt_total_withdraw"
+                app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
+
+            <TextView
+                android:id="@+id/txt_total_withdraw"
+                style="@style/Robbie.Subtitle2.Bold"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@{viewModel.totalValueWithdraw}"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toStartOf="@id/txt_total_deposited"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_total_withdrew"
+                tools:text="@string/stub_currency" />
+
+            <TextView
+                android:id="@+id/label_total_earned"
+                style="@style/Robbie.Paragraph2"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/trade_movement_label_total_value_earned"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@id/txt_total_earned"
+                app:layout_constraintStart_toStartOf="@id/txt_total_earned"
+                app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
+
+            <TextView
+                android:id="@+id/txt_total_earned"
+                style="@style/Robbie.Subtitle2.Bold"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@{viewModel.totalValueEarned}"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toStartOf="@id/txt_total_invested"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_total_earned"
+                tools:text="@string/stub_currency" />
+
+            <TextView
+                android:id="@+id/label_total_invested"
+                style="@style/Robbie.Paragraph2"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/trade_movement_label_total_value_invested"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@id/txt_total_invested"
+                app:layout_constraintStart_toStartOf="@id/txt_total_invested"
+                app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
+
+            <TextView
+                android:id="@+id/txt_total_invested"
+                style="@style/Robbie.Subtitle2.Bold"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@{viewModel.totalValueInvested}"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txt_total_earned"
+                app:layout_constraintTop_toBottomOf="@id/label_total_invested"
+                tools:text="@string/stub_currency" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_register_new_crypto"
-            style="@style/Robbie.Button.Primary.Complete"
+            style="@style/ButtonPrimary"
+            android:layout_width="0dp"
+            android:text="@string/trade_movement_new_trade"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="@dimen/button_constraint" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

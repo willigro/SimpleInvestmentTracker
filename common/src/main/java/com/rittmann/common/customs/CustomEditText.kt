@@ -75,7 +75,7 @@ class CustomEditText @JvmOverloads constructor(
         isClickable = true
         isFocusable = false
 
-        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
+//        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
 
         context.withStyledAttributes(attrs, R.styleable.CustomEditText) {
             label = getString(R.styleable.CustomEditText_labelText).toString()

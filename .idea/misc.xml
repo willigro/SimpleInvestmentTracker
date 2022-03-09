@@ -3,15 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Programas/gradle/caches/transforms-3/493aa2833a9e330c6188b188c804a260/transformed/jetified-textfield-alpha-1.3.2.0/res/drawable/background_input_text_filled.xml" value="0.24074074074074073" />
+        <entry key="..\:/Programas/gradle/caches/transforms-3/493aa2833a9e330c6188b188c804a260/transformed/jetified-textfield-alpha-1.3.2.0/res/drawable/background_input_text_outline.xml" value="0.24074074074074073" />
         <entry key="..\:/Programas/gradle/caches/transforms-3/9bd137cc465f4244b24ef98ccfd86d42/transformed/jetified-core-alpha-1.3.2.0/res/drawable/robbie_button_background_drawable_primary.xml" value="0.24722222222222223" />
         <entry key="..\:/Programas/gradle/caches/transforms-3/9bd137cc465f4244b24ef98ccfd86d42/transformed/jetified-core-alpha-1.3.2.0/res/drawable/robbie_button_background_drawable_secondary.xml" value="0.24722222222222223" />
+        <entry key="..\:/Programas/gradle/caches/transforms-3/9bd137cc465f4244b24ef98ccfd86d42/transformed/jetified-core-alpha-1.3.2.0/res/drawable/robbie_button_background_drawable_under.xml" value="0.24074074074074073" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input.xml" value="0.26615384615384613" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input_error.xml" value="0.26615384615384613" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/border_outline_input_valid.xml" value="0.26615384615384613" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/disabled_button.xml" value="0.24074074074074073" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/enabled_button.xml" value="0.24074074074074073" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/drawable/toolbar_dropshadow.xml" value="0.23703703703703705" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_default_toolbar.xml" value="0.264" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_edit_text_currency.xml" value="0.2210144927536232" />
-        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_edit_text_with_label.xml" value="0.2210144927536232" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_edit_text_with_label.xml" value="0.33075734157650694" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/common/src/main/res/layout/custom_label_value.xml" value="0.2210144927536232" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/activity_crypto_results.xml" value="0.2128623188405797" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/activity_list_crypto_movements.xml" value="0.17708333333333334" />
@@ -25,7 +30,7 @@
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog.xml" value="0.12360688956433637" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog_trade_filter_names_adapter.xml" value="0.14673913043478262" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/dialog_trade_filters.xml" value="0.264" />
-        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_crypto_movements.xml" value="0.176" />
+        <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_crypto_movements.xml" value="0.4" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/fragment_list_cryptos.xml" value="0.19610507246376813" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/crypto/src/main/res/layout/list_cryptos_fragment.xml" value="0.19610507246376813" />
         <entry key="..\:/Rittmann/Projetos/Android/InvestmentTracks/project/deposit/src/main/res/layout/activity_keep_deposit.xml" value="0.21920289855072464" />

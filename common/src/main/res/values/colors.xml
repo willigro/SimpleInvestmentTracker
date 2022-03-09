@@ -10,6 +10,7 @@
 
     <color name="pure_brand_secondary">#e51ead</color>
     <color name="pure_brand_primary">#6c18a4</color>
+    <color name="pure_brand_primary_light">#B86BEC</color>
     <color name="accent_primary">#3827b4</color>
     <color name="accent_secondary">#DA1E2E</color>
     <color name="accent_third">#e08cc0</color>
@@ -17,5 +18,8 @@
     <color name="text_secondary">#FFFFFFFF</color>
 
     <color name="disabled_button">#A1A1A1</color>
+    <color name="input_default">#434242</color>
+    <color name="input_valid">#3827b4</color>
+    <color name="input_error">#EC6D6D</color>
 
 </resources>

@@ -26,6 +26,7 @@
             android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
+            android:paddingBottom="@dimen/padding_standard"
             app:layout_constraintBottom_toTopOf="@id/btn_register"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -45,7 +46,7 @@
 
                 <com.rittmann.common.customs.CustomEditText
                     android:id="@+id/edit_crypto_name"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:labelText="Name"
@@ -79,7 +80,7 @@
 
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_bought_amount"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formatType="decimal"
@@ -89,7 +90,7 @@
 
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_current_value"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:currencyType="@={viewModel.tradeMovement.currentValueCurrency}"
@@ -108,7 +109,7 @@
 
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_total_value"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:currencyType="@={viewModel.tradeMovement.totalValueCurrency}"
@@ -126,7 +127,7 @@
 
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_concrete_total_value"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:currencyType="@={viewModel.tradeMovement.totalValueCurrency}"
@@ -136,7 +137,7 @@
 
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_tax"
-                    style="@style/Robbie.TextInput.Filled"
+                    style="@style/Robbie.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:currencyType="@={viewModel.tradeMovement.taxCurrency}"
@@ -157,10 +158,11 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register"
-            style="@style/Robbie.Button.Primary.Complete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/ButtonPrimary"
             android:onClick="@{() -> viewModel.saveCrypto()}"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:text="@string/trade_movement_btn_register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

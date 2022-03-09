@@ -40,7 +40,7 @@ class CustomLabelValueText @JvmOverloads constructor(
         isClickable = true
         isFocusable = false
 
-        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
+//        setBackgroundColor(ContextCompat.getColor(context, R.color.robbie_input_text_background))
 
         context.withStyledAttributes(attrs, R.styleable.CustomLabelValueText) {
             label = getString(R.styleable.CustomLabelValueText_labelValue_label).toString()

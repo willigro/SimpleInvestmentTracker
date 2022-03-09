@@ -10,7 +10,7 @@ fun Button?.enableState(stateField: StateField) {
         isEnabled = stateField == StateField.VALID
         when (stateField) {
             StateField.INVALID -> setBackgroundResource(R.drawable.disabled_button)
-            else -> setBackgroundResource(R.drawable.robbie_button_background_primary)
+            else -> setBackgroundResource(R.drawable.enabled_button)
         }
     }
 }

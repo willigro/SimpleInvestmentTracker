@@ -21,6 +21,8 @@
         <item name="robbieButtonIconTintColorSecondary">@color/white</item>
         <item name="robbieButtonBackgroundPrimary">@color/robbie_button_color_primary</item>
         <item name="robbieButtonBackgroundSecondary">@color/teal_200</item>
+        <item name="robbieSubtitleTextColor">@color/text_primary</item>
+        <item name="robbieButtonTextColorPrimary">@color/text_secondary</item>
     </style>
 
     <style name="Theme.InvestmentTracks.NoActionBar" parent="Theme.InvestmentTracks">

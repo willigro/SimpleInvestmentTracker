@@ -3,26 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_bottom_sheet_keep_movement"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#80D5D5D5">
 
-    <TextView
-        android:id="@+id/txt_open_keep_deposit"
-        style="@style/Robbie.H1"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view_open_keep_deposit"
+        style="@style/AppCardViewClickable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/trade_movement_open_deposit"
-        app:layout_constraintEnd_toStartOf="@id/txt_open_keep_crypto"
+        android:layout_margin="@dimen/bottom_sheet_create_trader_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/view_open_keep_crypto"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txt_open_keep_crypto"
-        style="@style/Robbie.H1"
+        <TextView
+            style="@style/Robbie.H3.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/padding_standard"
+            android:text="@string/trade_movement_open_deposit" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/view_open_keep_crypto"
+        style="@style/AppCardViewClickable"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/bottom_sheet_create_trader_margin"
         android:text="@string/trade_movement_open_crypto"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txt_open_keep_deposit"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/view_open_keep_deposit"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/Robbie.H3.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/padding_standard"
+            android:text="@string/trade_movement_open_crypto" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
