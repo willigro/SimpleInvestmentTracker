@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="robbie_color_brand_dark_primary_pure">#FFF</color>
+    <color name="robbie_color_brand_dark_primary_pure">#FFFFFF</color>
+    <color name="robbie_color_brand_dark_secondary_pure">#F3F3F3</color>
 
     <!-- TODO create a background color on Robbie -->
     <color name="robbie_input_text_background">@color/text_primary</color>

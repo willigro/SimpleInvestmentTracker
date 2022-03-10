@@ -20,4 +20,5 @@
     <dimen name="button_corners">24dp</dimen>
     <dimen name="button_constraint">.6</dimen>
     <dimen name="height_toolbar_shadow">3dp</dimen>
+    <dimen name="divisor_height">1dp</dimen>
 </resources>
