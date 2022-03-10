@@ -27,12 +27,7 @@ object FormatUtil {
     ): String {
         val df = NumberFormat.getCurrencyInstance()
         val dfs = DecimalFormatSymbols()
-        dfs.currencySymbol = currencySymbol.let {
-            if (it.contains(" ").not())
-                "$it "
-            else
-                it
-        }
+        dfs.currencySymbol = currencySymbol
         dfs.groupingSeparator = '.'
         dfs.monetaryDecimalSeparator = ','
         (df as DecimalFormat).decimalFormatSymbols = dfs
@@ -41,7 +36,7 @@ object FormatUtil {
     }
 
     const val CURRENCY_SYMBOL_REAL = "R$"
-    const val CURRENCY_SYMBOL_DEFAULT_COIN = "C"
+    const val CURRENCY_SYMBOL_DEFAULT_COIN = "C "
     const val CURRENCY_SYMBOL_DECIMAL = ""
 }
 

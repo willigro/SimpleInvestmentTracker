@@ -8,9 +8,11 @@
     <dimen name="input_padding">16dp</dimen>
     <dimen name="button_padding">16dp</dimen>
     <dimen name="bottom_sheet_create_trader_margin">6dp</dimen>
+    <dimen name="padding_from_trade_list_to_results">6dp</dimen>
 
     <!-- Margin -->
     <dimen name="margin_label_top">8dp</dimen>
+    <dimen name="margin_label_top_small">4dp</dimen>
     <dimen name="margin_label_bottom_inverse">-10dp</dimen>
     <dimen name="margin_toolbar_shadow_inverse">-3dp</dimen>
 

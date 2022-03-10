@@ -15,6 +15,7 @@
     <color name="accent_secondary">#DA1E2E</color>
     <color name="accent_third">#e08cc0</color>
     <color name="text_primary">#a4a2ad</color>
+    <color name="text_primary_dark">#FF000000</color>
     <color name="text_secondary">#FFFFFFFF</color>
 
     <color name="disabled_button">#A1A1A1</color>

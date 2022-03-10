@@ -9,6 +9,8 @@
     <color name="robbie_button_text_color_secondary">@color/text_secondary</color>
     <color name="robbie_button_color_primary" category="color">@color/pure_brand_secondary</color>
 
+    <color name="robbie_color_text_dark_primary_1">@color/text_primary_dark</color>
+
     <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>
 
     <dimen name="robbie_input_text_padding_default_all_sides">@dimen/input_padding</dimen>

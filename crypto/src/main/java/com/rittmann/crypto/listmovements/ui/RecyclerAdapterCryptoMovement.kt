@@ -1,9 +1,11 @@
 package com.rittmann.crypto.listmovements.ui
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -29,11 +31,16 @@ class RecyclerAdapterCryptoMovement(
     private val onDeleteClicked: (TradeMovement) -> Unit
 ) : ListAdapter<TradeMovement, RecyclerAdapterCryptoMovement.CryptoMovementViewHolder>(DiffCallback()) {
 
+    private lateinit var mContext: Context
+
     init {
         submitList(list.toMutableList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoMovementViewHolder {
+        if (::mContext.isInitialized.not()) {
+            mContext = parent.context
+        }
         return if (viewType == CONTENT) CryptoMovementViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.adapter_crypto_movements, parent, false)
@@ -51,20 +58,19 @@ class RecyclerAdapterCryptoMovement(
         currentList[holder.adapterPosition].also { cryptoMovement ->
             holder.apply {
 
+                val totalValueColor =
+                    if (cryptoMovement.type.value == CryptoOperationType.SELL.value)
+                        ContextCompat.getColor(mContext, R.color.accent_primary)
+                    else
+                        ContextCompat.getColor(mContext, R.color.accent_secondary)
+
                 titleDate?.text = DateUtil.simpleDateFormat(cryptoMovement.date)
 
-                deleteMovement?.setOnClickListener {
-                    onDeleteClicked(cryptoMovement)
-                }
+//                deleteMovement?.setOnClickListener {
+//                    onDeleteClicked(cryptoMovement)
+//                }
 
                 name?.text = cryptoMovement.name
-//                date?.text = cryptoMovement.date
-                type?.setText(
-                    if (cryptoMovement.type.value == CryptoOperationType.SELL.value)
-                        R.string.crypto_movement_operation_sell
-                    else
-                        R.string.crypto_movement_operation_buy
-                )
                 boughtAmount?.text =
                     FormatDecimalController.format(
                         cryptoMovement.operatedAmount,
@@ -75,16 +81,22 @@ class RecyclerAdapterCryptoMovement(
                         cryptoMovement.currentValue,
                         cryptoMovement.currentValueCurrency
                     )
-                totalValue?.text =
-                    FormatDecimalController.format(
-                        cryptoMovement.totalValue,
-                        cryptoMovement.totalValueCurrency
-                    )
-                concreteTotalValue ?.text =
-                    FormatDecimalController.format(
-                        cryptoMovement.concreteTotalValue,
-                        cryptoMovement.totalValueCurrency
-                    )
+                totalValue?.apply {
+                    text =
+                        FormatDecimalController.format(
+                            cryptoMovement.totalValue,
+                            cryptoMovement.totalValueCurrency
+                        )
+                    setTextColor(totalValueColor)
+                }
+                concreteTotalValue?.apply {
+                    text =
+                        FormatDecimalController.format(
+                            cryptoMovement.concreteTotalValue,
+                            cryptoMovement.totalValueCurrency
+                        )
+                    setTextColor(totalValueColor)
+                }
                 tax?.text =
                     FormatDecimalController.format(
                         cryptoMovement.tax,
@@ -116,16 +128,17 @@ class RecyclerAdapterCryptoMovement(
 
     class CryptoMovementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
-        val deleteMovement: View? = itemView.findViewById(R.id.adapter_view_delete_crypto_movement)
+//        val deleteMovement: View? = itemView.findViewById(R.id.adapter_view_delete_crypto_movement)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
-        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
-        val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)
+//        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
+//        val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)
         val boughtAmount: TextView? =
             itemView.findViewById(R.id.adapter_crypto_movement_bought_amount)
         val currentValue: TextView? =
             itemView.findViewById(R.id.adapter_crypto_movement_current_value)
         val totalValue: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_total_value)
-        val concreteTotalValue: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_concrete_total_value)
+        val concreteTotalValue: TextView? =
+            itemView.findViewById(R.id.adapter_crypto_movement_concrete_total_value)
         val tax: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_tax)
         val titleDate: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_title_date)
     }
