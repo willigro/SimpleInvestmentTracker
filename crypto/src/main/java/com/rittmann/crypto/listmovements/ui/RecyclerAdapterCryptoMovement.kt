@@ -66,9 +66,9 @@ class RecyclerAdapterCryptoMovement(
 
                 titleDate?.text = DateUtil.simpleDateFormat(cryptoMovement.date)
 
-//                deleteMovement?.setOnClickListener {
-//                    onDeleteClicked(cryptoMovement)
-//                }
+                deleteMovement?.setOnClickListener {
+                    onDeleteClicked(cryptoMovement)
+                }
 
                 name?.text = cryptoMovement.name
                 boughtAmount?.text =
@@ -128,7 +128,7 @@ class RecyclerAdapterCryptoMovement(
 
     class CryptoMovementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
-//        val deleteMovement: View? = itemView.findViewById(R.id.adapter_view_delete_crypto_movement)
+        val deleteMovement: View? = itemView.findViewById(R.id.adapter_crypto_delete_icon)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
 //        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
 //        val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)

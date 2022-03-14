@@ -41,7 +41,7 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
         rootView.setBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.robbie_color_brand_dark_secondary_pure
+                R.color.robbie_color_light_background_primary
             )
         )
     }

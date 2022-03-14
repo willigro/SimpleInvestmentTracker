@@ -16,7 +16,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/robbie_color_brand_dark_primary_pure"
             android:padding="@dimen/padding_standard"
             android:paddingStart="@dimen/padding_standard_larger"
             android:paddingEnd="@dimen/padding_standard_larger">
@@ -24,13 +23,26 @@
             <TextView
                 android:id="@+id/adapter_crypto_movement_name"
                 style="@style/Robbie.H4.Bold"
+                android:layout_width="0dp"
+
+                app:layout_constraintEnd_toStartOf="@id/adapter_crypto_delete_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="BTC" />
 
             <TextView
+                android:id="@+id/adapter_crypto_delete_icon"
+                style="@style/Robbie.H4"
+                android:paddingStart="@dimen/padding_standard"
+                android:paddingEnd="@dimen/padding_standard"
+                android:text="X"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/adapter_crypto_movement_current_value_label"
                 style="@style/Robbie.Paragraph2"
+                android:layout_marginTop="@dimen/margin_label_top_small"
                 android:text="@string/trade_movement_label_current_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_name" />
@@ -75,6 +87,7 @@
             <TextView
                 android:id="@+id/adapter_crypto_movement_concrete_total_value_label"
                 style="@style/Robbie.Paragraph2"
+                android:layout_marginTop="@dimen/margin_label_top_small"
                 android:text="@string/trade_movement_label_total_concrete_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adapter_crypto_movement_name" />

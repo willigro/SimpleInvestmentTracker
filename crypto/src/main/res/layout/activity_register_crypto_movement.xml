@@ -34,7 +34,6 @@
                 android:id="@+id/register_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/robbie_color_brand_dark_primary_pure"
                 android:padding="@dimen/padding_standard"
                 tools:context=".keep.ui.RegisterCryptoMovementActivity">
 

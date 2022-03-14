@@ -70,9 +70,9 @@ object Depends {
 
     object Robbie {
         fun DependencyHandler.implementRobbie() {
-            implement("com.github.willigro:RobbieAndroidUtil:${Versions.ROBBIE}")
+//            implement("com.github.willigro:RobbieAndroidUtil:${Versions.ROBBIE}")
 
-//            implementLocalRobbie()
+            implementLocalRobbie()
         }
 
         fun DependencyHandler.implementLocalRobbie() {

@@ -23,7 +23,7 @@ fun String.fromHtml(): Spanned {
 fun String?.toIntOrNull(): Int? {
     try {
         if (isNullOrEmpty()) return null
-        return this!!.toInt()
+        return this.toInt()
     } catch (e: java.lang.Exception) {
         return null
     }
@@ -32,7 +32,7 @@ fun String?.toIntOrNull(): Int? {
 fun String?.toIntOrZero(): Int {
     try {
         if (isNullOrEmpty()) return 0
-        return this!!.toInt()
+        return this.toInt()
     } catch (e: java.lang.Exception) {
         return 0
     }
@@ -41,7 +41,7 @@ fun String?.toIntOrZero(): Int {
 fun String?.toDoubleOrZero(): Double {
     try {
         if (isNullOrEmpty()) return 0.0
-        return this!!.toDouble()
+        return this.toDouble()
     } catch (e: java.lang.Exception) {
         return 0.0
     }

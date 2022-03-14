@@ -19,11 +19,11 @@
 
         <!-- It needs to stay below -->
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/robbie_color_brand_dark_secondary_pure"
             android:id="@+id/recycler_crypto_movement"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="-10dp"
+            android:background="@color/robbie_color_light_background_primary"
             android:paddingBottom="@dimen/padding_standard"
             app:layout_constraintBottom_toTopOf="@id/button_register_new_crypto"
             app:layout_constraintTop_toBottomOf="@id/container_results" />
@@ -44,7 +44,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@string/trade_movement_label_total_value_on_hand"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:padding="@dimen/padding_standard_small"
                 android:text="@{viewModel.totalValueOnHand}"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_total_on_hand"
@@ -68,7 +68,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@string/trade_movement_label_total_value_deposited"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="@id/txt_total_deposited"
                 app:layout_constraintStart_toStartOf="@id/txt_total_deposited"
                 app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
@@ -79,7 +79,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@{viewModel.totalValueDeposit}"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_total_withdraw"
                 app:layout_constraintTop_toBottomOf="@id/label_total_deposited"
@@ -91,7 +91,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@string/trade_movement_label_total_value_withdrew"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="@id/txt_total_withdraw"
                 app:layout_constraintStart_toStartOf="@id/txt_total_withdraw"
                 app:layout_constraintTop_toBottomOf="@id/txt_total_on_hand" />
@@ -102,7 +102,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@{viewModel.totalValueWithdraw}"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toStartOf="@id/txt_total_deposited"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_total_withdrew"
@@ -114,7 +114,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@string/trade_movement_label_total_value_earned"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="@id/txt_total_earned"
                 app:layout_constraintStart_toStartOf="@id/txt_total_earned"
                 app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
@@ -125,7 +125,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@{viewModel.totalValueEarned}"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toStartOf="@id/txt_total_invested"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_total_earned"
@@ -137,7 +137,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@string/trade_movement_label_total_value_invested"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="@id/txt_total_invested"
                 app:layout_constraintStart_toStartOf="@id/txt_total_invested"
                 app:layout_constraintTop_toBottomOf="@id/txt_total_withdraw" />
@@ -148,7 +148,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:text="@{viewModel.totalValueInvested}"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/robbie_color_text_light_primary_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txt_total_earned"
                 app:layout_constraintTop_toBottomOf="@id/label_total_invested"
@@ -162,7 +162,7 @@
             android:text="@string/trade_movement_new_trade"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

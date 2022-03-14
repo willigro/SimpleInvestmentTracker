@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="robbie_color_brand_dark_primary_pure">#FFFFFF</color>
-    <color name="robbie_color_brand_dark_secondary_pure">#F3F3F3</color>
+    <!-- Main -->
+    <color name="robbie_color_brand_light_primary_pure" category="color">#6c18a4</color>
+    <color name="robbie_color_brand_light_primary_variant_pure" category="color">#B86BEC</color>
+    <color name="robbie_color_brand_light_on_primary_pure" category="color">@color/white</color>
 
-    <!-- TODO create a background color on Robbie -->
-    <color name="robbie_input_text_background">@color/text_primary</color>
+<!--    <color name="robbie_color_brand_dark_primary_pure">@color/pure_brand_primary</color>-->
+<!--    <color name="robbie_color_brand_dark_primary_variant_pure" category="color">#F44336</color>-->
+<!--    <color name="robbie_color_brand_dark_on_primary_variant_pure" category="color">#F44336</color>-->
 
-    <color name="robbie_button_text_color_primary">@color/text_secondary</color>
-    <color name="robbie_button_text_color_secondary">@color/text_secondary</color>
-    <color name="robbie_button_color_primary" category="color">@color/pure_brand_secondary</color>
+    <color name="robbie_color_brand_light_secondary_pure" category="color">#e51ead</color>
+    <color name="robbie_color_brand_light_secondary_variant_pure" category="color">#F448C4</color>
+    <color name="robbie_color_brand_light_on_secondary_pure" category="color">
+        @color/black
+    </color>
 
-    <color name="robbie_color_text_dark_primary_1">@color/text_primary_dark</color>
+<!--    <color name="robbie_color_brand_dark_secondary_pure">@color/pure_brand_primary_light</color>-->
+<!--    <color name="robbie_color_brand_dark_secondary_variant_pure" category="color">#F44336</color>-->
+<!--    <color name="robbie_color_brand_dark_on_secondary_variant_pure" category="color">#F44336</color>-->
 
+<!--    <color name="robbie_color_dark_background_primary" category="color">#252525</color>-->
+    <color name="robbie_color_light_background_primary" category="color">#ECECEC</color>
+
+<!--    <color name="robbie_color_dark_background_secondary" category="color">#FFFFFF</color>-->
+<!--    <color name="robbie_color_light_background_secondary" category="color">#D5D5D5</color>-->
+
+    <!-- Texts -->
+    <color name="robbie_color_text_light_primary_pure">#FF000000</color>
+    <color name="robbie_color_text_light_primary_1">#FFFFFFFF</color>
+    <color name="robbie_color_text_light_primary_2">#96959A</color>
+
+    <color name="robbie_ripple_color" category="color">#FFEB3B</color>
+
+    <!-- Buttons -->
+    <color name="robbie_button_text_color_primary">@color/robbie_color_text_light_primary_1</color>
+    <color name="robbie_button_text_color_secondary">@color/robbie_color_text_light_primary_2</color>
+    <color name="robbie_button_color_primary" category="color">#e51ead</color>
+    <color name="robbie_button_color_secondary" category="color">@color/accent_secondary</color>
+    <dimen name="robbie_button_margin_default_all_sides">@dimen/default_margin</dimen>
+    <dimen name="robbie_button_padding_default_all_sides">@dimen/button_padding</dimen>
+
+    <!-- Inputs -->
     <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>
 
     <dimen name="robbie_input_text_padding_default_all_sides">@dimen/input_padding</dimen>
-    <dimen name="robbie_button_margin_default_all_sides">@dimen/default_margin</dimen>
-    <dimen name="robbie_button_padding_default_all_sides">@dimen/button_padding</dimen>
 </resources>
