@@ -16,11 +16,11 @@ abstract class BaseBindingActivity<T : ViewDataBinding>(private val resId: Int) 
         binding = DataBindingUtil.setContentView(this, resId)
         binding.lifecycleOwner = this
 
-//        binding.root.setBackgroundColor(
-//            ContextCompat.getColor(
-//                this,
-//                R.color.robbie_color_brand_dark_primary_pure
-//            )
-//        )
+        binding.root.setBackgroundColor(
+            ContextCompat.getColor(
+                this,
+                R.color.robbie_color_light_background_primary
+            )
+        )
     }
 }

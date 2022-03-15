@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,7 +10,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".results.ui.CryptoResultsActivity">
@@ -20,17 +19,26 @@
         <TextView
             android:id="@+id/txt_crypto_results_title"
             style="@style/Robbie.H1.Bold"
+            android:paddingStart="@dimen/padding_standard"
             android:text="@{viewModel.title}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:ignore="RtlSymmetry" />
 
-        <include
-            layout="@layout/crypto_movements_results"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:cryptoResultViewBinding="@{viewModel.cryptoResultViewBinding}"
+            android:paddingBottom="@dimen/padding_standard"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_title" />
+            app:layout_constraintTop_toBottomOf="@id/txt_crypto_results_title">
+
+            <include
+                android:id="@+id/crypto_movements_results"
+                layout="@layout/crypto_movements_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cryptoResultViewBinding="@{viewModel.cryptoResultViewBinding}" />
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

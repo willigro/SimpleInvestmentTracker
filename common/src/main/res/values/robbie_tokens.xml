@@ -21,6 +21,7 @@
 
 <!--    <color name="robbie_color_dark_background_primary" category="color">#252525</color>-->
     <color name="robbie_color_light_background_primary" category="color">#ECECEC</color>
+    <color name="robbie_color_light_background_secondary" category="color">#8C8A8A</color>
 
 <!--    <color name="robbie_color_dark_background_secondary" category="color">#FFFFFF</color>-->
 <!--    <color name="robbie_color_light_background_secondary" category="color">#D5D5D5</color>-->
@@ -28,7 +29,7 @@
     <!-- Texts -->
     <color name="robbie_color_text_light_primary_pure">#FF000000</color>
     <color name="robbie_color_text_light_primary_1">#FFFFFFFF</color>
-    <color name="robbie_color_text_light_primary_2">#96959A</color>
+    <color name="robbie_color_text_light_primary_2">#787878</color>
 
     <color name="robbie_ripple_color" category="color">#FFEB3B</color>
 
