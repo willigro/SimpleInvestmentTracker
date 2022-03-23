@@ -22,6 +22,7 @@
     <string name="trade_movement_label_current_value">Current value</string>
     <string name="trade_movement_label_total_bought_amount">Bought amount</string>
     <string name="trade_movement_label_total_tax">Fees</string>
+    <string name="trade_movement_label_coin_name">Coin name</string>
 
     <!-- Insert Crypto -->
     <string name="trader_crypto_title">Keep Trade</string>

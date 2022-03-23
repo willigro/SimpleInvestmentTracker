@@ -13,6 +13,8 @@ import com.rittmann.crypto.R
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.CryptoOperationType
 import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.extensions.gone
+import com.rittmann.common.extensions.visible
 import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.FormatDecimalController
 
@@ -60,7 +62,8 @@ class RecyclerAdapterCryptoMovement(
 
                 val totalValueColor =
                     if (cryptoMovement.type.value == CryptoOperationType.SELL.value
-                        || cryptoMovement.type.value == CryptoOperationType.WITHDRAW.value)
+                        || cryptoMovement.type.value == CryptoOperationType.WITHDRAW.value
+                    )
                         ContextCompat.getColor(mContext, R.color.accent_primary)
                     else
                         ContextCompat.getColor(mContext, R.color.accent_secondary)
@@ -72,6 +75,13 @@ class RecyclerAdapterCryptoMovement(
                 }
 
                 name?.text = cryptoMovement.name
+
+                if (cryptoMovement.type.value == CryptoOperationType.DEPOSIT.value || cryptoMovement.type.value == CryptoOperationType.WITHDRAW.value) {
+                    coinName?.text = cryptoMovement.cryptoCoin
+                    coinNameContainer?.visible()
+                } else
+                    coinNameContainer?.gone()
+
                 boughtAmount?.text =
                     FormatDecimalController.format(
                         cryptoMovement.operatedAmount,
@@ -131,6 +141,9 @@ class RecyclerAdapterCryptoMovement(
         val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
         val deleteMovement: View? = itemView.findViewById(R.id.adapter_crypto_delete_icon)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
+        val coinName: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_coin_name)
+        val coinNameContainer: View? =
+            itemView.findViewById(R.id.adapter_crypto_movement_coin_container)
 
         //        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
 //        val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)

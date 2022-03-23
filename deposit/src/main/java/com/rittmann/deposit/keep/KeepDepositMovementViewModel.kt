@@ -3,6 +3,7 @@ package com.rittmann.deposit.keep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
@@ -30,7 +31,7 @@ class KeepDepositMovementViewModel @Inject constructor(
             tradeMovement.calculateTotalValueToDeposit()
 
             if (tradeMovement.cryptoCoin.isEmpty())
-                tradeMovement.updateCryptoCoinWithName()
+                tradeMovement.cryptoCoin = CurrencyType.REAL.toString()
 
             if (tradeMovement.isInserting()) {
                 insertDeposit(tradeMovement)
