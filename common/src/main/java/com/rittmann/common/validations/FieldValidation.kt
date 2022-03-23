@@ -82,6 +82,19 @@ class FieldValidation(
         }
     }
 
+    fun remove(editText: EditText?) {
+        editText?.also {
+            editText.removeTextChangedListener(watcher)
+
+            for (i in 0 until arrayList.size) {
+                if (arrayList[i].editText.id == editText.id) {
+                    arrayList.removeAt(i)
+                    break
+                }
+            }
+        }
+    }
+
     /**
      * Adjust this code, setText and setSelection
      * */

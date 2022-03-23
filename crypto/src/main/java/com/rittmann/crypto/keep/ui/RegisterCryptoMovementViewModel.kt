@@ -46,6 +46,9 @@ class RegisterCryptoMovementViewModel @Inject constructor(
 
     fun saveCrypto() {
         showProgress()
+
+        tradeMovement.value?.updateCryptoCoinWithName()
+
         if (tradeMovement.value?.isInserting() == true)
             insertNewCrypto()
         else

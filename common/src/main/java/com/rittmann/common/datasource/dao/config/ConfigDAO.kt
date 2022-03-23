@@ -15,6 +15,7 @@ object TableTradeMovement {
     const val TOTAL_VALUE_CURRENCY = "tb_trade_movement_total_value_currency"
     const val TAX = "tb_trade_movement_tax"
     const val TAX_CURRENCY = "tb_trade_movement_tax_currency"
+    const val CRYPTO_COIN = "tb_trade_movement_crypto_coin"
 
     fun create(): String =
         "$CREATE_TABLE $TABLE " +
@@ -25,6 +26,7 @@ object TableTradeMovement {
                 " $OPERATED_AMOUNT TEXT NOT NULL," +
                 " $TOTAL_VALUE TEXT NOT NULL," +
                 " $TOTAL_VALUE_CURRENCY TEXT NOT NULL," +
+                " $CRYPTO_COIN TEXT NOT NULL," +
                 " $TAX TEXT NOT NULL," +
                 " $TAX_CURRENCY TEXT NOT NULL," +
                 " $CURRENT_VALUE_CURRENCY TEXT NOT NULL);"

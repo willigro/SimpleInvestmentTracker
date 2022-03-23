@@ -7,4 +7,5 @@
     <string name="deposit_was_not_updated">Your new deposit was not updated</string>
     <string name="deposit_btn_register">Register</string>
     <string name="deposit_btn_update">Update</string>
+    <string name="balance_crypto_name">Coin name</string>
 </resources>

@@ -23,9 +23,10 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@id/btn_register"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +55,31 @@
                     app:layout_constraintTop_toBottomOf="@id/txt_crypto_date"
                     app:textFromEdit="@={viewModel.tradeMovement.totalValue}" />
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/container_balance_crypto_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_label_top"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/Robbie.Paragraph1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/balance_crypto_name" />
+
+                    <EditText
+                        android:id="@+id/edt_balance_crypto_name"
+                        style="@style/Robbie.TextInput.Under"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.tradeMovement.cryptoCoin}" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <com.rittmann.common.customs.CustomEditTextCurrency
                     android:id="@+id/edit_crypto_tax"
                     style="@style/Robbie.TextInput"
@@ -61,7 +87,7 @@
                     android:layout_height="wrap_content"
                     app:currencyType="@={viewModel.tradeMovement.taxCurrency}"
                     app:labelText="Tax"
-                    app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value"
+                    app:layout_constraintTop_toBottomOf="@id/container_balance_crypto_name"
                     app:textFromEdit="@={viewModel.tradeMovement.tax}" />
 
                 <RadioGroup
@@ -89,15 +115,16 @@
                         android:text="@string/crypto_movement_type_withdraw" />
                 </RadioGroup>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_register"
-                    style="@style/ButtonPrimary"
-                    android:onClick="@{() -> viewModel.saveTrade()}"
-                    android:text="@string/trade_movement_btn_register"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/radio_group_crypto_operation_type" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_register"
+            style="@style/ButtonPrimary"
+            android:onClick="@{() -> viewModel.saveTrade()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

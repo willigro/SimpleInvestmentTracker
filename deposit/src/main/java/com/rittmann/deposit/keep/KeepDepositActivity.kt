@@ -6,10 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.result.ResultEvent
+import com.rittmann.common.extensions.gone
 import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toast
+import com.rittmann.common.extensions.visible
 import com.rittmann.common.lifecycle.BaseBindingActivity
 import com.rittmann.common.utils.DateListenerUtil
 import com.rittmann.common.utils.DateUtil
@@ -31,7 +34,7 @@ class KeepDepositActivity :
     @VisibleForTesting
     lateinit var viewModel: KeepDepositMovementViewModel
 
-    private var field: FieldValidation? = null
+    private var fieldValidation: FieldValidation? = null
 
     private val dateListenerUtil = DateListenerUtil()
 
@@ -72,7 +75,7 @@ class KeepDepositActivity :
         }
 
         binding.apply {
-            field = FieldValidation(btnRegister).apply {
+            fieldValidation = FieldValidation(btnRegister).apply {
                 add(editText = editCryptoTotalValue.editText) {
                     editCryptoTotalValue.editDecimalFormatController?.normalCurrency()
                         ?.toDoubleValid() ?: 0.0 > 0.0
@@ -91,6 +94,17 @@ class KeepDepositActivity :
                 text = DateUtil.simpleDateFormat(dateListenerUtil.calendar)
             }
 
+            editCryptoTotalValue.editDecimalFormatController?.onChangeCurrencyType?.observeForever {
+                if (it == CurrencyType.CRYPTO) {
+                    containerBalanceCryptoName.visible()
+                    fieldValidation?.add(editText = edtBalanceCryptoName) { value ->
+                        value.isNotEmpty()
+                    }
+                } else {
+                    containerBalanceCryptoName.gone()
+                    fieldValidation?.remove(edtBalanceCryptoName)
+                }
+            }
         }
     }
 

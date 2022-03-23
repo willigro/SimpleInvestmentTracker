@@ -29,6 +29,9 @@ class KeepDepositMovementViewModel @Inject constructor(
         tradeMovement.value?.also { tradeMovement ->
             tradeMovement.calculateTotalValueToDeposit()
 
+            if (tradeMovement.cryptoCoin.isEmpty())
+                tradeMovement.updateCryptoCoinWithName()
+
             if (tradeMovement.isInserting()) {
                 insertDeposit(tradeMovement)
             } else

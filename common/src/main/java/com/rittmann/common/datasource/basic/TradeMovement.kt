@@ -58,6 +58,9 @@ data class TradeMovement(
     @Transient
     var useThisDate: Boolean = false
 
+    @ColumnInfo(name = TableTradeMovement.CRYPTO_COIN)
+    var cryptoCoin: String = ""
+
     override fun isInserting(): Boolean = id == 0L
 
     fun calculateTotalValue(concreteValue: Boolean = false): Double =
@@ -76,7 +79,10 @@ data class TradeMovement(
         } else
             tax.toDouble() * currentValue.toDouble()
 
-    fun calculateTotalsAndTax(concreteValue: Boolean = false, callback: (total: Double, taxAsCurrency: Double, taxAsCoins: Double) -> Unit){
+    fun calculateTotalsAndTax(
+        concreteValue: Boolean = false,
+        callback: (total: Double, taxAsCurrency: Double, taxAsCoins: Double) -> Unit
+    ) {
         callback(
             calculateTotalValue(concreteValue),
             calculateTaxValue(),
@@ -87,6 +93,10 @@ data class TradeMovement(
     fun calculateTotalValueToDeposit() {
         currentValue = totalValue
         concreteTotalValue = totalValue
+    }
+
+    fun updateCryptoCoinWithName() {
+        cryptoCoin = name
     }
 
     companion object {
