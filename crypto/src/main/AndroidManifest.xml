@@ -10,7 +10,8 @@
         <activity
             android:name=".keep.ui.RegisterCryptoMovementActivity"
             android:exported="false"
-            android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
+            android:theme="@style/Theme.InvestmentTracks.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
