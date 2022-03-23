@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.rittmann.common.datasource.basic.TradeMovementOperationTypeName
 import com.rittmann.common.datasource.result.ResultEvent
@@ -49,6 +50,8 @@ class ListCryptosFragment :
     }
 
     private fun initViews() {
+        configureToolbar(getString(R.string.crypto_movement_result_title))
+
         binding.resultsContent.apply {
             cryptoMovementsResultBtnExpand.visible()
 
@@ -68,11 +71,23 @@ class ListCryptosFragment :
                         LinearLayoutCompat.LayoutParams.MATCH_PARENT,
                         LinearLayoutCompat.LayoutParams.WRAP_CONTENT
                     )
+                    cryptoMovementsResultBtnExpand.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.outline_expand_less_black_36
+                        )
+                    )
                 } else {
                     containerCryptoResults.tag = true
                     containerCryptoResults.layoutParams = LinearLayoutCompat.LayoutParams(
                         LinearLayoutCompat.LayoutParams.MATCH_PARENT,
                         requireActivity().getDeviceHeightInPercentage(resultHeightPercentage)
+                    )
+                    cryptoMovementsResultBtnExpand.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.outline_expand_more_black_36
+                        )
                     )
                 }
             }

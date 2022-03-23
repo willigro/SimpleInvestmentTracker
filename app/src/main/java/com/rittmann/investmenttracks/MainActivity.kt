@@ -1,11 +1,8 @@
 package com.rittmann.investmenttracks
 
-import android.app.Dialog
 import android.os.Bundle
-import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rittmann.baselifecycle.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.bottom_nav
 

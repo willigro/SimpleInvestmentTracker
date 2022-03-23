@@ -2,7 +2,6 @@ package com.rittmann.crypto.listmovements.ui
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +42,8 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
     private var adapter: RecyclerAdapterCryptoMovement? = null
 
     private val tradeFilter: TradeFilter = TradeFilter()
+
+    private val bottomSheetFilters = BottomSheetFilters()
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -85,7 +86,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
 
     @SuppressLint("InflateParams")
     private fun initViews() {
-        configureToolbar {
+        configureToolbar(getString(R.string.trade_movement_home_title)) {
             viewModel.fetchAllCryptoMovementsName()
         }
 
@@ -178,7 +179,7 @@ class ListCryptoMovementsFragment : BaseFragmentBinding<FragmentListCryptoMoveme
     }
 
     private fun showFilterModal(data: List<String>) {
-        BottomSheetFilters.createBottomSheetFilter(requireContext(), data, tradeFilter) {
+        bottomSheetFilters.createBottomSheetFilter(requireContext(), data, tradeFilter) {
             fetchTradeMovements(resetPaging = true)
         }
     }

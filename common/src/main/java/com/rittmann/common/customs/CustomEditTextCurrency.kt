@@ -10,9 +10,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.databinding.BindingAdapter
@@ -21,7 +18,6 @@ import androidx.databinding.InverseBindingListener
 import com.rittmann.common.R
 import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.extensions.gone
-import com.rittmann.common.extensions.toDoubleValid
 import com.rittmann.common.extensions.toIntOrZero
 import com.rittmann.common.extensions.visible
 import com.rittmann.common.utils.EditDecimalFormatController
@@ -66,6 +62,8 @@ fun CustomEditTextCurrency.setListenerCurrencyTypeAttrChanged(textAttrChanged: I
     if (textAttrChanged != null) {
         editDecimalFormatController?.onChangeCurrencyType?.observeForever {
             textAttrChanged.onChange()
+
+            changeCurrencyTypeColor(it)
         }
     }
 }
@@ -95,12 +93,13 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     var editText: EditText? = null
     var textViewScale: TextView? = null
     var imageOpenOptions: ImageView? = null
+    var textViewReal: TextView? = null
+    var textViewCrypto: TextView? = null
     private var textViewScaleLabel: TextView? = null
-    private var viewAddScale: TextView? = null
-    private var viewRemoveScale: TextView? = null
-    private var textViewReal: TextView? = null
-    private var textViewCrypto: TextView? = null
+    private var viewAddScale: View? = null
+    private var viewRemoveScale: View? = null
     private var containerOptions: View? = null
+    private var viewDivisor: View? = null
 
     private var label = ""
     private var inputTypeEdit = ""
@@ -142,6 +141,10 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             MarginLayoutParams(MarginLayoutParams.MATCH_PARENT, MarginLayoutParams.WRAP_CONTENT)
         setPadding(0, 22, 0, 0)
         layoutParams = params
+
+        viewDivisor = viewRoot.findViewById<View>(R.id.view_divisor).apply {
+            gone()
+        }
     }
 
     private fun addChangeCurrencyType() {
@@ -173,13 +176,11 @@ class CustomEditTextCurrency @JvmOverloads constructor(
     }
 
     private fun addScaleViews() {
-        textViewScaleLabel = findViewById<TextView>(R.id.txt_label_scale).apply {
-            text = context.getString(R.string.custom_edit_currency_decimal_place_label)
-        }
+//        textViewScaleLabel = findViewById<TextView>(R.id.txt_label_scale).apply {
+//            text = context.getString(R.string.custom_edit_currency_decimal_place_label)
+//        }
 
-        viewRemoveScale = findViewById<TextView>(R.id.view_remove_scale).apply {
-            text = "-"
-
+        viewRemoveScale = findViewById<View>(R.id.view_remove_scale).apply {
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count > 1) {
@@ -194,9 +195,7 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             text = "1"
         }
 
-        viewAddScale = findViewById<TextView>(R.id.view_add_scale).apply {
-            text = "+"
-
+        viewAddScale = findViewById<View>(R.id.view_add_scale).apply {
             setOnClickListener {
                 var count = textViewScale?.text.toString().toIntOrZero()
                 if (count < SCALE_LIMIT) {
@@ -219,26 +218,25 @@ class CustomEditTextCurrency @JvmOverloads constructor(
                     setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            android.R.drawable.arrow_down_float
+                            R.drawable.outline_expand_less_black_18
                         )
                     )
                     tag = false
 
                     containerOptions.visible()
-
+                    viewDivisor.visible()
                 } else {
                     setImageDrawable(
                         ContextCompat.getDrawable(
                             context,
-                            android.R.drawable.arrow_up_float
+                            R.drawable.outline_expand_more_black_18
                         )
                     )
                     tag = true
 
                     containerOptions.gone()
+                    viewDivisor.gone()
                 }
-
-                setColorFilter(ContextCompat.getColor(context, android.R.color.black))
             }
         }
 
@@ -274,6 +272,41 @@ class CustomEditTextCurrency @JvmOverloads constructor(
             editText?.tag = 1
         }
         editDecimalFormatController?.setCurrency(value)
+    }
+
+    fun changeCurrencyTypeColor(currencyType: CurrencyType?) {
+        when (currencyType) {
+            CurrencyType.REAL -> {
+                updateTextViewCurrencyTypeColor(
+                    R.color.brand_primary,
+                    R.color.robbie_color_text_light_primary_2
+                )
+
+            }
+            CurrencyType.CRYPTO -> {
+                updateTextViewCurrencyTypeColor(
+                    R.color.robbie_color_text_light_primary_2,
+                    R.color.brand_primary
+                )
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun updateTextViewCurrencyTypeColor(real: Int, crypto: Int) {
+        textViewReal?.setTextColor(
+            ContextCompat.getColor(
+                context,
+                real
+            )
+        )
+        textViewCrypto?.setTextColor(
+            ContextCompat.getColor(
+                context,
+                crypto
+            )
+        )
     }
 
     companion object {

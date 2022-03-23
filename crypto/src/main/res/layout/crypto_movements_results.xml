@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,8 +11,7 @@
             type="com.rittmann.crypto.results.ui.CryptoResultViewBinding" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/crypto_movements_result_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,8 @@
             android:id="@+id/container_crypto_results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:visibility="gone">
 
             <!-- TOTAL ON HAND -->
 
@@ -339,9 +340,15 @@
             </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
+        <ImageView
             android:id="@+id/crypto_movements_result_btn_expand"
-            style="@style/Robbie.Button"
-            android:visibility="gone" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="@null"
+            android:padding="@dimen/padding_clickable"
+            android:src="@drawable/outline_expand_more_black_36"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -38,10 +38,13 @@
                 tools:context=".keep.ui.RegisterCryptoMovementActivity">
 
                 <TextView
+                    android:text="@string/stub_date"
                     android:id="@+id/txt_crypto_date"
-                    style="@style/Robbie.Paragraph1"
+                    style="@style/Robbie.Subtitle2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:drawablePadding="@dimen/padding_standard"
+                    app:drawableStartCompat="@drawable/outline_date_range_black_18" />
 
                 <com.rittmann.common.customs.CustomEditText
                     android:id="@+id/edit_crypto_name"

@@ -3,11 +3,11 @@
 
     <item
         android:id="@+id/listCryptoMovementsFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/outline_receipt_black_18"
         android:title="@string/list_crypto_movements_title" />
 
     <item
         android:id="@+id/cryptosFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/outline_payment_black_18"
         android:title="@string/crypto_movements_result_title" />
 </menu>

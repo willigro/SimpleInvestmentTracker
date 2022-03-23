@@ -35,9 +35,12 @@ class KeepDepositActivity :
 
     private val dateListenerUtil = DateListenerUtil()
 
-    private val tradeMovement: TradeMovement? by lazy {
-        intent?.extras?.getSerializable(DEPOSIT_MOVEMENT) as TradeMovement?
+    private val tradeMovement: TradeMovement by lazy {
+        (intent?.extras?.getSerializable(DEPOSIT_MOVEMENT) as TradeMovement?)
+            ?: TradeMovement.deposit()
     }
+
+    private var wasInserted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,8 @@ class KeepDepositActivity :
     }
 
     private fun initViews() {
+        setupToolbarAndButton()
+
         dateListenerUtil.configureListener { calendar ->
             DateUtil.simpleDateFormat(calendar).also {
                 binding.txtCryptoDate.text = it
@@ -59,7 +64,7 @@ class KeepDepositActivity :
             }
         }
 
-        tradeMovement?.also {
+        tradeMovement.also {
             dateListenerUtil.calendar = it.date
             DateUtil.simpleDateFormat(it.date).also { date ->
                 binding.txtCryptoDate.text = date
@@ -89,6 +94,16 @@ class KeepDepositActivity :
         }
     }
 
+    private fun setupToolbarAndButton() {
+        configureToolbar(getString(R.string.deposit_title))
+
+        binding.btnRegister.text = if (tradeMovement.isInserting()) {
+            getString(R.string.deposit_btn_register)
+        } else {
+            getString(R.string.deposit_btn_update)
+        }
+    }
+
     private fun initObservers() {
         viewModel.apply {
             registerResultEvent.observe(this@KeepDepositActivity, {
@@ -99,6 +114,9 @@ class KeepDepositActivity :
                             putExtra(DEPOSIT_MOVEMENT_RESULT_INSERTED, it.data)
                             setResult(Activity.RESULT_OK, this)
                         }
+                        wasInserted = true
+                        this@KeepDepositActivity.tradeMovement.id = it.data.id
+                        setupToolbarAndButton()
                     }
                     else -> {
                         toast(getString(R.string.deposit_was_not_registered))
@@ -110,10 +128,12 @@ class KeepDepositActivity :
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.deposit_was_updated))
-                        Intent().apply {
-                            putExtra(DEPOSIT_MOVEMENT_RESULT_UPDATED, it.data)
-                            setResult(Activity.RESULT_OK, this)
-                        }
+
+                        if (wasInserted.not())
+                            Intent().apply {
+                                putExtra(DEPOSIT_MOVEMENT_RESULT_UPDATED, it.data)
+                                setResult(Activity.RESULT_OK, this)
+                            }
                     }
                     else -> {
                         toast(getString(R.string.deposit_was_not_updated))

@@ -9,6 +9,7 @@ import Depends.Module.implementModules
 import Depends.Module.testImplementationModules
 import Depends.Robbie.implementRobbie
 import Depends.Room.implementRoom
+import Depends.Tags.implementTags
 import Depends.Test.implementTest
 import Depends.ViewModel.implementViewModel
 import Depends.Views.implementLayouts
@@ -43,6 +44,7 @@ dependencies {
     // =========== View ==============
     implementLayouts()
     implementDatabinding()
+    implementTags()
 
     // =========== Test ==============
     implementTest()

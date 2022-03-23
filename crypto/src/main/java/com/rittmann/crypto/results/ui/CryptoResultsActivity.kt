@@ -41,7 +41,7 @@ class CryptoResultsActivity : BaseBindingActivity<ActivityCryptoResultsBinding>(
     }
 
     private fun initViews() {
-
+        configureToolbar(getString(R.string.crypto_movement_result_title))
     }
 
     private fun initObservers() {

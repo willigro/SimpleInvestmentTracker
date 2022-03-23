@@ -1,7 +1,10 @@
 <resources>
     <!-- Register Deposit -->
+    <string name="deposit_title">Keep Balance</string>
     <string name="deposit_was_registered">Your new deposit was registered</string>
     <string name="deposit_was_not_registered">Your new deposit was not registered</string>
     <string name="deposit_was_updated">Your new deposit was updated</string>
     <string name="deposit_was_not_updated">Your new deposit was not updated</string>
+    <string name="deposit_btn_register">Register</string>
+    <string name="deposit_btn_update">Update</string>
 </resources>

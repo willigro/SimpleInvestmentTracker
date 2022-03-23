@@ -1,6 +1,7 @@
 <resources>
 
     <!-- List Trader -->
+    <string name="trade_movement_home_title">Traders</string>
     <string name="trade_movement_list_screen_name">Error</string>
     <string name="trade_movement_list_filter_title">Filter</string>
     <string name="trade_movement_list_filter_message">Select the trade name that you want to filter</string>
@@ -23,6 +24,8 @@
     <string name="trade_movement_label_total_tax">Fees</string>
 
     <!-- Insert Crypto -->
+    <string name="trader_crypto_title">Keep Trade</string>
+
     <string name="new_crypto_movement_was_registered">Your new crypto movement was registered</string>
     <string name="new_crypto_movement_was_not_registered">Your new crypto movement was not registered</string>
     <string name="crypto_movement_type_buy">Buy</string>
@@ -36,6 +39,7 @@
     <string name="trade_movement_total_value">Total value</string>
     <string name="trade_movement_concrete_total_value">Used total value</string>
     <string name="trade_movement_btn_register">Register</string>
+    <string name="trade_movement_btn_update">Update</string>
 
     <!-- Delete Crypto -->
     <string name="do_you_wanna_delete_this_trade">Do you want to delete the trade movement?</string>
@@ -47,6 +51,8 @@
     <string name="new_crypto_movement_was_not_updated">Your new crypto movement was not updated</string>
 
     <!-- Result Crypto -->
+    <string name="crypto_movement_result_title">Results</string>
+
     <string name="crypto_movement_total_deposited">Total deposited</string>
     <string name="crypto_movement_total_deposited_lees_fees">Total deposited lees fees</string>
     <string name="crypto_movement_total_deposited_fees_as_currency">Total deposited fees as currency</string>
@@ -74,4 +80,7 @@
     <string name="crypto_movement_total_on_hand_amount">Total on hand amount</string>
     <string name="crypto_movement_total_fees_paid_as_currency">Total fees paid as currency</string>
     <string name="crypto_movement_total_fees_paid_as_coins">Total fees paid as coins</string>
+
+    <!-- Filter -->
+    <string name="do_crypto_trade_filter">Filtrar</string>
 </resources>

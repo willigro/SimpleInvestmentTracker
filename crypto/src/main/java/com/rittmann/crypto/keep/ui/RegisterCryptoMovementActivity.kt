@@ -45,8 +45,8 @@ class RegisterCryptoMovementActivity
 
     private var field: FieldValidation? = null
 
-    private val tradeMovement: TradeMovement? by lazy {
-        intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as TradeMovement?
+    private val tradeMovement: TradeMovement by lazy {
+        (intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as TradeMovement?) ?: TradeMovement()
     }
 
     private var adapter: RecyclerAdapterSearchCryptos? = null
@@ -66,6 +66,8 @@ class RegisterCryptoMovementActivity
             }
         }
 
+    private var wasInserted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,6 +81,8 @@ class RegisterCryptoMovementActivity
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initViews() {
+        configureToolbar(getString(R.string.trader_crypto_title))
+        configureButtonText()
         binding.apply {
             field = FieldValidation(btnRegister).apply {
                 add(editText = editCryptoName.editText) {
@@ -133,6 +137,14 @@ class RegisterCryptoMovementActivity
             }
 
             configureReactiveViews()
+        }
+    }
+
+    private fun configureButtonText() {
+        binding.btnRegister.text = if (tradeMovement.isInserting()) {
+            getString(R.string.trade_movement_btn_register)
+        } else {
+            getString(R.string.trade_movement_btn_update)
         }
     }
 
@@ -208,8 +220,7 @@ class RegisterCryptoMovementActivity
         }
     }
 
-    private fun isInserting(): Boolean =
-        tradeMovement == null || tradeMovement?.isInserting() == true
+    private fun isInserting(): Boolean = tradeMovement.isInserting()
 
     private fun initObservers() {
         viewModel.apply {
@@ -221,6 +232,8 @@ class RegisterCryptoMovementActivity
                             putExtra(CRYPTO_MOVEMENT_RESULT_INSERTED, it.data)
                             setResult(Activity.RESULT_OK, this)
                         }
+                        wasInserted = true
+                        configureButtonText()
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_registered))
@@ -232,10 +245,12 @@ class RegisterCryptoMovementActivity
                 when (it) {
                     is ResultEvent.Success -> {
                         toast(getString(R.string.new_crypto_movement_was_updated))
-                        Intent().apply {
-                            putExtra(CRYPTO_MOVEMENT_RESULT_UPDATED, it.data)
-                            setResult(Activity.RESULT_OK, this)
-                        }
+
+                        if (wasInserted.not())
+                            Intent().apply {
+                                putExtra(CRYPTO_MOVEMENT_RESULT_UPDATED, it.data)
+                                setResult(Activity.RESULT_OK, this)
+                            }
                     }
                     else -> {
                         toast(getString(R.string.new_crypto_movement_was_not_updated))

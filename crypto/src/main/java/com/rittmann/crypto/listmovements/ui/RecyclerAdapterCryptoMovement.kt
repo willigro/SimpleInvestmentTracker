@@ -59,7 +59,8 @@ class RecyclerAdapterCryptoMovement(
             holder.apply {
 
                 val totalValueColor =
-                    if (cryptoMovement.type.value == CryptoOperationType.SELL.value)
+                    if (cryptoMovement.type.value == CryptoOperationType.SELL.value
+                        || cryptoMovement.type.value == CryptoOperationType.WITHDRAW.value)
                         ContextCompat.getColor(mContext, R.color.accent_primary)
                     else
                         ContextCompat.getColor(mContext, R.color.accent_secondary)
@@ -130,7 +131,8 @@ class RecyclerAdapterCryptoMovement(
         val layout: View? = itemView.findViewById(R.id.adapter_crypto_movement_layout)
         val deleteMovement: View? = itemView.findViewById(R.id.adapter_crypto_delete_icon)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_name)
-//        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
+
+        //        val date: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_date)
 //        val type: TextView? = itemView.findViewById(R.id.adapter_crypto_movement_type)
         val boughtAmount: TextView? =
             itemView.findViewById(R.id.adapter_crypto_movement_bought_amount)

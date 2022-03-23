@@ -5,26 +5,28 @@
     <color name="robbie_color_brand_light_primary_variant_pure" category="color">#B86BEC</color>
     <color name="robbie_color_brand_light_on_primary_pure" category="color">@color/white</color>
 
-<!--    <color name="robbie_color_brand_dark_primary_pure">@color/pure_brand_primary</color>-->
-<!--    <color name="robbie_color_brand_dark_primary_variant_pure" category="color">#F44336</color>-->
-<!--    <color name="robbie_color_brand_dark_on_primary_variant_pure" category="color">#F44336</color>-->
+    <!--    <color name="robbie_color_brand_dark_primary_pure">@color/pure_brand_primary</color>-->
+    <!--    <color name="robbie_color_brand_dark_primary_variant_pure" category="color">#F44336</color>-->
+    <!--    <color name="robbie_color_brand_dark_on_primary_variant_pure" category="color">#F44336</color>-->
 
-    <color name="robbie_color_brand_light_secondary_pure" category="color">#e51ead</color>
+    <color name="robbie_color_brand_light_secondary_pure" category="color">
+        @color/brand_primary
+    </color>
     <color name="robbie_color_brand_light_secondary_variant_pure" category="color">#F448C4</color>
     <color name="robbie_color_brand_light_on_secondary_pure" category="color">
         @color/black
     </color>
 
-<!--    <color name="robbie_color_brand_dark_secondary_pure">@color/pure_brand_primary_light</color>-->
-<!--    <color name="robbie_color_brand_dark_secondary_variant_pure" category="color">#F44336</color>-->
-<!--    <color name="robbie_color_brand_dark_on_secondary_variant_pure" category="color">#F44336</color>-->
+    <!--    <color name="robbie_color_brand_dark_secondary_pure">@color/pure_brand_primary_light</color>-->
+    <!--    <color name="robbie_color_brand_dark_secondary_variant_pure" category="color">#F44336</color>-->
+    <!--    <color name="robbie_color_brand_dark_on_secondary_variant_pure" category="color">#F44336</color>-->
 
-<!--    <color name="robbie_color_dark_background_primary" category="color">#252525</color>-->
+    <!--    <color name="robbie_color_dark_background_primary" category="color">#252525</color>-->
     <color name="robbie_color_light_background_primary" category="color">#ECECEC</color>
     <color name="robbie_color_light_background_secondary" category="color">#8C8A8A</color>
 
-<!--    <color name="robbie_color_dark_background_secondary" category="color">#FFFFFF</color>-->
-<!--    <color name="robbie_color_light_background_secondary" category="color">#D5D5D5</color>-->
+    <!--    <color name="robbie_color_dark_background_secondary" category="color">#FFFFFF</color>-->
+    <!--    <color name="robbie_color_light_background_secondary" category="color">#D5D5D5</color>-->
 
     <!-- Texts -->
     <color name="robbie_color_text_light_primary_pure">#FF000000</color>
@@ -34,12 +36,22 @@
     <color name="robbie_ripple_color" category="color">#FFEB3B</color>
 
     <!-- Buttons -->
+    <drawable name="robbie_button_background_primary">
+        @drawable/background_enabled_button_primary
+    </drawable>
+    <drawable name="robbie_button_background_secondary">
+        @drawable/background_enabled_button_secondary
+    </drawable>
+
     <color name="robbie_button_text_color_primary">@color/robbie_color_text_light_primary_1</color>
-    <color name="robbie_button_text_color_secondary">@color/robbie_color_text_light_primary_2</color>
-    <color name="robbie_button_color_primary" category="color">#e51ead</color>
-    <color name="robbie_button_color_secondary" category="color">@color/accent_secondary</color>
+    <color name="robbie_button_text_color_secondary">@color/brand_primary</color>
+    <color name="robbie_button_color_primary" category="color">@color/brand_primary</color>
+    <color name="robbie_button_color_secondary" category="color">#FFFFFF</color>
     <dimen name="robbie_button_margin_default_all_sides">@dimen/default_margin</dimen>
     <dimen name="robbie_button_padding_default_all_sides">@dimen/button_padding</dimen>
+    <dimen name="robbie_input_text_padding_default_top">24dp</dimen>
+    <dimen name="robbie_input_text_padding_default_bottom">6dp</dimen>
+    <dimen name="robbie_input_text_padding_default_left">10dp</dimen>
 
     <!-- Inputs -->
     <drawable name="background_input_text_outline">@drawable/border_outline_input</drawable>

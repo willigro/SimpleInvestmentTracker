@@ -1,6 +1,5 @@
 package com.rittmann.crypto
 
-import android.app.Activity
 import android.content.Intent
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.FragmentActivity

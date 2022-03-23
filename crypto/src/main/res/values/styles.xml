@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Result -->
     <style name="CardViewCryptoMovementResultContainer" parent="AppCardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -8,12 +9,21 @@
         <item name="android:layout_marginStart">@dimen/default_margin</item>
         <item name="android:layout_marginEnd">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/default_margin</item>
+        <item name="android:background">@color/background_light_third</item>
     </style>
 
     <style name="CryptoMovementResultContainer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/padding_standard</item>
+        <item name="android:background">@color/background_light_third</item>
+    </style>
+
+    <!-- Trades Home -->
+    <style name="CryptoTradeHomeContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/background_light_third</item>
     </style>
 
 </resources>

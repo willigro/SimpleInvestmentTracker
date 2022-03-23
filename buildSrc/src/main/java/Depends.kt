@@ -247,4 +247,10 @@ object Depends {
             implement("androidx.legacy:legacy-support-v4:1.0.0")
         }
     }
+
+    object Tags {
+        fun DependencyHandler.implementTags() {
+            implement("co.lujun:androidtagview:1.1.7")
+        }
+    }
 }

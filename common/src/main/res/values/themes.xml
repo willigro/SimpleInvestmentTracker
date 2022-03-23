@@ -21,8 +21,6 @@
         <!-- Button -->
         <item name="robbieButtonIconTintColorPrimary">@color/white</item>
         <item name="robbieButtonIconTintColorSecondary">@color/white</item>
-        <item name="robbieButtonBackgroundPrimary">@color/robbie_button_color_primary</item>
-        <item name="robbieButtonBackgroundSecondary">@color/robbie_button_color_secondary</item>
         <item name="robbieButtonTextColorPrimary">@color/robbie_color_text_light_primary_pure</item>
 
         <!-- Text -->
@@ -31,10 +29,10 @@
         <item name="robbieSubtitleTextColor">@color/robbie_color_text_light_primary_pure</item>
         <item name="robbieParagraphTextColor">@color/robbie_color_text_light_primary_2</item>
 
-<!--        <item name="robbieBrandTextColor">#6c18a4</item>-->
-<!--        <item name="robbieHeadingTextColor">#3F51B5</item>-->
-<!--        <item name="robbieSubtitleTextColor">#CDDC39</item>-->
-<!--        <item name="robbieParagraphTextColor">#00BCD4</item>-->
+        <!--        <item name="robbieBrandTextColor">#6c18a4</item>-->
+        <!--        <item name="robbieHeadingTextColor">#3F51B5</item>-->
+        <!--        <item name="robbieSubtitleTextColor">#CDDC39</item>-->
+        <!--        <item name="robbieParagraphTextColor">#00BCD4</item>-->
     </style>
 
     <style name="Theme.InvestmentTracks.NoActionBar" parent="Theme.InvestmentTracks">

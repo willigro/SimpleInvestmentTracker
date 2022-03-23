@@ -22,19 +22,17 @@ class RecyclerAdapterCryptos(
     override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
         list[holder.adapterPosition].also { crypto ->
             holder.apply {
-                name?.apply {
-                    text = crypto
-                    setOnClickListener {
-                        listCryptosNavigation.openCryptoResults(crypto)
-                    }
+                layout?.setOnClickListener {
+                    listCryptosNavigation.openCryptoResults(crypto)
                 }
+                name?.text = crypto
             }
         }
     }
 
     override fun getItemCount(): Int = list.size
 
-    fun relist(listUpdated : List<String>) {
+    fun relist(listUpdated: List<String>) {
         (list as ArrayList<String>).apply {
             clear()
             addAll(listUpdated)
@@ -44,6 +42,7 @@ class RecyclerAdapterCryptos(
     }
 
     class CryptoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val layout: View? = itemView.findViewById(R.id.adapter_crypto)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_name)
     }
 }

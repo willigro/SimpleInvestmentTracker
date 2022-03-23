@@ -4,6 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#80000000</color>
 
+    <color name="background_light_third">#FFFFFFFF</color>
+    <color name="background_light_divisor">#9C9C9C</color>
+
+    <color name="brand_primary">#e51ead</color>
+
     <color name="accent_primary">#3827b4</color>
     <color name="accent_secondary">#DA1E2E</color>
     <color name="accent_third">#e08cc0</color>

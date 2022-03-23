@@ -17,23 +17,20 @@
         <TextView
             android:id="@+id/txt_custom_edit_currency_label"
             style="@style/Robbie.Subtitle3"
-            android:layout_marginBottom="@dimen/margin_label_bottom_inverse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_label_bottom_inverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:layout_marginTop="@dimen/margin_label_bottom_inverse"
             android:id="@+id/edit_custom_id"
-            style="@style/Robbie.TextInput"
+            style="@style/Robbie.TextInput.Under"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_label_bottom_inverse"
             android:clickable="true"
             android:focusable="true"
-            android:paddingStart="0dp"
-            android:paddingLeft="0dp"
-            android:paddingTop="0dp"
             android:textIsSelectable="true"
             app:layout_constraintEnd_toStartOf="@id/image_view_open_custom_edit_options"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,16 +42,16 @@
             android:layout_height="wrap_content"
             android:contentDescription="@null"
             android:padding="@dimen/padding_standard"
-            android:src="@android:drawable/arrow_up_float"
+            android:src="@drawable/outline_expand_more_black_18"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_custom_edit_currency_label"
-            app:tint="@color/black" />
+            app:layout_constraintTop_toBottomOf="@id/txt_custom_edit_currency_label" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,42 +65,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txt_label_scale"
-                style="@style/Robbie.Subtitle1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
+            <ImageView
                 android:id="@+id/view_remove_scale"
                 style="@style/Robbie.Paragraph1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_standard"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding_standard_small"
+                android:src="@drawable/outline_remove_black_18"
+                app:layout_constraintBottom_toBottomOf="@id/txt_scale"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_label_scale"
-                tools:text="-" />
+                app:layout_constraintTop_toTopOf="@id/txt_scale" />
 
             <TextView
                 android:id="@+id/txt_scale"
                 style="@style/Robbie.Paragraph1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_standard_small"
                 app:layout_constraintStart_toEndOf="@id/view_remove_scale"
-                app:layout_constraintTop_toBottomOf="@id/txt_label_scale"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="0" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/view_add_scale"
                 style="@style/Robbie.Paragraph1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_standard"
+                android:contentDescription="@null"
+                android:padding="@dimen/padding_standard_small"
+                android:src="@drawable/outline_add_black_18"
+                app:layout_constraintBottom_toBottomOf="@id/txt_scale"
                 app:layout_constraintStart_toEndOf="@id/txt_scale"
-                app:layout_constraintTop_toBottomOf="@id/txt_label_scale"
-                tools:text="+" />
+                app:layout_constraintTop_toTopOf="@id/txt_scale" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,20 +113,30 @@
                 style="@style/Robbie.Paragraph1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_standard"
+                android:padding="@dimen/padding_standard_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="R" />
 
             <TextView
                 android:id="@+id/txt_currency_crypto"
                 style="@style/Robbie.Paragraph1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_standard"
+                android:padding="@dimen/padding_standard_small"
                 app:layout_constraintStart_toEndOf="@id/txt_currency_real"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="C" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_divisor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divisor_height"
+        android:background="@color/background_light_divisor"
+        android:padding="@dimen/padding_standard_small"
+        app:layout_constraintTop_toBottomOf="@id/container_options" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

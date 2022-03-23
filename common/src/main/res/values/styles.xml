@@ -28,8 +28,13 @@
     <!-- Buttons -->
     <style name="ButtonPrimary" parent="Robbie.Button.Primary.WRAP">
         <item name="android:layout_width">0dp</item>
-        <item name="android:background">@drawable/enabled_button</item>
+<!--        <item name="android:background">@drawable/enabled_button</item>-->
         <item name="layout_constraintWidth_percent">@dimen/button_constraint</item>
+    </style>
+
+    <style name="ButtonSecondary" parent="Robbie.Button.Secondary.WRAP">
+        <item name="android:layout_width">0dp</item>
+        <item name="layout_constraintWidth_percent">@dimen/button_constraint_small</item>
     </style>
 
     <!-- CardView -->

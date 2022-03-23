@@ -22,12 +22,10 @@ class RecyclerAdapterSearchCryptos(
     override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
         list[holder.adapterPosition].also { crypto ->
             holder.apply {
-                name?.apply {
-                    text = crypto
-                    setOnClickListener {
-                        select(crypto)
-                    }
+                layout?.setOnClickListener {
+                    select(crypto)
                 }
+                name?.text = crypto
             }
         }
     }
@@ -52,6 +50,7 @@ class RecyclerAdapterSearchCryptos(
     }
 
     class CryptoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val layout: View? = itemView.findViewById(R.id.adapter_crypto)
         val name: TextView? = itemView.findViewById(R.id.adapter_crypto_name)
     }
 }

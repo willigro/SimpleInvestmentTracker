@@ -18,12 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            style="@style/Robbie.H3.Bold"
+            style="@style/Robbie.Subtitle1.Bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/robbie_color_brand_light_primary_variant_pure"
             android:gravity="center"
             android:padding="@dimen/padding_standard"
-            android:text="@string/trade_movement_open_deposit" />
+            android:text="@string/trade_movement_open_deposit"
+            android:textColor="@color/robbie_color_text_light_primary_1" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -39,12 +41,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            style="@style/Robbie.H3.Bold"
+            style="@style/Robbie.Subtitle1.Bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/robbie_color_brand_light_secondary_variant_pure"
             android:gravity="center"
             android:padding="@dimen/padding_standard"
-            android:text="@string/trade_movement_open_crypto" />
+            android:text="@string/trade_movement_open_crypto"
+            android:textColor="@color/robbie_color_text_light_primary_1" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

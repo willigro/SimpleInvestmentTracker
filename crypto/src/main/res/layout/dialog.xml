@@ -8,37 +8,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/robbie_color_brand_light_secondary_variant_pure"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txt_title"
+            style="@style/Robbie.H3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/robbie_color_text_light_primary_1" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/txt_msg"
+        style="@style/Robbie.Paragraph1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@android:color/black" />
-
-    <TextView
-        android:id="@+id/txt_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        android:visibility="gone" />
+        android:padding="@dimen/padding_standard"
+        android:textColor="@color/robbie_color_text_light_primary_pure"
+        tools:text="Message" />
 
     <LinearLayout
         android:id="@+id/layout_content"
@@ -53,34 +48,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_label_top_small"
         android:gravity="center"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cancel"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
+            style="@style/Robbie.Button.Secondary.WRAP"
             android:layout_gravity="center"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:gravity="center"
             android:text="@string/cancel_"
-            android:textStyle="normal"
             android:visibility="gone"
             tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_confirm"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
+            style="@style/Robbie.Button.Primary.WRAP"
             android:layout_gravity="center"
-            android:background="?android:selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:gravity="center"
             android:text="@string/conclude_"
-            android:textStyle="normal"
             android:visibility="gone"
             tools:visibility="visible" />
     </LinearLayout>
