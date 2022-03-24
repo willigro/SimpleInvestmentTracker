@@ -6,7 +6,7 @@ import androidx.navigation.ui.NavigationUI
 import com.rittmann.baselifecycle.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.bottom_nav
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(R.id.container) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

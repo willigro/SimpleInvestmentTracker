@@ -40,8 +40,9 @@
         @drawable/background_enabled_button_primary
     </drawable>
     <drawable name="robbie_button_background_secondary">
-        @drawable/background_enabled_button_secondary
+        @null
     </drawable>
+<!--    @drawable/background_enabled_button_secondary-->
 
     <color name="robbie_button_text_color_primary">@color/robbie_color_text_light_primary_1</color>
     <color name="robbie_button_text_color_secondary">@color/brand_primary</color>

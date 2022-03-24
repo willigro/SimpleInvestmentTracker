@@ -38,13 +38,13 @@
                 tools:context=".keep.ui.RegisterCryptoMovementActivity">
 
                 <TextView
-                    android:text="@string/stub_date"
                     android:id="@+id/txt_crypto_date"
                     style="@style/Robbie.Subtitle2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:drawablePadding="@dimen/padding_standard"
-                    app:drawableStartCompat="@drawable/outline_date_range_black_18" />
+                    android:text="@string/stub_date"
+                    app:drawableStartCompat="@drawable/outline_date_range_black_18"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.rittmann.common.customs.CustomEditText
                     android:id="@+id/edit_crypto_name"
@@ -65,6 +65,7 @@
 
                     <RadioButton
                         android:id="@+id/radio_crypto_operation_type_buy"
+                        style="@style/RadioButtonPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.BUY.value}"
@@ -73,6 +74,7 @@
 
                     <RadioButton
                         android:id="@+id/radio_crypto_operation_type_sell"
+                        style="@style/RadioButtonPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="@{viewModel.tradeMovement.type.value == CryptoOperationType.SELL.value}"
@@ -103,6 +105,7 @@
 
                 <CheckBox
                     android:id="@+id/checkbox_update_total_value"
+                    style="@style/CheckBoxPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -121,6 +124,7 @@
 
                 <CheckBox
                     android:id="@+id/checkbox_update_total_value_calculate_after_transaction"
+                    style="@style/CheckBoxPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"

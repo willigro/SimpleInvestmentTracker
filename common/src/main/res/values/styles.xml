@@ -28,7 +28,7 @@
     <!-- Buttons -->
     <style name="ButtonPrimary" parent="Robbie.Button.Primary.WRAP">
         <item name="android:layout_width">0dp</item>
-<!--        <item name="android:background">@drawable/enabled_button</item>-->
+        <!--        <item name="android:background">@drawable/enabled_button</item>-->
         <item name="layout_constraintWidth_percent">@dimen/button_constraint</item>
     </style>
 
@@ -50,5 +50,15 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="elevation">3dp</item>
         <item name="cardCornerRadius">4dp</item>
+    </style>
+
+    <!-- RadioButton -->
+    <style name="RadioButtonPrimary" parent="Robbie.Subtitle2">
+
+    </style>
+
+    <!-- CheckBox -->
+    <style name="CheckBoxPrimary" parent="Robbie.Subtitle2">
+
     </style>
 </resources>

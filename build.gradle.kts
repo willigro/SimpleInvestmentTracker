@@ -13,7 +13,8 @@ buildscript {
         classpath(Depends.Gradle.getGradlePlugin())
         classpath(Depends.Kotlin.getKotlin())
         classpath(Depends.Kotlin.getKotlinExtensions())
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
+        // always that it returns to this file, delete it, the kotlin above is the same that this dependence
+        // classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
