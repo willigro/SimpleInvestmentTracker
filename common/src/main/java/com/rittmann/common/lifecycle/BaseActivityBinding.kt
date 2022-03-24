@@ -27,9 +27,21 @@ abstract class BaseBindingActivity<T : ViewDataBinding>(private val resId: Int) 
         )
     }
 
-    fun configureToolbar(title: String? = null, onClickFilter: (() -> Unit)? = null) {
+    fun configureToolbar(
+        title: String? = null,
+        hasBack: Boolean = false,
+        onClickFilter: (() -> Unit)? = null
+    ) {
         if (title != null)
             findViewById<TextView>(R.id.toolbar_title)?.text = title
+
+        if (hasBack)
+            findViewById<View>(R.id.toolbar_back)?.apply {
+                visible()
+                setOnClickListener {
+                    onBackPressed()
+                }
+            }
 
         findViewById<View>(R.id.toolbar_filter)?.apply {
             if (onClickFilter != null) {

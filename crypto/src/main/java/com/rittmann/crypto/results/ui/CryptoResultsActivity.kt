@@ -37,11 +37,11 @@ class CryptoResultsActivity : BaseBindingActivity<ActivityCryptoResultsBinding>(
         initViews()
         initObservers()
 
-        viewModel.fetchCryptos(cryptoName)
+        viewModel.fetchCrypto(cryptoName)
     }
 
     private fun initViews() {
-        configureToolbar(getString(R.string.crypto_movement_result_title))
+        configureToolbar(getString(R.string.crypto_movement_result_title), true)
     }
 
     private fun initObservers() {

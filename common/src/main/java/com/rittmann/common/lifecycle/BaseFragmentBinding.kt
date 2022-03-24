@@ -68,9 +68,17 @@ abstract class BaseFragmentBinding<T : ViewDataBinding>(
         (requireActivity() as BaseActivity).observeLoadingPriority(viewModelApp)
     }
 
-    fun configureToolbar(title: String? = null, onClickFilter: (() -> Unit)? = null) {
+    fun configureToolbar(title: String? = null, hasBack: Boolean = false, onClickFilter: (() -> Unit)? = null) {
         if (title != null)
             rootView.findViewById<TextView>(R.id.toolbar_title)?.text = title
+
+        if (hasBack)
+            rootView.findViewById<View>(R.id.toolbar_back)?.apply {
+                visible()
+                setOnClickListener {
+                    requireActivity().onBackPressed()
+                }
+            }
 
         rootView.findViewById<View>(R.id.toolbar_filter)?.apply {
             if (onClickFilter != null) {

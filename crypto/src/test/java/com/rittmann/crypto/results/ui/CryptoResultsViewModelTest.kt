@@ -63,9 +63,9 @@ class CryptoResultsViewModelTest : BaseViewModelTest() {
             )
         )
 
-        every { repository.fetchCryptos(name) } returns ResultEvent.Success(list)
+        every { repository.fetchCrypto(name) } returns ResultEvent.Success(list)
 
-        viewModel.fetchCryptos(name)
+        viewModel.fetchCrypto(name)
 
         val result = viewModel.cryptosResult.getOrAwaitValue()
 
@@ -91,9 +91,9 @@ class CryptoResultsViewModelTest : BaseViewModelTest() {
     fun `load an unregistered currency XYZ`() {
         val name = "XYZ"
 
-        every { repository.fetchCryptos(name) } returns ResultEvent.Success(emptyList())
+        every { repository.fetchCrypto(name) } returns ResultEvent.Success(emptyList())
 
-        viewModel.fetchCryptos(name)
+        viewModel.fetchCrypto(name)
 
         val result = viewModel.cryptosResult.getOrAwaitValue()
 
@@ -120,9 +120,9 @@ class CryptoResultsViewModelTest : BaseViewModelTest() {
     fun `load an some currency XYZ and returns an error`() {
         val name = "XYZ"
 
-        every { repository.fetchCryptos(name) } returns ResultEvent.Error(exceptionMock)
+        every { repository.fetchCrypto(name) } returns ResultEvent.Error(exceptionMock)
 
-        viewModel.fetchCryptos(name)
+        viewModel.fetchCrypto(name)
 
         val result = viewModel.cryptosResult.getOrAwaitValue()
 

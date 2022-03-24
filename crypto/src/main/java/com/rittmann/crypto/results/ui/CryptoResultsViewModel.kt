@@ -22,12 +22,12 @@ class CryptoResultsViewModel @Inject constructor(
 
     var cryptoResultViewBinding: CryptoResultViewBinding = CryptoResultViewBinding()
 
-    fun fetchCryptos(cryptoName: String) {
+    fun fetchCrypto(cryptoName: String) {
 
         title = cryptoName
 
         executeAsyncThenMain({
-            cryptoResultsRepository.fetchCryptos(cryptoName)
+            cryptoResultsRepository.fetchCrypto(cryptoName)
         }, {
             _cryptosResult.value = it
 

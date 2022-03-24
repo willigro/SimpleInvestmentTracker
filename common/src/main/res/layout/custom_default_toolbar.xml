@@ -16,14 +16,30 @@
         android:padding="@dimen/padding_standard"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/toolbar_back"
+            style="@style/Clickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:padding="@dimen/padding_clickable"
+            android:src="@drawable/outline_chevron_left_black_18"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:visibility="visible" />
+
         <TextView
             android:id="@+id/toolbar_title"
-            style="@style/Robbie.H1"
+            style="@style/Robbie.H2"
             android:text="@string/app_name"
             android:textColor="@color/robbie_color_text_light_primary_1"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_filter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/toolbar_filter" />
 
         <ImageView
             android:id="@+id/toolbar_filter"
@@ -33,10 +49,11 @@
             android:contentDescription="@null"
             android:padding="@dimen/padding_clickable"
             android:src="@drawable/outline_filter_alt_white_18dp"
-            android:visibility="gone"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

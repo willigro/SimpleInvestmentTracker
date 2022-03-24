@@ -58,7 +58,9 @@ class KeepDepositActivity :
     }
 
     private fun initViews() {
-        setupToolbarAndButton()
+        configureToolbar(getString(R.string.deposit_title), true)
+
+        setupButtonText()
 
         dateListenerUtil.configureListener { calendar ->
             DateUtil.simpleDateFormat(calendar).also {
@@ -108,9 +110,7 @@ class KeepDepositActivity :
         }
     }
 
-    private fun setupToolbarAndButton() {
-        configureToolbar(getString(R.string.deposit_title))
-
+    private fun setupButtonText() {
         binding.btnRegister.text = if (tradeMovement.isInserting()) {
             getString(R.string.deposit_btn_register)
         } else {
@@ -130,7 +130,7 @@ class KeepDepositActivity :
                         }
                         wasInserted = true
                         this@KeepDepositActivity.tradeMovement.id = it.data.id
-                        setupToolbarAndButton()
+                        setupButtonText()
                     }
                     else -> {
                         toast(getString(R.string.deposit_was_not_registered))

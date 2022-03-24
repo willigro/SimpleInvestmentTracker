@@ -81,8 +81,10 @@ class RegisterCryptoMovementActivity
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initViews() {
-        configureToolbar(getString(R.string.trader_crypto_title))
+        configureToolbar(getString(R.string.trader_crypto_title), true)
+
         configureButtonText()
+
         binding.apply {
             field = FieldValidation(btnRegister).apply {
                 add(editText = editCryptoName.editText) {
