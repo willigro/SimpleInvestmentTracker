@@ -11,9 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InvestmentTracks">
         <activity
-            android:theme="@style/Theme.InvestmentTracks.NoActionBar"
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.InvestmentTracks.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

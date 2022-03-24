@@ -6,10 +6,12 @@
         <activity
             android:name=".results.ui.CryptoResultsActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.InvestmentTracks.NoActionBar" />
         <activity
             android:name=".keep.ui.RegisterCryptoMovementActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.InvestmentTracks.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
     </application>
