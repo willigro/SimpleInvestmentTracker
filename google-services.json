@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "398529650804",
+    "project_id": "investmentcryptotrack",
+    "storage_bucket": "investmentcryptotrack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398529650804:android:77782f000dcba20ea3b121",
+        "android_client_info": {
+          "package_name": "com.rittmann.investmenttracks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398529650804-o0ndu3btorju0bhjdv10and8d9gqhj90.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rittmann.investmenttracks",
+            "certificate_hash": "e0029bc5b14a49202297501b0070bcd398407cfd"
+          }
+        },
+        {
+          "client_id": "398529650804-912j8dm91hibgsemg98mfjgrneq95bpl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB72Z8OCEjniQ-PXiIlq81M9jV5M9wRdVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398529650804-912j8dm91hibgsemg98mfjgrneq95bpl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -48,4 +48,9 @@ dependencies {
 
     // =========== Navigation ==============
     implementNavigation()
+
+
+    // TODO move to dependencies
+    implementation(platform("com.google.firebase:firebase-bom:29.2.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

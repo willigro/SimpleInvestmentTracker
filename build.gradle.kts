@@ -13,6 +13,7 @@ buildscript {
         classpath(Depends.Gradle.getGradlePlugin())
         classpath(Depends.Kotlin.getKotlin())
         classpath(Depends.Kotlin.getKotlinExtensions())
+        classpath("com.google.gms:google-services:4.3.10")
         // always that it returns to this file, delete it, the kotlin above is the same that this dependence
         // classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
 
@@ -43,6 +44,7 @@ fun Project.androidCompile() {
 
     val isApplication = if (":$name" == Modules.app) {
         apply(plugin = "com.android.application")
+        apply(plugin = "com.google.gms.google-services")
         true
     } else {
         apply(plugin = "com.android.library")
