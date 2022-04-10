@@ -15,20 +15,20 @@ import com.rittmann.crypto.listmovements.ui.TradeFilter
 import javax.inject.Inject
 
 interface ListCryptoMovementsRepository {
-    suspend fun getAll(
+    fun getAll(
         pageInfo: PageInfo<TradeMovement>,
         tradeFilter: TradeFilter
     ): ResultEvent<List<TradeMovement>>
 
-    suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
-    suspend fun fetchTradeNames(): ResultEvent<List<String>>
+    fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement>
+    fun fetchTradeNames(): ResultEvent<List<String>>
 }
 
 class ListCryptoMovementsRepositoryImpl @Inject constructor(
     private val tradeDao: TradeDao
 ) : ListCryptoMovementsRepository {
 
-    override suspend fun getAll(
+    override fun getAll(
         pageInfo: PageInfo<TradeMovement>,
         tradeFilter: TradeFilter
     ): ResultEvent<List<TradeMovement>> {
@@ -63,7 +63,7 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
+    override fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
         return try {
             if (tradeDao.delete(tradeMovement) > 0)
                 ResultEvent.Success(tradeMovement)
@@ -74,7 +74,7 @@ class ListCryptoMovementsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchTradeNames(): ResultEvent<List<String>> {
+    override fun fetchTradeNames(): ResultEvent<List<String>> {
         return try {
             ResultEvent.Success(tradeDao.selectNames())
         } catch (e: Exception) {

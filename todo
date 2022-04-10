@@ -25,3 +25,7 @@ OK - Loading state and animation (progress)
 OK - create a control for the progress to dismiss the progress only when all request is completed.
     Similar what I did at UseMobile, defining a list of items, dismiss when all is done or when a
     high priority item request to
+
+
+android.yml:::
+gradlew :crypto:cleanTestDebugUnitTest, :crypto:testDebugUnitTest

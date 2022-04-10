@@ -15,18 +15,18 @@ class ListCryptoMovementsRepositoryImplTest @Inject constructor(
         var returnsError = true
     }
 
-    override suspend fun getAll(pageInfo: PageInfo<TradeMovement>, tradeFilter: TradeFilter): ResultEvent<List<TradeMovement>> {
+    override fun getAll(pageInfo: PageInfo<TradeMovement>, tradeFilter: TradeFilter): ResultEvent<List<TradeMovement>> {
         return if (returnsError)
             ResultEvent.Error(Exception())
         else
             ResultEvent.Success(tradeDao.selectAll())
     }
 
-    override suspend fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
+    override fun delete(tradeMovement: TradeMovement): ResultEvent<TradeMovement> {
         return ResultEvent.Success(tradeMovement)
     }
 
-    override suspend fun fetchTradeNames(): ResultEvent<List<String>> {
+    override fun fetchTradeNames(): ResultEvent<List<String>> {
         return ResultEvent.Success(emptyList())
     }
 }

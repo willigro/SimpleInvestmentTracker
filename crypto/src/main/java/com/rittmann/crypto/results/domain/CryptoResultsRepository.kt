@@ -9,12 +9,12 @@ interface CryptoResultsRepository {
     fun fetchCrypto(cryptoName: String): ResultEvent<List<TradeMovement>>
 }
 
-class CryptoResultsRepositoryImpl(private val tradeDao: TradeDao): CryptoResultsRepository {
+class CryptoResultsRepositoryImpl(private val tradeDao: TradeDao) : CryptoResultsRepository {
 
     override fun fetchCrypto(cryptoName: String): ResultEvent<List<TradeMovement>> {
         return try {
             ResultEvent.Success(tradeDao.selectByName(cryptoName))
-        }catch (e: Exception){
+        } catch (e: Exception) {
             ResultEvent.Error(e)
         }
     }
