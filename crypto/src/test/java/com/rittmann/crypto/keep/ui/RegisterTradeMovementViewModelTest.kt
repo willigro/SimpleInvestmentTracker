@@ -2,10 +2,14 @@ package com.rittmann.crypto.keep.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
+import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
 import com.rittmann.common.extensions.isNot
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
+import com.rittmann.common.utils.DateUtil
 import com.rittmann.common_test.MainCoroutineRule
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.common_test.mock.exceptionMock
@@ -13,15 +17,14 @@ import com.rittmann.common_test.mock.newCryptoMovementMock
 import com.rittmann.common_test.mock.registeredCryptoMovementMock
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import java.math.BigDecimal
 import java.util.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.greaterThan
-import org.hamcrest.Matchers.nullValue
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -68,7 +71,7 @@ class RegisterTradeMovementViewModelTest {
     fun `register a new crypto currency and handle the success case`() {
         mainCoroutineRule.pauseDispatcher()
 
-        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(
+        every { movementRepository.registerCrypto(any()) } returns ResultEvent.Success(
             registeredCryptoMovementMock
         )
 
@@ -101,7 +104,7 @@ class RegisterTradeMovementViewModelTest {
     fun `try to register a new crypto currency and handle an error case`() {
         mainCoroutineRule.pauseDispatcher()
 
-        coEvery { movementRepository.registerCrypto(any()) } returns ResultEvent.Error(
+        every { movementRepository.registerCrypto(any()) } returns ResultEvent.Error(
             exceptionMock
         )
 
@@ -129,16 +132,46 @@ class RegisterTradeMovementViewModelTest {
     fun `update a crypto movement and handler its success case`() {
         mainCoroutineRule.pauseDispatcher()
 
-        val name = "Testing"
-
-        val crypto = newCryptoMovementMock.copy(
+        val crypto = TradeMovement(
             id = 1L,
-            name = name
+            date = DateUtil.parseDate("00/00/0000"),
+            name = "BTC",
+            type = CryptoOperationType.BUY,
+            operatedAmount = BigDecimal(2.0),
+            currentValue = BigDecimal(10.0),
+            currentValueCurrency = CurrencyType.REAL,
+            totalValue = BigDecimal(30.0),
+            totalValueCurrency = CurrencyType.REAL,
+            tax = BigDecimal(1.0),
+            taxCurrency = CurrencyType.REAL
         )
 
         viewModel.attachCryptoMovementForUpdate(crypto)
 
-        coEvery { movementRepository.updateCrypto(any()) } returns ResultEvent.Success(crypto)
+        every { movementRepository.updateCrypto(any()) } returns ResultEvent.Success(crypto)
+
+        val name = "ADA"
+        val date = DateUtil.parseDate("11/11/1111")
+        val type = CryptoOperationType.SELL
+        val operatedAmount = BigDecimal(3.5)
+        val currentValue = BigDecimal(3.5)
+        val currentValueCurrency = CurrencyType.CRYPTO
+        val totalValue = BigDecimal(3.5)
+        val totalValueCurrency = CurrencyType.CRYPTO
+        val taxValue = BigDecimal(3.5)
+        val taxCurrency = CurrencyType.CRYPTO
+        viewModel.tradeMovement.value?.apply {
+            this.name = name
+            this.date = date
+            this.type = type
+            this.operatedAmount = operatedAmount
+            this.currentValue = currentValue
+            this.currentValueCurrency = currentValueCurrency
+            this.totalValue = totalValue
+            this.totalValueCurrency = totalValueCurrency
+            this.tax = taxValue
+            this.taxCurrency = taxCurrency
+        }
 
         viewModel.saveCrypto()
 
@@ -149,8 +182,20 @@ class RegisterTradeMovementViewModelTest {
         val resultEvent = viewModel.updateResultEvent.getOrAwaitValue()
 
         assertThat(resultEvent.succeeded, `is`(true))
-        assertThat((resultEvent as ResultEvent.Success).data.name, `is`(name))
-        assertThat(newCryptoMovementMock.name, isNot(name))
+
+        (resultEvent as ResultEvent.Success).data.also { data ->
+            assertThat(data.name, `is`(name))
+            assertThat(data.date, `is`(date))
+            assertThat(data.type, `is`(type))
+            assertThat(data.operatedAmount, `is`(operatedAmount))
+            assertThat(data.currentValue, `is`(currentValue))
+            assertThat(data.currentValueCurrency, `is`(currentValueCurrency))
+            assertThat(data.totalValue, `is`(totalValue))
+            assertThat(data.totalValueCurrency, `is`(totalValueCurrency))
+            assertThat(data.tax, `is`(taxValue))
+            assertThat(data.taxCurrency, `is`(taxCurrency))
+        }
+
         assertThat(viewModel.isLoading.getOrAwaitValue(delayForLoading), `is`(false))
     }
 
@@ -167,7 +212,7 @@ class RegisterTradeMovementViewModelTest {
 
         viewModel.attachCryptoMovementForUpdate(crypto)
 
-        coEvery { movementRepository.updateCrypto(any()) } returns ResultEvent.Error(exceptionMock)
+        every { movementRepository.updateCrypto(any()) } returns ResultEvent.Error(exceptionMock)
 
         viewModel.saveCrypto()
 
