@@ -5,6 +5,8 @@ import com.rittmann.common_test.mock.listCryptoMovementMock
 import com.rittmann.common.datasource.dao.interfaces.TradeDao
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
+import com.rittmann.common.utils.pagination.PageInfo
+import com.rittmann.crypto.listmovements.ui.TradeFilter
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -38,7 +40,8 @@ class ListTradeMovementsRepositoryTest {
     fun `select all crypto movements and return success`() = runBlockingTest {
         coEvery { tradeDao.selectAll() } returns listCryptoMovementMock
 
-        val result = listCryptoMovementsRepository.getAll()
+        // TODO: adjust it
+        val result = listCryptoMovementsRepository.getAll(PageInfo(), TradeFilter())
 
         assertThat(result.succeeded, `is`(true))
 
@@ -51,7 +54,8 @@ class ListTradeMovementsRepositoryTest {
     fun `select all returns an exception`() = runBlockingTest {
         coEvery { tradeDao.selectAll() } throws exceptionMock
 
-        val result = listCryptoMovementsRepository.getAll()
+        // TODO: adjust it
+        val result = listCryptoMovementsRepository.getAll(PageInfo(), TradeFilter())
 
         assertThat(result.succeeded, `is`(false))
 

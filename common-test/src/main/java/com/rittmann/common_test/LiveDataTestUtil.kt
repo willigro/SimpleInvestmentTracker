@@ -10,10 +10,15 @@ import java.util.concurrent.TimeoutException
 
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
 fun <T> LiveData<T>.getOrAwaitValue(
+    delay: Long = 0L,
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     afterObserve: () -> Unit = {}
 ): T {
+
+    if (delay > 0L)
+        Thread.sleep(delay)
+
     var data: T? = null
     val latch = CountDownLatch(1)
     val observer = object : Observer<T> {
