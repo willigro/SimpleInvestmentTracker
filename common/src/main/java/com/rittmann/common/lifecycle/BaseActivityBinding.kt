@@ -3,6 +3,7 @@ package com.rittmann.common.lifecycle
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -12,7 +13,9 @@ import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseBindingActivity<T : ViewDataBinding>(private val resId: Int) :
     DaggerAppCompatActivity() {
-    protected lateinit var binding: T
+
+    @VisibleForTesting
+    lateinit var binding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

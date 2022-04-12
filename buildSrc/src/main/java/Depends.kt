@@ -6,6 +6,7 @@ const val TEST_IMPLEMENTATION = "testImplementation"
 const val ANDROID_TEST_IMPLEMENTATION = "androidTestImplementation"
 const val DEBUG_IMPLEMENTATION = "androidTestImplementation"
 const val KAPT = "kapt"
+const val KAPT_ANDROID_TEST = "kaptTest"
 const val ANNOTATION_PROCESSOR = "annotationProcessor"
 
 fun DependencyHandler.implement(url: String) {
@@ -26,6 +27,10 @@ fun DependencyHandler.debugImplement(url: String) {
 
 fun DependencyHandler.kapt(url: String) {
     add(KAPT, url)
+}
+
+fun DependencyHandler.kaptAndroidTest(url: String) {
+    add(KAPT_ANDROID_TEST, url)
 }
 
 fun DependencyHandler.annotationProcessor(url: String) {
@@ -238,7 +243,9 @@ object Depends {
 
     object Databinding {
         fun DependencyHandler.implementDatabinding() {
-            implement("androidx.databinding:databinding-compiler:7.0.4")
+            val kapt =  "androidx.databinding:databinding-compiler:7.1.3"
+            implement(kapt)
+            kaptAndroidTest(kapt)
         }
     }
 

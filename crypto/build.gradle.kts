@@ -21,11 +21,13 @@ android {
     defaultConfig {
         testInstrumentationRunner("com.rittmann.crypto.MockTestRunner")
     }
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementLegacySupport()
+
 
     // =========== Modules ==============
     implementModules(Modules.common, Modules.diUtils, Modules.datasource, Modules.deposit)
