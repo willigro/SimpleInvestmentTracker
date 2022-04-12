@@ -11,7 +11,7 @@ import kotlin.math.pow
 
 class EditDecimalFormatController(
     private val editText: EditText,
-    private var scale: Int = DEFAULT_SCALE,
+    var scale: Int = DEFAULT_SCALE,
     var formatDecimal: FormatDecimal = FormatCurrency(CurrencyType.REAL)
 ) {
 
