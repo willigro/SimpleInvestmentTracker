@@ -293,9 +293,25 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         assertThat(result.succeeded, `is`(false))
         assertThat((result as ResultEvent.Error).exception, `is`(exceptionMock))
+    }
 
-        // item count is null
-        assertThat(activity.adapter?.itemCount, `is`(0))
+    /**
+     * Validations
+     * */
+
+    @Test
+    fun `enable the button when write a name`() {
+        forceResume()
+
+        assertThat(activity.binding.btnRegister.isEnabled, `is`(false))
+
+        activity.binding.editCryptoName.setTextEditText("A")
+
+        assertThat(activity.binding.btnRegister.isEnabled, `is`(true))
+
+        activity.binding.editCryptoName.setTextEditText("")
+
+        assertThat(activity.binding.btnRegister.isEnabled, `is`(false))
     }
 
     /**
