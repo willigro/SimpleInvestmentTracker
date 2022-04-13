@@ -20,9 +20,13 @@ class EditTextSearch(
 
     init {
         watcher = editText.doAfterTextChanged { value ->
-            timer = newTimer()
-            timer?.schedule(delay) {
+            if (inTest) {
                 callback(value.toString())
+            } else {
+                timer = newTimer()
+                timer?.schedule(delay) {
+                    callback(value.toString())
+                }
             }
         }
         clearImage?.setOnClickListener {
@@ -54,6 +58,6 @@ class EditTextSearch(
     companion object {
         const val NAME = "EditTextSearch timer"
         const val DELAY = 350L
-        const val DELAY_TEST = 450L
+        var inTest = false
     }
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
+import com.rittmann.androidtools.log.log
 import com.rittmann.common.customs.currencyType
 import com.rittmann.common.customs.valueScale
 import com.rittmann.common.datasource.basic.TradeMovement
@@ -69,6 +70,8 @@ class RegisterCryptoMovementActivity
         }
 
     private var wasInserted = false
+
+    private var checkBoxCanBeAutomaticallyChanged = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -278,6 +281,16 @@ class RegisterCryptoMovementActivity
 
             dateRetrieved.observe(this@RegisterCryptoMovementActivity, {
                 binding.txtCryptoDate.text = DateUtil.simpleDateFormat(it)
+            })
+
+            tradeMovement.observe(this@RegisterCryptoMovementActivity, {
+                if (checkBoxCanBeAutomaticallyChanged) {
+                    checkBoxCanBeAutomaticallyChanged = false
+                    "Changed".log()
+
+                    binding.checkboxUpdateTotalValue.isChecked = true
+                    binding.checkboxUpdateTotalValueCalculateAfterTransaction.isChecked = true
+                }
             })
         }
     }

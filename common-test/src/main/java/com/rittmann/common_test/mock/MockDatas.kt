@@ -10,7 +10,7 @@ import java.math.BigDecimal
 val newCryptoMovementMock =
     TradeMovement(
         id = 0L,
-        date = DateUtil.parseDate("00/00/0000"),
+        date = DateUtil.parseDate("20/12/2020"),
         name = "BTC",
         type = CryptoOperationType.BUY,
         operatedAmount = BigDecimal(2.0),

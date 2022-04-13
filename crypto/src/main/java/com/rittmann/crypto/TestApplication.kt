@@ -7,6 +7,7 @@ import com.rittmann.common.lifecycle.LifecycleApp
 import com.rittmann.common.lifecycle.LifecycleApp.Companion.lifecycleAppInstance
 import com.rittmann.crypto.di.CryptoModule
 import com.rittmann.common.datasource.di.RoomModule
+import com.rittmann.common.utils.EditTextSearch
 import com.rittmann.crypto.di.CryptoModuleTest
 import com.rittmann.widgets.dialog.ModalUtil
 import dagger.BindsInstance
@@ -43,6 +44,9 @@ class TestApplication : DaggerApplication(), LifecycleApp {
         ModalUtil.resIdMessage = R.id.txt_msg
         ModalUtil.resIdBtnCancel = R.id.btn_cancel
         ModalUtil.resIdBtnConclude = R.id.btn_confirm
+
+
+        EditTextSearch.inTest = true
 
         return appComponent
     }

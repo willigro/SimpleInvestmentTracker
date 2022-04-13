@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.rittmann.common.customs.CustomEditTextCurrency
+import com.rittmann.common.datasource.basic.CryptoOperationType
+import com.rittmann.common.datasource.basic.CurrencyType
 import com.rittmann.common.datasource.basic.TradeMovement
 import com.rittmann.common.datasource.result.ResultEvent
 import com.rittmann.common.datasource.result.succeeded
@@ -14,6 +16,7 @@ import com.rittmann.common.utils.EditTextSearch
 import com.rittmann.common_test.MainCoroutineRule
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.common_test.mock.exceptionMock
+import com.rittmann.common_test.mock.newCryptoMovementMock
 import com.rittmann.crypto.BaseActivityTest
 import com.rittmann.crypto.R
 import com.rittmann.crypto.keep.domain.RegisterCryptoMovementRepository
@@ -21,6 +24,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
+import java.math.BigDecimal
 import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.MatcherAssert.assertThat
@@ -28,6 +32,7 @@ import org.hamcrest.core.Is.`is`
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+
 
 class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMovementActivity>() {
 
@@ -127,6 +132,70 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     }
 
     /**
+     * Updating
+     * */
+
+    @Test
+    fun `checking the first configuration of the screen when it is updating a trader`() {
+        val trade = newCryptoMovementMock.copy(
+            id = 1L,
+            type = CryptoOperationType.SELL,
+            operatedAmount = BigDecimal(3.0),
+            currentValue = BigDecimal(7.0),
+            currentValueCurrency = CurrencyType.CRYPTO,
+            totalValue = BigDecimal(5.0),
+            totalValueCurrency = CurrencyType.CRYPTO,
+            concreteTotalValue = BigDecimal(6.0),
+            tax = BigDecimal(15.0),
+            taxCurrency = CurrencyType.REAL
+        )
+
+        configureActivity<RegisterCryptoMovementActivity>(
+            RegisterCryptoMovementActivity.getIntent(getContext(), trade)
+        )
+
+        activityController.create()
+
+        val viewModel = activity.viewModel
+
+        every { observerTradeMovement.onChanged(any()) } returns Unit
+
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+
+        // todo: check if the tradeLiveData was changed
+        activity.binding.apply {
+            val toolbar = root.findViewById<TextView>(R.id.toolbar_title).text.toString()
+            assertThat(toolbar, `is`(getString(R.string.trader_crypto_title)))
+
+            forceResumeFromCreate()
+
+            assertThat(
+                txtCryptoDate.text.toString(),
+                `is`(DateUtil.simpleDateFormat(trade.date))
+            )
+
+            assertThat(editCryptoName.editText?.text.toString(), `is`(trade.name))
+
+            assertThat(radioCryptoOperationTypeBuy.isChecked, `is`(false))
+            assertThat(radioCryptoOperationTypeSell.isChecked, `is`(true))
+
+            assertThat(checkboxUpdateTotalValue.isChecked, `is`(true))
+            assertThat(checkboxUpdateTotalValueCalculateAfterTransaction.isChecked, `is`(true))
+
+            assertThat(btnRegister.isEnabled, `is`(true))
+            assertThat(btnRegister.text, `is`(getString(R.string.trade_movement_btn_update)))
+
+            assertCurrencyAndScale(editCryptoBoughtAmount, "3,00000")
+            assertCurrencyAndScale(editCryptoConcreteTotalValue, "C 6,00000")
+            assertCurrencyAndScale(editCryptoTotalValue, "C 5,00000")
+            assertCurrencyAndScale(editCryptoCurrentValue, "C 7,00000")
+            assertCurrencyAndScale(editCryptoTax, "R\$ 15,00000")
+        }
+
+        verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
+    }
+
+    /**
      * Loading names
      * */
 
@@ -153,20 +222,12 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         forceResumeFromCreate()
 
-        val searchFor = "ABC"
+        activity.binding.editCryptoName.setTextEditText("ABC")
 
-        // The first one will unblock the flow
-        Thread.sleep(EditTextSearch.DELAY_TEST)
-        activity.binding.editCryptoName.setTextEditText(searchFor)
-
-        val result =
-            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY_TEST)
-
-        assertThat(result.succeeded, `is`(true))
-        assertThat((result as ResultEvent.Success).data.size, `is`(2))
-
-        // item count is null
-        assertThat(activity.adapter?.itemCount, `is`(2))
+        activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY) { result ->
+            assertThat(result?.succeeded, `is`(true))
+            assertThat((result as ResultEvent.Success).data.size, `is`(2))
+        }
     }
 
     @Test
@@ -205,17 +266,12 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         forceResumeFromCreate()
 
         // The first one will unblock the flow
-        Thread.sleep(EditTextSearch.DELAY_TEST)
         activity.binding.editCryptoName.setTextEditText(nameOneSearch)
 
-        val resultOne =
-            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY_TEST)
-
-        assertThat(resultOne.succeeded, `is`(true))
-        assertThat((resultOne as ResultEvent.Success).data.size, `is`(2))
-
-        // item count is null
-        assertThat(activity.adapter?.itemCount, `is`(2))
+        activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY) { resultOne ->
+            assertThat(resultOne?.succeeded, `is`(true))
+            assertThat((resultOne as ResultEvent.Success).data.size, `is`(2))
+        }
 
         /**
          * Second
@@ -227,17 +283,12 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         forceResumeFromCreate()
 
         // The first one will unblock the flow
-        Thread.sleep(EditTextSearch.DELAY_TEST)
         activity.binding.editCryptoName.setTextEditText(nameTwoSearch)
 
-        val resultTwo =
-            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY_TEST)
-
-        assertThat(resultTwo.succeeded, `is`(true))
-        assertThat((resultTwo as ResultEvent.Success).data.size, `is`(3))
-
-        // item count is null
-        assertThat(activity.adapter?.itemCount, `is`(3))
+        activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY) { resultTwo ->
+            assertThat(resultTwo?.succeeded, `is`(true))
+            assertThat((resultTwo as ResultEvent.Success).data.size, `is`(3))
+        }
 
         /**
          * Third
@@ -249,18 +300,12 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         forceResumeFromCreate()
 
         // The first one will unblock the flow
-        Thread.sleep(EditTextSearch.DELAY_TEST)
         activity.binding.editCryptoName.setTextEditText(nameThreeSearch)
 
-        val resultThree =
-            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY_TEST)
-
-        assertThat(resultThree.succeeded, `is`(true))
-        assertThat((resultThree as ResultEvent.Success).data.size, `is`(0))
-
-        // item count is null
-        assertThat(activity.adapter?.itemCount, `is`(0))
-
+        activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY) { resultThree ->
+            assertThat(resultThree?.succeeded, `is`(true))
+            assertThat((resultThree as ResultEvent.Success).data.size, `is`(0))
+        }
     }
 
     @Test
@@ -285,11 +330,10 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         val searchFor = "ABC"
 
         // The first one will unblock the flow
-        Thread.sleep(EditTextSearch.DELAY_TEST)
         activity.binding.editCryptoName.setTextEditText(searchFor)
 
         val result =
-            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY_TEST)
+            activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY)
 
         assertThat(result.succeeded, `is`(false))
         assertThat((result as ResultEvent.Error).exception, `is`(exceptionMock))

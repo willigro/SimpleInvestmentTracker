@@ -13,7 +13,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
     delay: Long = 0L,
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
-    afterObserve: () -> Unit = {}
+    afterObserve: (T?) -> Unit = {}
 ): T {
 
     if (delay > 0L)
@@ -31,7 +31,7 @@ fun <T> LiveData<T>.getOrAwaitValue(
     this.observeForever(observer)
 
     try {
-        afterObserve.invoke()
+        afterObserve.invoke(data)
 
         // Don't wait indefinitely if the LiveData is not set.
         if (!latch.await(time, timeUnit)) {

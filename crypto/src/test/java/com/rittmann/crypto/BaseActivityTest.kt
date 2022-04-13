@@ -1,5 +1,6 @@
 package com.rittmann.crypto
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rittmann.common.lifecycle.DefaultDispatcherProvider
@@ -38,16 +39,22 @@ open class BaseActivityTest<A : AppCompatActivity> {
         activity = activityController.get()
     }
 
-    fun forceResume(){
+    inline fun <reified B : AppCompatActivity> configureActivity(intent: Intent) {
+        activityController = Robolectric.buildActivity(B::class.java, intent) as ActivityController<A>
+        activity = activityController.get()
+    }
+
+    fun forceResume() {
         activityController.create()
         activityController.start()
         activityController.resume()
     }
 
-    fun forceResumeFromCreate(){
+    fun forceResumeFromCreate() {
         activityController.start()
         activityController.resume()
     }
 
     fun getString(res: Int) = RuntimeEnvironment.application.getString(res)
+    fun getContext() = RuntimeEnvironment.application
 }

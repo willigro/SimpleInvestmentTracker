@@ -108,7 +108,7 @@
                     style="@style/CheckBoxPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/crypto_movement_update_the_total_according_by_current_and_amount"
                     app:layout_constraintTop_toBottomOf="@id/edit_crypto_current_value" />
 
@@ -127,7 +127,7 @@
                     style="@style/CheckBoxPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/crypto_movement_update_the_total_calculated_according_by_total"
                     app:layout_constraintTop_toBottomOf="@id/edit_crypto_total_value" />
 
