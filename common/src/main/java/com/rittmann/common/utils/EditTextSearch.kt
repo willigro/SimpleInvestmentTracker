@@ -54,5 +54,6 @@ class EditTextSearch(
     companion object {
         const val NAME = "EditTextSearch timer"
         const val DELAY = 350L
+        const val DELAY_TEST = 450L
     }
 }

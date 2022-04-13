@@ -64,6 +64,7 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                     repository.fetchCryptoNames(nameLike)
                 },
                 main = {
+//                    println("Testing $it")
                     _cryptoNamesResultEvent.value = it
                 }
             )

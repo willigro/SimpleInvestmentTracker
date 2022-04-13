@@ -27,6 +27,7 @@ import com.rittmann.crypto.databinding.ActivityRegisterCryptoMovementBinding
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
+import org.jetbrains.annotations.TestOnly
 
 
 class RegisterCryptoMovementActivity
@@ -49,7 +50,8 @@ class RegisterCryptoMovementActivity
         (intent?.extras?.getSerializable(CRYPTO_MOVEMENT) as TradeMovement?) ?: TradeMovement()
     }
 
-    private var adapter: RecyclerAdapterSearchCryptos? = null
+    @VisibleForTesting
+    var adapter: RecyclerAdapterSearchCryptos? = null
 
     private var editTextSearch: EditTextSearch? = null
 
@@ -71,7 +73,11 @@ class RegisterCryptoMovementActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = viewModelProvider(viewModelFactory)
+        configureViewModelAndView(viewModelProvider(viewModelFactory))
+    }
+
+    private fun configureViewModelAndView(viewModel: RegisterCryptoMovementViewModel) {
+        this.viewModel = viewModel
         binding.viewModel = viewModel
         viewModel.attachCryptoMovementForUpdate(tradeMovement)
 
@@ -302,6 +308,11 @@ class RegisterCryptoMovementActivity
         } else {
             adapter?.relist(data)
         }
+    }
+
+    @TestOnly
+    fun setTestViewModel(testViewModel: RegisterCryptoMovementViewModel) {
+        configureViewModelAndView(testViewModel)
     }
 
     companion object {

@@ -44,5 +44,10 @@ open class BaseActivityTest<A : AppCompatActivity> {
         activityController.resume()
     }
 
+    fun forceResumeFromCreate(){
+        activityController.start()
+        activityController.resume()
+    }
+
     fun getString(res: Int) = RuntimeEnvironment.application.getString(res)
 }
