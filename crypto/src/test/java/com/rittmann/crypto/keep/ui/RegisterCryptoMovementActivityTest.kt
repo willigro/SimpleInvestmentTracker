@@ -14,6 +14,7 @@ import com.rittmann.common.utils.DateUtil
 import com.rittmann.common.utils.EditDecimalFormatController
 import com.rittmann.common.utils.EditTextSearch
 import com.rittmann.common_test.MainCoroutineRule
+import com.rittmann.common_test.TEST_DELAY
 import com.rittmann.common_test.getOrAwaitValue
 import com.rittmann.common_test.mock.exceptionMock
 import com.rittmann.common_test.mock.newCryptoMovementMock
@@ -52,8 +53,6 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
-
-    private val DELAY = 100L
 
     @Before
     fun setupActivity() {
@@ -169,7 +168,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         viewModel.saveCrypto()
 
-        assertThat(viewModel.tradeMovement.getOrAwaitValue(DELAY).id, `is`(newTrade.id))
+        assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(newTrade.id))
 
         verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
         verify(exactly = 1) { repository.registerCrypto(any()) }
