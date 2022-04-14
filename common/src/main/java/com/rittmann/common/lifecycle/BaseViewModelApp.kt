@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  *
@@ -45,8 +46,7 @@ open class BaseViewModelApp(
 
         executeAsync {
             val result = io()
-
-            executeMain {
+            withContext(dispatcherProvider.main()) {
                 main(result)
 
                 if (progress)
@@ -65,7 +65,7 @@ open class BaseViewModelApp(
         executeAsync {
             val result = io()
 
-            executeMain {
+            withContext(dispatcherProvider.main()) {
                 main(result)
 
                 if (progress)

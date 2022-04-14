@@ -63,9 +63,8 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                 io = {
                     repository.fetchCryptoNames(nameLike)
                 },
-                main = {
-                    println("Testing $it")
-                    _cryptoNamesResultEvent.value = it
+                main = { result ->
+                    _cryptoNamesResultEvent.value = result
                 }
             )
     }
@@ -88,10 +87,10 @@ class RegisterCryptoMovementViewModel @Inject constructor(
                     repository.registerCrypto(it)
                 },
                 main = { result ->
-                    _registerResultEvent.value = result
-
                     if (result is ResultEvent.Success)
                         tradeMovement.value?.id = result.data.id
+
+                    _registerResultEvent.value = result
 
                     hideProgress()
                 }

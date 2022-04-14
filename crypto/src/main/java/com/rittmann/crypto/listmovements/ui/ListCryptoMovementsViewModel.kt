@@ -162,14 +162,22 @@ class ListCryptoMovementsViewModel @Inject constructor(
                 if (it is ResultEvent.Success) {
                     val list = _tradeMovementsList.value ?: arrayListOf()
 
-                    (list as ArrayList).remove(tradeMovementToDelete)
+                    try {
+                        (list as ArrayList).remove(tradeMovementToDelete)
 
-                    _tradeMovementsList.value = list
+                        _tradeMovementsList.value = list
 
-                    calculateTotalValues(list)
+                        calculateTotalValues(list)
+
+                        _cryptoMovementDeleted.value = it
+                    } catch (e: Exception) {
+                        fetchAllCryptoMovements(
+                            next = false,
+                            resetPaging = true,
+                            tradeFilter = TradeFilter()
+                        )
+                    }
                 }
-
-                _cryptoMovementDeleted.value = it
             },
             progress = true
         )

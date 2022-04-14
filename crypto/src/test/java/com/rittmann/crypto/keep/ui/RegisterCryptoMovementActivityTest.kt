@@ -25,7 +25,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import java.math.BigDecimal
-import java.util.Calendar
+import java.util.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
@@ -40,6 +40,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     private lateinit var observerTradeMovement: Observer<TradeMovement>
 
     @MockK
+    private lateinit var observerLoading: Observer<Boolean>
+
+    @MockK
     private lateinit var observerCryptoNames: Observer<ResultEvent<List<String>>>
 
     @MockK
@@ -49,6 +52,8 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
+
+    private val DELAY = 100L
 
     @Before
     fun setupActivity() {
@@ -129,6 +134,46 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         }
 
         verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `inserting a new trade with success`() {
+        val viewModel = RegisterCryptoMovementViewModel(
+            repository,
+            mainCoroutineRule.testDispatcherProvider
+        )
+
+        val newTrade = newCryptoMovementMock.copy(id = 1L)
+
+        every { observerTradeMovement.onChanged(any()) } returns Unit
+        every { observerLoading.onChanged(any()) } returns Unit
+
+        every { repository.registerCrypto(any()) } returns ResultEvent.Success(newTrade)
+
+        activityController.create()
+
+        activity.setTestViewModel(
+            viewModel
+        )
+
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+        viewModel.isLoading.observeForever(observerLoading)
+
+        forceResumeFromCreate()
+
+        viewModel.registerResultEvent.observeForever { result ->
+            assertThat(result?.succeeded, `is`(true))
+            assertThat((result as ResultEvent.Success).data.id, `is`(newTrade.id))
+        }
+
+        viewModel.saveCrypto()
+
+        assertThat(viewModel.tradeMovement.getOrAwaitValue(DELAY).id, `is`(newTrade.id))
+
+        verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 1) { repository.registerCrypto(any()) }
+        verify(exactly = 2) { observerLoading.onChanged(any()) }
     }
 
     /**
