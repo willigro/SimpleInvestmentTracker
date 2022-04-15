@@ -86,15 +86,23 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
     @Test
     fun `checking the first configurations of the screen when it is the insert flow`() {
+        /*
+        * Setup activity
+        * */
         activityController.create()
 
         val viewModel = activity.viewModel
 
+        /*
+        * Every and Observer
+        * */
         every { observerTradeMovement.onChanged(any()) } returns Unit
 
         viewModel.tradeMovement.observeForever(observerTradeMovement)
 
-        // todo: check if the tradeLiveData was changed
+        /*
+        * Verify
+        * */
         activity.binding.apply {
             val toolbar = root.findViewById<TextView>(R.id.toolbar_title).text.toString()
             assertThat(toolbar, `is`(getString(R.string.trader_crypto_title)))
@@ -138,6 +146,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     @ExperimentalCoroutinesApi
     @Test
     fun `inserting a new trade with success`() {
+        /*
+        * Configure
+        * */
         val viewModel = RegisterCryptoMovementViewModel(
             repository,
             mainCoroutineRule.testDispatcherProvider
@@ -145,29 +156,45 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         val newTrade = newCryptoMovementMock.copy(id = 1L)
 
+        /*
+        * Every and observers
+        * */
         every { observerTradeMovement.onChanged(any()) } returns Unit
         every { observerLoading.onChanged(any()) } returns Unit
+        every { repository.fetchCryptoNames(any()) } returns ResultEvent.Success(arrayListOf("ABC"))
 
         every { repository.registerCrypto(any()) } returns ResultEvent.Success(newTrade)
 
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+        viewModel.isLoading.observeForever(observerLoading)
+
+        /*
+        * Setup activity
+        * */
         activityController.create()
 
         activity.setTestViewModel(
             viewModel
         )
 
-        viewModel.tradeMovement.observeForever(observerTradeMovement)
-        viewModel.isLoading.observeForever(observerLoading)
-
         forceResumeFromCreate()
 
+        /*
+        * Verify and Assert
+        * */
         viewModel.registerResultEvent.observeForever { result ->
             assertThat(result?.succeeded, `is`(true))
             assertThat((result as ResultEvent.Success).data.id, `is`(newTrade.id))
         }
 
-        viewModel.saveCrypto()
+        /*
+        * Action
+        * */
+        activity.binding.btnRegister.performClick()
 
+        /*
+        * Verify and Assert
+        * */
         assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(newTrade.id))
 
         verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
@@ -181,6 +208,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
     @Test
     fun `checking the first configuration of the screen when it is updating a trader`() {
+        /*
+        * Configure
+        * */
         val trade = newCryptoMovementMock.copy(
             id = 1L,
             type = CryptoOperationType.SELL,
@@ -194,6 +224,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
             taxCurrency = CurrencyType.REAL
         )
 
+        /*
+        * Setup activity
+        * */
         configureActivity<RegisterCryptoMovementActivity>(
             RegisterCryptoMovementActivity.getIntent(getContext(), trade)
         )
@@ -202,11 +235,16 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         val viewModel = activity.viewModel
 
+        /*
+        * Every and observers
+        * */
         every { observerTradeMovement.onChanged(any()) } returns Unit
 
         viewModel.tradeMovement.observeForever(observerTradeMovement)
 
-        // todo: check if the tradeLiveData was changed
+        /*
+        * Verify and Assert
+        * */
         activity.binding.apply {
             val toolbar = root.findViewById<TextView>(R.id.toolbar_title).text.toString()
             assertThat(toolbar, `is`(getString(R.string.trader_crypto_title)))
@@ -239,12 +277,78 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `updating a trade with success`() {
+        /*
+        * Configure
+        * */
+        val trade = newCryptoMovementMock.copy(id = 1L)
+
+        val viewModel = RegisterCryptoMovementViewModel(
+            repository,
+            mainCoroutineRule.testDispatcherProvider
+        )
+
+        /*
+        * Every and observers
+        * */
+
+        every { observerTradeMovement.onChanged(any()) } returns Unit
+        every { observerLoading.onChanged(any()) } returns Unit
+
+        every { repository.registerCrypto(any()) } returns ResultEvent.Success(trade)
+
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+        viewModel.isLoading.observeForever(observerLoading)
+
+        /*
+        * Setup activity
+        * */
+        configureActivity<RegisterCryptoMovementActivity>(
+            RegisterCryptoMovementActivity.getIntent(getContext(), trade)
+        )
+
+        activityController.create()
+
+        activity.setTestViewModel(
+            viewModel
+        )
+
+        forceResumeFromCreate()
+
+        /*
+        * Verify and assert
+        * */
+        viewModel.registerResultEvent.observeForever { result ->
+            assertThat(result?.succeeded, `is`(true))
+            assertThat((result as ResultEvent.Success).data.id, `is`(trade.id))
+        }
+
+        /*
+        * Action
+        * */
+        viewModel.saveCrypto()
+
+        /*
+        * Verify and assert
+        * */
+        assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(trade.id))
+
+        verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 1) { repository.registerCrypto(any()) }
+        verify(exactly = 2) { observerLoading.onChanged(any()) }
+    }
+
     /**
      * Loading names
      * */
 
     @Test
     fun `typing a name and loading a list of crypto names`() {
+        /*
+        * Setup activity
+        * */
         activityController.create()
 
         activity.setTestViewModel(
@@ -254,6 +358,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
             )
         )
 
+        /*
+        * Every
+        * */
         val names = arrayListOf(
             "A",
             "B"
@@ -262,12 +369,16 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         every { observerCryptoNames.onChanged(any()) } returns Unit
 
-        activity.viewModel.cryptoNamesResultEvent.observeForever(observerCryptoNames)
-
+        /*
+        * Action
+        * */
         forceResumeFromCreate()
 
         activity.binding.editCryptoName.setTextEditText("ABC")
 
+        /*
+        * Assert
+        * */
         activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY) { result ->
             assertThat(result?.succeeded, `is`(true))
             assertThat((result as ResultEvent.Success).data.size, `is`(2))
@@ -276,6 +387,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
     @Test
     fun `typing three names and loading a list then replace that list with another and do the same for the third one`() {
+        /*
+        * Setup activity
+        * */
         activityController.create()
 
         activity.setTestViewModel(
@@ -285,6 +399,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
             )
         )
 
+        /*
+        * Configure
+        * */
         val nameOneSearch = "ABC"
         val namesOne = arrayListOf(
             "A",
@@ -354,6 +471,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
     @Test
     fun `typing a name but then returns an error`() {
+        /*
+        * Setup Activity
+        * */
         activityController.create()
 
         activity.setTestViewModel(
@@ -363,6 +483,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
             )
         )
 
+        /*
+        * Every and observers
+        * */
         every { repository.fetchCryptoNames(any()) } returns ResultEvent.Error(exceptionMock)
 
         every { observerCryptoNames.onChanged(any()) } returns Unit
@@ -373,9 +496,14 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         val searchFor = "ABC"
 
-        // The first one will unblock the flow
+        /*
+        * Action
+        * */
         activity.binding.editCryptoName.setTextEditText(searchFor)
 
+        /*
+        * Assert
+        * */
         val result =
             activity.viewModel.cryptoNamesResultEvent.getOrAwaitValue(EditTextSearch.DELAY)
 

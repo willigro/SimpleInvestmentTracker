@@ -9,11 +9,8 @@ import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
