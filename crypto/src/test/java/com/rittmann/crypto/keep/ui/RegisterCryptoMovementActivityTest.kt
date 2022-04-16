@@ -57,7 +57,6 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
     @Before
     fun setupActivity() {
         MockKAnnotations.init(this)
-        configureActivity<RegisterCryptoMovementActivity>()
     }
 
     @Test
@@ -65,6 +64,8 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         val yesterday = Calendar.getInstance().apply {
             add(Calendar.DAY_OF_MONTH, -1)
         }
+
+        configureActivity<RegisterCryptoMovementActivity>()
 
         forceResume()
 
@@ -89,6 +90,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         /*
         * Setup activity
         * */
+        configureActivity<RegisterCryptoMovementActivity>()
         activityController.create()
 
         val viewModel = activity.viewModel
@@ -149,6 +151,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         /*
         * Configure
         * */
+        configureActivity<RegisterCryptoMovementActivity>()
         val viewModel = RegisterCryptoMovementViewModel(
             repository,
             mainCoroutineRule.testDispatcherProvider
@@ -197,7 +200,65 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         * */
         assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(newTrade.id))
 
-        verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 2) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 1) { repository.registerCrypto(any()) }
+        verify(exactly = 2) { observerLoading.onChanged(any()) }
+    }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `inserting a new trade with error`() {
+        /*
+        * Configure
+        * */
+        configureActivity<RegisterCryptoMovementActivity>()
+        val viewModel = RegisterCryptoMovementViewModel(
+            repository,
+            mainCoroutineRule.testDispatcherProvider
+        )
+
+        /*
+        * Every and observers
+        * */
+        every { observerTradeMovement.onChanged(any()) } returns Unit
+        every { observerLoading.onChanged(any()) } returns Unit
+        every { repository.fetchCryptoNames(any()) } returns ResultEvent.Success(arrayListOf("ABC"))
+
+        every { repository.registerCrypto(any()) } returns ResultEvent.Error(exceptionMock)
+
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+        viewModel.isLoading.observeForever(observerLoading)
+
+        /*
+        * Setup activity
+        * */
+        activityController.create()
+
+        activity.setTestViewModel(
+            viewModel
+        )
+
+        forceResumeFromCreate()
+
+        /*
+        * Verify and Assert
+        * */
+        viewModel.registerResultEvent.observeForever { result ->
+            assertThat(result?.succeeded, `is`(false))
+            assertThat((result as ResultEvent.Error).exception, `is`(exceptionMock))
+        }
+
+        /*
+        * Action
+        * */
+        activity.binding.btnRegister.performClick()
+
+        /*
+        * Verify and Assert
+        * */
+        assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(0L))
+
+        verify(exactly = 2) { observerTradeMovement.onChanged(any()) }
         verify(exactly = 1) { repository.registerCrypto(any()) }
         verify(exactly = 2) { observerLoading.onChanged(any()) }
     }
@@ -296,8 +357,9 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
         every { observerTradeMovement.onChanged(any()) } returns Unit
         every { observerLoading.onChanged(any()) } returns Unit
+        every { repository.fetchCryptoNames(any()) } returns ResultEvent.Success(arrayListOf("BTC"))
 
-        every { repository.registerCrypto(any()) } returns ResultEvent.Success(trade)
+        every { repository.updateCrypto(any()) } returns ResultEvent.Success(trade)
 
         viewModel.tradeMovement.observeForever(observerTradeMovement)
         viewModel.isLoading.observeForever(observerLoading)
@@ -335,8 +397,8 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         * */
         assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(trade.id))
 
-        verify(exactly = 1) { observerTradeMovement.onChanged(any()) }
-        verify(exactly = 1) { repository.registerCrypto(any()) }
+        verify(exactly = 2) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 1) { repository.updateCrypto(any()) }
         verify(exactly = 2) { observerLoading.onChanged(any()) }
     }
 
@@ -349,6 +411,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         /*
         * Setup activity
         * */
+        configureActivity<RegisterCryptoMovementActivity>()
         activityController.create()
 
         activity.setTestViewModel(
@@ -390,6 +453,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         /*
         * Setup activity
         * */
+        configureActivity<RegisterCryptoMovementActivity>()
         activityController.create()
 
         activity.setTestViewModel(
@@ -474,6 +538,7 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         /*
         * Setup Activity
         * */
+        configureActivity<RegisterCryptoMovementActivity>()
         activityController.create()
 
         activity.setTestViewModel(
@@ -517,6 +582,8 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
 
     @Test
     fun `enable the button when write a name`() {
+        configureActivity<RegisterCryptoMovementActivity>()
+
         forceResume()
 
         assertThat(activity.binding.btnRegister.isEnabled, `is`(false))
