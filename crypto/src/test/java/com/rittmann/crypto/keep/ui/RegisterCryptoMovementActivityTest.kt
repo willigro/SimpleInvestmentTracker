@@ -402,6 +402,69 @@ class RegisterCryptoMovementActivityTest : BaseActivityTest<RegisterCryptoMoveme
         verify(exactly = 2) { observerLoading.onChanged(any()) }
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `updating a trade with error`() {
+        /*
+        * Configure
+        * */
+        val trade = newCryptoMovementMock.copy(id = 1L)
+
+        configureActivity<RegisterCryptoMovementActivity>(
+            RegisterCryptoMovementActivity.getIntent(getContext(), trade)
+        )
+
+        val viewModel = RegisterCryptoMovementViewModel(
+            repository,
+            mainCoroutineRule.testDispatcherProvider
+        )
+
+        /*
+        * Every and observers
+        * */
+        every { observerTradeMovement.onChanged(any()) } returns Unit
+        every { observerLoading.onChanged(any()) } returns Unit
+        every { repository.fetchCryptoNames(any()) } returns ResultEvent.Success(arrayListOf("ABC"))
+
+        every { repository.updateCrypto(any()) } returns ResultEvent.Error(exceptionMock)
+
+        viewModel.tradeMovement.observeForever(observerTradeMovement)
+        viewModel.isLoading.observeForever(observerLoading)
+
+        /*
+        * Setup activity
+        * */
+        activityController.create()
+
+        activity.setTestViewModel(
+            viewModel
+        )
+
+        forceResumeFromCreate()
+
+        /*
+        * Verify and Assert
+        * */
+        viewModel.registerResultEvent.observeForever { result ->
+            assertThat(result?.succeeded, `is`(false))
+            assertThat((result as ResultEvent.Error).exception, `is`(exceptionMock))
+        }
+
+        /*
+        * Action
+        * */
+        activity.binding.btnRegister.performClick()
+
+        /*
+        * Verify and Assert
+        * */
+        assertThat(viewModel.tradeMovement.getOrAwaitValue(TEST_DELAY).id, `is`(trade.id))
+
+        verify(exactly = 2) { observerTradeMovement.onChanged(any()) }
+        verify(exactly = 1) { repository.updateCrypto(any()) }
+        verify(exactly = 2) { observerLoading.onChanged(any()) }
+    }
+
     /**
      * Loading names
      * */
